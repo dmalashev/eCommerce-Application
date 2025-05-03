@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -14,6 +15,7 @@ export default tseslint.config(
       ...tseslint.configs.recommended,
       eslintConfigPrettier,
       eslintPluginPrettierRecommended,
+      eslintPluginUnicorn.configs.recommended,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {

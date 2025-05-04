@@ -10,6 +10,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "pre-commit": "lint-staged",
     "preview": "vite preview",
     "prepare": "husky",
     "stylelint": "stylelint src/**/*.css"

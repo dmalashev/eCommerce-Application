@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import checker from 'vite-plugin-checker';
+import { configDefaults } from 'vitest/config';
 
 export default defineConfig({
   plugins: [
@@ -13,4 +14,11 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setup-tests.ts',
+    exclude: [...configDefaults.exclude],
+    passWithNoTests: true,
+  },
 });

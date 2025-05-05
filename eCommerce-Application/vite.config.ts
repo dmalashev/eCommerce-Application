@@ -12,11 +12,12 @@ export default defineConfig({
         lintCommand: 'eslint "./src/**/*.{ts,tsx,js}"',
         useFlatConfig: true,
       },
-    })],
+    })
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
+    setupFiles: './src/setup-tests.ts',
     exclude: [...configDefaults.exclude],
     passWithNoTests:true
 

@@ -6,11 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
     "test": "vitest",
-    "test:ui": "vitest --ui"
-
+    "test:ui": "vitest --ui",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "lint": "eslint . --ext .ts,.tsx",

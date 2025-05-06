@@ -3,12 +3,13 @@ import Login from '../pages/Login';
 import Registration from '../pages/Registration';
 import NotFound from '../pages/NotFound';
 import Catalog from '../pages/Catalog';
+import Header from '../components/Header';
 
 export default function App() {
   return (
-    <div>
-      App component
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="login" element={<Login />}></Route>

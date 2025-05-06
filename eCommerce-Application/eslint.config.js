@@ -32,6 +32,15 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      "unicorn/filename-case": [
+       "error",
+       {
+          "case": "kebabCase",
+          "ignore": [
+            "src/**/*.tsx" 
+          ]
+       }
+      ],
     },
   },
 );

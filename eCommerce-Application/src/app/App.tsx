@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-import Login from '../pages/Login';
-import Registration from '../pages/Registration';
-import NotFound from '../pages/NotFound';
-import Catalog from '../pages/Catalog';
-import Header from '../components/Header';
+import Login from '../pages/login/Login';
+import Registration from '../pages/registration/Registration';
+import NotFound from '../pages/not-found/NotFound';
+import Catalog from '../pages/catalog/Catalog';
+import Header from '../components/header/Header';
 
 export default function App() {
   return (

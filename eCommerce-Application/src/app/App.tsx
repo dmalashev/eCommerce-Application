@@ -1,7 +1,3 @@
 export default function App() {
-  return (
-    <div>
-      App component
-    </div>
-  )
+  return <div>App component</div>;
 }

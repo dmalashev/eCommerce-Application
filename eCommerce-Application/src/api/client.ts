@@ -3,7 +3,6 @@ import {
   ClientBuilder,
   HttpMiddlewareOptions,
 } from '@commercetools/ts-client';
-import { createApiBuilderFromCtpClient, CustomerDraft } from '@commercetools/platform-sdk';
 
 const projectKey = import.meta.env.VITE_PROJECT_KEY;
 const clientId = import.meta.env. VITE_CLIENT_ID;

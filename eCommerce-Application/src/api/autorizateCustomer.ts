@@ -4,7 +4,11 @@ import {  TokenStore } from '@commercetools/ts-client';
 console.log(projectKey);
 
 async function loginCustomer(email: string, password: string) {
-  let token: TokenStore | null = null;
+  let token: TokenStore = {
+    token: '',
+    expirationTime: 0,
+    refreshToken: '',
+  };
 
   const client = clientBuilder
     .withProjectKey(projectKey)
@@ -22,8 +26,9 @@ async function loginCustomer(email: string, password: string) {
       scopes: [`manage_project:${projectKey}`],
       httpClient: fetch,
       tokenCache: {
-        get(): TokenStore | null {
-           return token || null;
+        get(): TokenStore  {
+
+           return token;
         },
         set(tokenObject: TokenStore): void {
           token = tokenObject;

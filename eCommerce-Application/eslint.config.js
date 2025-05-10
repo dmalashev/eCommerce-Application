@@ -32,6 +32,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'unicorn/filename-case': 'off',
     },
   },
 );

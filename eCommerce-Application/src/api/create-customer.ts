@@ -14,7 +14,6 @@ export async function createCustomer(customer: CustomerDraft) {
   const apiRoot = createApiBuilderFromCtpClient(client);
   try {
     const response = await apiRoot.withProjectKey({ projectKey }).customers().post({ body: customer }).execute();
-    // const response = await apiRoot.withProjectKey({ projectKey }).customers().get().execute();
     console.log('Customer created:', response);
   } catch (error) {
     console.error('Error creating customer:', error);

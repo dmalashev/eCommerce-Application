@@ -1,6 +1,7 @@
 import { createApiBuilderFromCtpClient, CustomerDraft } from '@commercetools/platform-sdk';
-import { projectKey, authUrl, clientId, clientSecret, client as clientBuilder, httpMiddleware } from './client';
-import {  ClientBuilder, TokenStore } from '@commercetools/ts-client';
+import { projectKey, authUrl, client as clientBuilder, httpMiddleware } from './client';
+import {  TokenStore } from '@commercetools/ts-client';
+import { checkingError, commercetoolsError } from './checking-errors';
 console.log(projectKey);
 
 async function loginCustomer(email: string, password: string) {
@@ -23,7 +24,7 @@ async function loginCustomer(email: string, password: string) {
           password: password,
         },
       },
-      scopes: import.meta.env.VITE_USER_API_SCOPES.split(','),     // array strings
+      scopes: import.meta.env.VITE_USER_API_SCOPES.split(','), // array strings
       httpClient: fetch,
       tokenCache: {
         get(): TokenStore {
@@ -40,19 +41,22 @@ async function loginCustomer(email: string, password: string) {
     .build();
   const apiRoot = createApiBuilderFromCtpClient(client);
   try {
-    const response = await apiRoot.withProjectKey({ projectKey }).me().get().execute();
+    const response = await apiRoot.withProjectKey({ projectKey }).products().get().execute();
 
     return {
       customer: response, // Возвращает залогиненого customer
       token, // token объект
     };
   } catch (error) {
-    throw new Error(`Error login: ${error}`);
+    console.log(error);
+    const message = checkingError(error as commercetoolsError);
+    console.log(message);
+    throw new Error(message);
   }
 }
 
-
-export async function login(customer: CustomerDraft) {                     // принимает объект который содержит почту  и  пароль типа строка
+export async function login(customer: CustomerDraft) {
+  // принимает объект который содержит почту  и  пароль типа строка
   const { email, password } = customer;
   try {
     const result = await loginCustomer(email, password!);

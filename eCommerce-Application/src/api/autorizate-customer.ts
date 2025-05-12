@@ -1,6 +1,6 @@
 import { createApiBuilderFromCtpClient, CustomerDraft } from '@commercetools/platform-sdk';
 import { projectKey, authUrl, client as clientBuilder, httpMiddleware } from './client';
-import {  TokenStore } from '@commercetools/ts-client';
+import { TokenStore } from '@commercetools/ts-client';
 import { checkingError, commercetoolsError } from './checking-errors';
 console.log(projectKey);
 

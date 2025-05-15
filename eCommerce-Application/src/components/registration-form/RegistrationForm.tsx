@@ -19,19 +19,9 @@ import {
   Typography,
 } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { FieldType } from '../../types/types';
 
 const { Title } = Typography;
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
 
 const onChange: DatePickerProps['onChange'] = (date, dateString) => {
   console.log(date, dateString);
@@ -43,25 +33,6 @@ const onChangeDefaultShippingAddress: CheckboxProps['onChange'] = (event) => {
 
 const onChangeDefaultBillingAddress: CheckboxProps['onChange'] = (event) => {
   console.log(`checked = ${event.target.checked}`);
-};
-
-type FieldType = {
-  name?: string;
-  lastName?: string;
-  email?: string;
-  password?: string;
-  date?: Date;
-  shippingStreet?: string;
-  shippingCity?: string;
-  shippingCountry?: string;
-  shippingPostalcode?: string;
-  billingStreet?: string;
-  billingCity?: string;
-  billingCountry?: string;
-  billingPostalcode?: string;
-  defaultShippingAddressChecker?: boolean;
-  defaultBillingAddressChecker?: boolean;
-  defaultShippingBillingAddressChecker?: boolean;
 };
 
 export const RegistrationForm = () => {
@@ -105,7 +76,6 @@ export const RegistrationForm = () => {
         {contextHolder}
         <Title level={3}>Create an account</Title>
         <Form
-          {...formItemLayout}
           form={form}
           style={{ maxWidth: 400, display: 'flex', flexDirection: 'column' }}
           initialValues={{ variant: 'filled' }}

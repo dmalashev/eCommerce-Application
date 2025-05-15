@@ -15,6 +15,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import React from 'react';
 import { countries } from '../../utils/countries';
 import { SubmitButton } from '../submit-button/SubmitButton';
+import './registration-form.css';
 
 const { Title } = Typography;
 
@@ -90,15 +91,15 @@ export const RegistrationForm = () => {
           </Divider>
 
           <Form.Item name="shipping-street" rules={[{ required: true, message: 'Please, type  street' }]}>
-            <Input className="form-item_address" variant="underlined" placeholder="street" />
+            <Input className="form-item-address" variant="underlined" placeholder="street" />
           </Form.Item>
 
           <Form.Item name="shipping-city" rules={[{ required: true, message: 'Please, type city' }]}>
-            <Input className="form-item_address" variant="underlined" placeholder="city" />
+            <Input className="form-item-address" variant="underlined" placeholder="city" />
           </Form.Item>
 
           <Form.Item name="shipping-country" rules={[{ required: true, message: 'Please, type  country' }]}>
-            <Select className="form-item_address" variant="underlined" placeholder="country">
+            <Select className="form-item-address" variant="underlined" placeholder="country">
               {countries.map((country, index) => (
                 <Select.Option key={index} value={country}>
                   {country}
@@ -108,16 +109,16 @@ export const RegistrationForm = () => {
           </Form.Item>
 
           <Form.Item name="shipping-postalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
-            <Input className="form-item_address" variant="underlined" placeholder="postal code" />
+            <Input className="form-item-address" variant="underlined" placeholder="postal code" />
           </Form.Item>
 
           <Form.Item name="default-shipping-address-checker">
-            <Checkbox className="form-item_checker" onChange={onChangeDefaultShippingAddress}>
+            <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAddress}>
               as shipping default address
             </Checkbox>
           </Form.Item>
           <Form.Item name="default-shipping-billing-address-checker">
-            <Checkbox className="form-item_checker" onChange={onChangeDefaultShippingAndBillingAddress}>
+            <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAndBillingAddress}>
               as the same address for billing and shipping
             </Checkbox>
           </Form.Item>
@@ -128,15 +129,15 @@ export const RegistrationForm = () => {
                 Billing address
               </Divider>
               <Form.Item name="billing-street" rules={[{ required: true, message: 'Please, type  street' }]}>
-                <Input className="form-item_address" variant="underlined" placeholder="street" />
+                <Input className="form-item-address" variant="underlined" placeholder="street" />
               </Form.Item>
 
               <Form.Item name="billing-city" rules={[{ required: true, message: 'Please, type city' }]}>
-                <Input className="form-item_address" variant="underlined" placeholder="city" />
+                <Input className="form-item-address" variant="underlined" placeholder="city" />
               </Form.Item>
 
               <Form.Item name="billing-country" rules={[{ required: true, message: 'Please, type  country' }]}>
-                <Select className="form-item_address" variant="underlined" placeholder="country">
+                <Select className="form-item-address" variant="underlined" placeholder="country">
                   {countries.map((country, index) => (
                     <Select.Option key={index} value={country}>
                       {country}
@@ -146,11 +147,11 @@ export const RegistrationForm = () => {
               </Form.Item>
 
               <Form.Item name="billing-postalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
-                <Input className="form-item_address" variant="underlined" placeholder="postal code" />
+                <Input className="form-item-address" variant="underlined" placeholder="postal code" />
               </Form.Item>
 
               <Form.Item name="default-billing-address-checker">
-                <Checkbox className="form-item_checker" onChange={onChangeDefaultBillingAddress}>
+                <Checkbox className="form-item-checker" onChange={onChangeDefaultBillingAddress}>
                   as billing default address
                 </Checkbox>
               </Form.Item>

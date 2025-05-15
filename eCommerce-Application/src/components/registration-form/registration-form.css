@@ -1,0 +1,43 @@
+.form-item {
+  width: 400px;
+}
+
+@media (width <= 450px) {
+  .form-item {
+    width: 300px !important;
+  }
+}
+
+.form-item-address {
+  width: 400px !important;
+}
+
+@media (width <= 450px) {
+  .form-item-address {
+    width: 300px !important;
+  }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ant-form-item-has-error {
+  align-self: center;
+}
+
+.ant-form-item-explain-error {
+  width: 400px !important;
+}
+
+@media (width <= 450px) {
+  .ant-form-item-explain-error {
+    width: 300px !important;
+  }
+
+  .btn-container {
+    flex-direction: column !important;
+  }
+}

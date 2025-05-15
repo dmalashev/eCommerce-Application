@@ -17,7 +17,6 @@ import {
   Typography,
 } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { SubmitButton } from '../submit-button/SubmitButton';
 
 const { Title } = Typography;
 
@@ -162,7 +161,10 @@ export const RegistrationForm = () => {
           )}
 
           <Flex className="btn-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <SubmitButton form={form}>create an account</SubmitButton>
+            <Button className="btn-submit" type="primary" htmlType="submit">
+              Create an account
+            </Button>
+
             <Button
               onClick={() => navigate(PageRoutes.LOGIN)}
               color="default"

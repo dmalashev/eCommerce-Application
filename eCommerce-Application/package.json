@@ -23,6 +23,8 @@
     "src/**/*.css": "npm run stylelint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "antd": "^5.25.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.3"

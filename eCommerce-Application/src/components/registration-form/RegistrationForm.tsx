@@ -1,6 +1,8 @@
 import './registration-form.css';
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { countries } from '../../utils/countries';
+import { PageRoutes } from '../../utils/page-routes';
 import {
   Button,
   Checkbox,
@@ -43,6 +45,7 @@ const onChangeDefaultBillingAddress: CheckboxProps['onChange'] = (event) => {
 };
 
 export const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [isVisibleBillingAddress, setVisibleBillingAddress] = React.useState(true);
 
@@ -160,7 +163,13 @@ export const RegistrationForm = () => {
 
           <Flex className="btn-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
             <SubmitButton form={form}>create an account</SubmitButton>
-            <Button color="default" style={{ color: '#DB4444' }} variant="link">
+            <Button
+              onClick={() => navigate(PageRoutes.LOGIN)}
+              color="default"
+              className="btn-login"
+              style={{ color: '#DB4444' }}
+              variant="link"
+            >
               Already have an account? Login
             </Button>
           </Flex>

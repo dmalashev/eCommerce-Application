@@ -12,7 +12,9 @@ import {
   Divider,
   Flex,
   Form,
+  FormProps,
   Input,
+  message,
   Select,
   Typography,
 } from 'antd';
@@ -43,10 +45,54 @@ const onChangeDefaultBillingAddress: CheckboxProps['onChange'] = (event) => {
   console.log(`checked = ${event.target.checked}`);
 };
 
+type FieldType = {
+  name?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  date?: Date;
+  shippingStreet?: string;
+  shippingCity?: string;
+  shippingCountry?: string;
+  shippingPostalcode?: string;
+  billingStreet?: string;
+  billingCity?: string;
+  billingCountry?: string;
+  billingPostalcode?: string;
+  defaultShippingAddressChecker?: boolean;
+  defaultBillingAddressChecker?: boolean;
+  defaultShippingBillingAddressChecker?: boolean;
+};
+
 export const RegistrationForm = () => {
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const [isVisibleBillingAddress, setVisibleBillingAddress] = React.useState(true);
+
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log('Success:', values);
+    success();
+  };
+
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+    error();
+  };
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'You have created an account',
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'You must fix some fields',
+    });
+  };
 
   const onChangeDefaultShippingAndBillingAddress: CheckboxProps['onChange'] = (event) => {
     console.log(`checked = ${event.target.checked}`);
@@ -56,18 +102,22 @@ export const RegistrationForm = () => {
   return (
     <>
       <div className="form-container">
+        {contextHolder}
         <Title level={3}>Create an account</Title>
         <Form
           {...formItemLayout}
           form={form}
           style={{ maxWidth: 400, display: 'flex', flexDirection: 'column' }}
           initialValues={{ variant: 'filled' }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
           <Form.Item name="name" rules={[{ required: true, message: 'Please, type your first name' }]}>
             <Input className="form-item" variant="underlined" placeholder="first name" />
           </Form.Item>
 
-          <Form.Item name="last-name" rules={[{ required: true, message: 'Please, type your last name' }]}>
+          <Form.Item name="lastName" rules={[{ required: true, message: 'Please, type your last name' }]}>
             <Input className="form-item" variant="underlined" placeholder="last name" />
           </Form.Item>
 
@@ -92,15 +142,15 @@ export const RegistrationForm = () => {
             Shipping address
           </Divider>
 
-          <Form.Item name="shipping-street" rules={[{ required: true, message: 'Please, type  street' }]}>
+          <Form.Item name="shippingStreet" rules={[{ required: true, message: 'Please, type  street' }]}>
             <Input className="form-item-address" variant="underlined" placeholder="street" />
           </Form.Item>
 
-          <Form.Item name="shipping-city" rules={[{ required: true, message: 'Please, type city' }]}>
+          <Form.Item name="shippingCity" rules={[{ required: true, message: 'Please, type city' }]}>
             <Input className="form-item-address" variant="underlined" placeholder="city" />
           </Form.Item>
 
-          <Form.Item name="shipping-country" rules={[{ required: true, message: 'Please, type  country' }]}>
+          <Form.Item name="shippingCountry" rules={[{ required: true, message: 'Please, type  country' }]}>
             <Select className="form-item-address" variant="underlined" placeholder="country">
               {countries.map((country, index) => (
                 <Select.Option key={index} value={country}>
@@ -110,16 +160,16 @@ export const RegistrationForm = () => {
             </Select>
           </Form.Item>
 
-          <Form.Item name="shipping-postalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
+          <Form.Item name="shippingPostalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
             <Input className="form-item-address" variant="underlined" placeholder="postal code" />
           </Form.Item>
 
-          <Form.Item name="default-shipping-address-checker">
+          <Form.Item name="defaultShippingAddressChecker">
             <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAddress}>
               as shipping default address
             </Checkbox>
           </Form.Item>
-          <Form.Item name="default-shipping-billing-address-checker">
+          <Form.Item name="defaultShippingBillingAddressChecker">
             <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAndBillingAddress}>
               as the same address for billing and shipping
             </Checkbox>
@@ -130,15 +180,15 @@ export const RegistrationForm = () => {
               <Divider className="form-item" style={{ borderColor: '#000' }}>
                 Billing address
               </Divider>
-              <Form.Item name="billing-street" rules={[{ required: true, message: 'Please, type  street' }]}>
+              <Form.Item name="billingStreet" rules={[{ required: true, message: 'Please, type  street' }]}>
                 <Input className="form-item-address" variant="underlined" placeholder="street" />
               </Form.Item>
 
-              <Form.Item name="billing-city" rules={[{ required: true, message: 'Please, type city' }]}>
+              <Form.Item name="billingCity" rules={[{ required: true, message: 'Please, type city' }]}>
                 <Input className="form-item-address" variant="underlined" placeholder="city" />
               </Form.Item>
 
-              <Form.Item name="billing-country" rules={[{ required: true, message: 'Please, type  country' }]}>
+              <Form.Item name="billingCountry" rules={[{ required: true, message: 'Please, type  country' }]}>
                 <Select className="form-item-address" variant="underlined" placeholder="country">
                   {countries.map((country, index) => (
                     <Select.Option key={index} value={country}>
@@ -148,11 +198,11 @@ export const RegistrationForm = () => {
                 </Select>
               </Form.Item>
 
-              <Form.Item name="billing-postalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
+              <Form.Item name="billingPostalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
                 <Input className="form-item-address" variant="underlined" placeholder="postal code" />
               </Form.Item>
 
-              <Form.Item name="default-billing-address-checker">
+              <Form.Item name="defaultBillingAddressChecker">
                 <Checkbox className="form-item-checker" onChange={onChangeDefaultBillingAddress}>
                   as billing default address
                 </Checkbox>

@@ -1,3 +1,6 @@
+import './registration-form.css';
+import React from 'react';
+import { countries } from '../../utils/countries';
 import {
   Button,
   Checkbox,
@@ -12,10 +15,7 @@ import {
   Typography,
 } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import React from 'react';
-import { countries } from '../../utils/countries';
 import { SubmitButton } from '../submit-button/SubmitButton';
-import './registration-form.css';
 
 const { Title } = Typography;
 

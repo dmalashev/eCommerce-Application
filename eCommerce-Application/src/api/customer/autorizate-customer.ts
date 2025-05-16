@@ -3,17 +3,27 @@ import {
   ClientResponse,
   createApiBuilderFromCtpClient,
   CustomerDraft,
+  CustomerPagedQueryResponse,
   ProductPagedQueryResponse,
 } from '@commercetools/platform-sdk';
-import { projectKey, authUrl, client as clientBuilder, httpMiddleware, userScopesClientId, userScopesClientSecret, userScopes } from '../client/client';
 import {
-  Client,
-  PasswordAuthMiddlewareOptions,
-  TokenStore,
-} from '@commercetools/ts-client';
+  projectKey,
+  authUrl,
+  client as clientBuilder,
+  httpMiddleware,
+  userScopesClientId,
+  userScopesClientSecret,
+  userScopes,
+} from '../client/client';
+import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
 import { checkingError } from '../functions/checking-errors';
 
-async function login(customer: CustomerDraft) {
+type LoginRequest = Promise<{
+  customer: ClientResponse<CustomerPagedQueryResponse>;
+  token: TokenStore;
+}>;
+
+export async function login(customer: CustomerDraft):LoginRequest {
   const { email, password } = customer;
   let token: TokenStore = {
     token: '',
@@ -33,7 +43,7 @@ async function login(customer: CustomerDraft) {
           password: password,
         },
       },
-      scopes: userScopes.split(','), 
+      scopes: userScopes.split(','),
       httpClient: fetch,
       tokenCache: {
         get(): TokenStore {
@@ -41,7 +51,6 @@ async function login(customer: CustomerDraft) {
         },
         set(tokenObject: TokenStore): void {
           token = tokenObject;
-          console.log('Token  сохранен');
         },
       },
     };
@@ -54,10 +63,11 @@ async function login(customer: CustomerDraft) {
     .withHttpMiddleware(httpMiddleware)
     .build();
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
+
   try {
-    const response: ClientResponse<ProductPagedQueryResponse> = await apiRoot
+    const response: ClientResponse<CustomerPagedQueryResponse> = await apiRoot
       .withProjectKey({ projectKey })
-      .products()
+      .customers()
       .get()
       .execute();
 
@@ -68,19 +78,10 @@ async function login(customer: CustomerDraft) {
     };
   } catch (error: Error | any) {
     console.error(error);
-    const message: string = checkingError(error);
-    throw new Error(message);
+    checkingError(error);
   }
+  return {
+    customer: {} as ClientResponse<CustomerPagedQueryResponse>,
+    token,
+  };
 }
-
-// export async function login(customer: CustomerDraft) {
-//   // принимает объект который содержит почту  и  пароль типа строка
-//   const { email, password } = customer;
-//   try {
-//     const result = await loginCustomer(email, password!);
-//     console.log('Customer login and token return:', result.customer, result.token);
-//     return result.customer;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }

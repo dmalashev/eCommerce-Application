@@ -4,7 +4,6 @@ import {
   createApiBuilderFromCtpClient,
   CustomerDraft,
   CustomerPagedQueryResponse,
-  ProductPagedQueryResponse,
 } from '@commercetools/platform-sdk';
 import {
   projectKey,
@@ -17,11 +16,9 @@ import {
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
 import { checkingError } from '../functions/checking-errors';
+import { LoginRequest } from '../types-api';
 
-type LoginRequest = Promise<{
-  customer: ClientResponse<CustomerPagedQueryResponse>;
-  token: TokenStore;
-}>;
+
 
 export async function login(customer: CustomerDraft):LoginRequest {
   const { email, password } = customer;
@@ -72,6 +69,7 @@ export async function login(customer: CustomerDraft):LoginRequest {
       .execute();
 
     console.log('Customer login and token return:', response.body.results, token);
+  
     return {
       customer: response, //  Customer object
       token, //  token
@@ -81,7 +79,7 @@ export async function login(customer: CustomerDraft):LoginRequest {
     checkingError(error);
   }
   return {
-    customer: {} as ClientResponse<CustomerPagedQueryResponse>,
+    customer: {} as ClientResponse<CustomerPagedQueryResponse> ,
     token,
   };
 }

@@ -1,16 +1,10 @@
-export type commercetoolsError = {
-  code?: string;
-  error?: { code: string; message: string }[];
-  message: string;
-  name: string;
-  statusCode: number;
-};
+import { BadRequest, CommercetoolsError, ErrorsName } from '../types-api';
 
-export function checkingError(error: commercetoolsError): string {
+export function checkingError(error: CommercetoolsError): string {
   let message: string;
-  if (error.name === 'BadRequest') {
+  if (error.name === ErrorsName.BadRequest) {
     switch (error.code) {
-      case 'invalid_customer_account_credentials': {
+      case BadRequest.InvalidCustomerAccountCredentials:
         message = error.message;
         break;
       }

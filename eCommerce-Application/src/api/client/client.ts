@@ -29,7 +29,6 @@ const httpMiddleware: HttpMiddlewareOptions = {
   includeRequestInErrorResponse: true,
   httpClient: fetch,
 };
-// client
 const client: ClientBuilder = new ClientBuilder();
 
 export {

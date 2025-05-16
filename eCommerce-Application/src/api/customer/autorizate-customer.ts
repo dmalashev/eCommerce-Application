@@ -5,13 +5,13 @@ import {
   CustomerDraft,
   ProductPagedQueryResponse,
 } from '@commercetools/platform-sdk';
-import { projectKey, authUrl, client as clientBuilder, httpMiddleware } from './client';
+import { projectKey, authUrl, client as clientBuilder, httpMiddleware } from '../client/client';
 import {
   Client,
   PasswordAuthMiddlewareOptions,
   TokenStore,
 } from '@commercetools/ts-client';
-import { checkingError } from './checking-errors';
+import { checkingError } from '../functions/checking-errors';
 
 async function login(customer: CustomerDraft) {
   const { email, password } = customer;

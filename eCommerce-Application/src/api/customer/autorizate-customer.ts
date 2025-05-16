@@ -5,7 +5,7 @@ import {
   CustomerDraft,
   ProductPagedQueryResponse,
 } from '@commercetools/platform-sdk';
-import { projectKey, authUrl, client as clientBuilder, httpMiddleware } from '../client/client';
+import { projectKey, authUrl, client as clientBuilder, httpMiddleware, userScopesClientId, userScopesClientSecret, userScopes } from '../client/client';
 import {
   Client,
   PasswordAuthMiddlewareOptions,
@@ -26,14 +26,14 @@ async function login(customer: CustomerDraft) {
       host: authUrl,
       projectKey,
       credentials: {
-        clientId: import.meta.env.VITE_USER_API_CLIENT_ID,
-        clientSecret: import.meta.env.VITE_USER_API_CLIENT_SECRET,
+        clientId: userScopesClientId,
+        clientSecret: userScopesClientSecret,
         user: {
           username: email,
           password: password,
         },
       },
-      scopes: import.meta.env.VITE_USER_API_SCOPES.split(','), // array strings
+      scopes: userScopes.split(','), 
       httpClient: fetch,
       tokenCache: {
         get(): TokenStore {

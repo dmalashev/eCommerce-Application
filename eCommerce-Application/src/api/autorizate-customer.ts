@@ -1,19 +1,28 @@
-import { createApiBuilderFromCtpClient, CustomerDraft } from '@commercetools/platform-sdk';
+import {
+  ApiRoot,
+  ClientResponse,
+  createApiBuilderFromCtpClient,
+  CustomerDraft,
+  ProductPagedQueryResponse,
+} from '@commercetools/platform-sdk';
 import { projectKey, authUrl, client as clientBuilder, httpMiddleware } from './client';
-import { TokenStore } from '@commercetools/ts-client';
-import { checkingError, commercetoolsError } from './checking-errors';
-console.log(projectKey);
+import {
+  Client,
+  PasswordAuthMiddlewareOptions,
+  TokenStore,
+} from '@commercetools/ts-client';
+import { checkingError } from './checking-errors';
 
-async function loginCustomer(email: string, password: string) {
+async function login(customer: CustomerDraft) {
+  const { email, password } = customer;
   let token: TokenStore = {
     token: '',
     expirationTime: 0,
     refreshToken: '',
   };
 
-  const client = clientBuilder
-    .withProjectKey(projectKey)
-    .withPasswordFlow({
+  const optionsPasswordFlow = (email: string, password: string): PasswordAuthMiddlewareOptions => {
+    return {
       host: authUrl,
       projectKey,
       credentials: {
@@ -35,34 +44,43 @@ async function loginCustomer(email: string, password: string) {
           console.log('Token  сохранен');
         },
       },
-    })
+    };
+  };
+
+  const client: Client = clientBuilder
+    .withProjectKey(projectKey)
+    .withPasswordFlow(optionsPasswordFlow(email, password!))
 
     .withHttpMiddleware(httpMiddleware)
     .build();
-  const apiRoot = createApiBuilderFromCtpClient(client);
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
   try {
-    const response = await apiRoot.withProjectKey({ projectKey }).products().get().execute();
+    const response: ClientResponse<ProductPagedQueryResponse> = await apiRoot
+      .withProjectKey({ projectKey })
+      .products()
+      .get()
+      .execute();
 
+    console.log('Customer login and token return:', response.body.results, token);
     return {
-      customer: response, // Возвращает залогиненого customer
-      token, // token объект
+      customer: response, //  Customer object
+      token, //  token
     };
-  } catch (error) {
-    console.log(error);
-    const message = checkingError(error as commercetoolsError);
-    console.log(message);
+  } catch (error: Error | any) {
+    console.error(error);
+    const message: string = checkingError(error);
     throw new Error(message);
   }
 }
 
-export async function login(customer: CustomerDraft) {
-  // принимает объект который содержит почту  и  пароль типа строка
-  const { email, password } = customer;
-  try {
-    const result = await loginCustomer(email, password!);
-    console.log('Customer login and token return:', result.customer, result.token);
-    return result.customer;
-  } catch (error) {
-    console.error(error);
-  }
-}
+// export async function login(customer: CustomerDraft) {
+//   // принимает объект который содержит почту  и  пароль типа строка
+//   const { email, password } = customer;
+//   try {
+//     const result = await loginCustomer(email, password!);
+//     console.log('Customer login and token return:', result.customer, result.token);
+//     return result.customer;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }

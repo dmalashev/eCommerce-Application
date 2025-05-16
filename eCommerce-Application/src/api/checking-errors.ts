@@ -6,8 +6,8 @@ export type commercetoolsError = {
   statusCode: number;
 };
 
-export function checkingError(error: commercetoolsError) {
-  let message;
+export function checkingError(error: commercetoolsError): string {
+  let message: string;
   if (error.name === 'BadRequest') {
     switch (error.code) {
       case 'invalid_customer_account_credentials': {
@@ -15,13 +15,13 @@ export function checkingError(error: commercetoolsError) {
         break;
       }
 
-      default: {
-        message = 'Неизвестная  ошибка';
+      default:
+        message = 'Undefined error';
         break;
       }
     }
   } else {
-    return 'Неизвестная  ошибка';
+    return 'Undefined error';
   }
-  return message; /// здесь должна  всплывать подсказка что пользователь с такими  данными не  найден
+  return message; /// must be hint
 }

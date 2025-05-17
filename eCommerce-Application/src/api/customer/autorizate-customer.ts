@@ -72,7 +72,7 @@ export async function login(customer: CustomerDraft): LoginRequest {
     console.log('Customer login and token return:', response.body, token);
 
     return {
-      customer: response.body, //  Customer object
+      customer: response, //  Customer object
       token, //  token
     };
   } catch (error: Error | any) {

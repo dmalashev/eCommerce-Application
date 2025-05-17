@@ -43,5 +43,5 @@ export {
   httpMiddleware,
   userScopesClientId,
   userScopesClientSecret,
-  userScopes
+  userScopes,
 };

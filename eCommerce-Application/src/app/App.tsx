@@ -4,10 +4,11 @@ import Registration from '../pages/registration/Registration';
 import NotFound from '../pages/not-found/NotFound';
 import Catalog from '../pages/catalog/Catalog';
 import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
 import { PageRoutes } from '../utils/page-routes';
 import { Layout } from 'antd';
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
             <Route path={PageRoutes.NOT_FOUND} element={<NotFound />}></Route>
           </Routes>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>The Records Store © 2025</Footer>
+        <Footer />
       </Layout>
     </BrowserRouter>
   );

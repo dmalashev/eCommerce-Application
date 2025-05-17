@@ -10,35 +10,14 @@ export default function HeaderView() {
   const navItems: {
     key: number;
     label: string;
+    onClick: () => void | Promise<void>;
   }[] = ['login', 'registration', 'catalog'].map((item, index) => ({
     key: index,
     label: item,
+    onClick: () => navigate(`${item}`),
   }));
 
   return (
-    // <header style={{ display: 'flex', gap: '20px' }}>
-    //   <button
-    //     onClick={() => {
-    //       navigate(PageRoutes.LOGIN);
-    //     }}
-    //   >
-    //     Login
-    //   </button>
-    //   <button
-    //     onClick={() => {
-    //       navigate(PageRoutes.REGISTRATION);
-    //     }}
-    //   >
-    //     Registration
-    //   </button>
-    //   <button
-    //     onClick={() => {
-    //       navigate(PageRoutes.CATALOG);
-    //     }}
-    //   >
-    //     Catalog
-    //   </button>
-    // </header>
     <Header>
       <Menu items={navItems} mode="horizontal"></Menu>
     </Header>

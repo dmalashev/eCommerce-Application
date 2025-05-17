@@ -2,7 +2,6 @@ import {
   ApiRoot,
   ClientResponse,
   createApiBuilderFromCtpClient,
-  Customer,
   CustomerDraft,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk';
@@ -65,8 +64,10 @@ export async function login(customer: CustomerDraft): LoginRequest {
   try {
     const response: ClientResponse<CustomerSignInResult> = await apiRoot
       .withProjectKey({ projectKey })
-      .login().post({ body: {email, password} }).execute();
-
+      .me()
+      .login()
+      .post({ body: { email, password } })
+      .execute();
 
     console.log('Customer login and token return:', response.body, token);
 
@@ -77,7 +78,6 @@ export async function login(customer: CustomerDraft): LoginRequest {
   } catch (error: Error | any) {
     console.error(error);
     checkingError(error);
-
   }
   return {
     customer: {} as ClientResponse<CustomerSignInResult>,

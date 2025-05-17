@@ -83,19 +83,49 @@ export const RegistrationForm = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item name="name" rules={[{ required: true, message: 'Please, type your first name' }]}>
+          <Form.Item
+            name="name"
+            rules={[
+              { required: true, message: 'Please, type your first name' },
+              { min: 1, message: 'First name must contain more than 1 symbol' },
+              { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'First name must contain only letters' },
+            ]}
+          >
             <Input className="form-item" variant="underlined" placeholder="first name" />
           </Form.Item>
 
-          <Form.Item name="lastName" rules={[{ required: true, message: 'Please, type your last name' }]}>
+          <Form.Item
+            name="lastName"
+            rules={[
+              { required: true, message: 'Please, type your last name' },
+              { min: 1, message: 'Last name must contain more than 1 symbol' },
+              { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'Last name must contain only letters' },
+            ]}
+          >
             <Input className="form-item" variant="underlined" placeholder="last name" />
           </Form.Item>
 
-          <Form.Item name="email" rules={[{ required: true, message: 'Please, type your email address' }]}>
+          <Form.Item
+            name="email"
+            rules={[
+              { required: true, message: 'Please, type your email address' },
+              { pattern: new RegExp(/^([\w.*-]+@([\w-]+\.)+[\w-]{2,4})?$/), message: 'Wrong email format' },
+            ]}
+          >
             <Input className="form-item" variant="underlined" placeholder="email" />
           </Form.Item>
 
-          <Form.Item name="password" rules={[{ required: true, message: 'Please, type password' }]}>
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: 'Please, type password' },
+              {
+                pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
+                message:
+                  'Password must contain more than 8 symbols, at least one digit, at least one uppercase and one lowercase symbol',
+              },
+            ]}
+          >
             <Input.Password
               className="form-item"
               variant="underlined"

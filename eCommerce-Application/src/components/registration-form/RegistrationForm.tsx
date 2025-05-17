@@ -127,7 +127,7 @@ export const RegistrationForm = () => {
             name="name"
             rules={[
               { required: true, message: 'Please, type your first name' },
-              { min: 1, message: 'First name must contain more than 1 symbol' },
+              { min: 1, message: 'First name must contain more than 1 letter' },
               { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'First name must contain only letters' },
             ]}
           >
@@ -138,7 +138,7 @@ export const RegistrationForm = () => {
             name="lastName"
             rules={[
               { required: true, message: 'Please, type your last name' },
-              { min: 1, message: 'Last name must contain more than 1 symbol' },
+              { min: 1, message: 'Last name must contain more than 1 letter' },
               { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'Last name must contain only letters' },
             ]}
           >
@@ -162,7 +162,7 @@ export const RegistrationForm = () => {
               {
                 pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
                 message:
-                  'Password must contain more than 8 symbols, at least one digit, at least one uppercase and one lowercase symbol',
+                  'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
               },
             ]}
           >

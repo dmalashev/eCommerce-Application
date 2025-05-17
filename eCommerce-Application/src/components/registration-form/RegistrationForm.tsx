@@ -20,6 +20,7 @@ import {
 } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType } from '../../types/types';
+import { isOlderThan13 } from '../../utils/common';
 
 const { Title } = Typography;
 
@@ -134,7 +135,16 @@ export const RegistrationForm = () => {
             />
           </Form.Item>
 
-          <Form.Item name="date" rules={[{ required: true, message: 'Please, select date' }]}>
+          <Form.Item
+            name="date"
+            rules={[
+              { required: true, message: 'Please, select date' },
+              {
+                validator: (_, value) =>
+                  isOlderThan13(value) ? Promise.resolve() : Promise.reject(new Error('You must be over 13')),
+              },
+            ]}
+          >
             <DatePicker className="form-item" placeholder="date of birth" onChange={onChange} variant="underlined" />
           </Form.Item>
 

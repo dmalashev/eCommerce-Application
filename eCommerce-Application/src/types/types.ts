@@ -16,3 +16,8 @@ export type FieldType = {
   defaultBillingAddressChecker?: boolean;
   defaultShippingBillingAddressChecker?: boolean;
 };
+
+export type PostalCodeFormat = {
+  pattern: RegExp;
+  message: string;
+};

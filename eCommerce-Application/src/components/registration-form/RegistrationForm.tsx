@@ -19,7 +19,7 @@ import {
   Typography,
 } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { FieldType } from '../../types/types';
+import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/common';
 
 const { Title } = Typography;
@@ -27,6 +27,16 @@ const { Title } = Typography;
 const enum AddressType {
   SHIPPING = 'shipping',
   BILLING = 'billing',
+}
+
+const enum PostalCodeMessages {
+  Russia = 'Postal code must contain 6 digits (123456)',
+  USA = 'Postal code must contain 5 digits (12345)',
+}
+
+enum PostalCodePattern {
+  RUSSIA = '^(?=.\\d).{6}$',
+  USA = '^(?=.*\\d).{5}$',
 }
 
 const onChange: DatePickerProps['onChange'] = (date, dateString) => {
@@ -46,8 +56,8 @@ export const RegistrationForm = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const [isVisibleBillingAddress, setVisibleBillingAddress] = React.useState(true);
-  const [patternShippingPostalCode, setPatternShippingPostalCode] = React.useState<RegExp>();
-  const [patternBillingPostalCode, setPatternBillingPostalCode] = React.useState<RegExp>();
+  const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
+  const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
@@ -83,25 +93,35 @@ export const RegistrationForm = () => {
 
   const onCountryChange = (addressType: AddressType, value: string) => {
     let pattern: RegExp;
+    let message = '';
     switch (value) {
       case 'USA': {
-        pattern = /^(?=.*\d).{5}$/;
+        pattern = new RegExp(PostalCodePattern.USA);
+        message = PostalCodeMessages.USA;
         break;
       }
       case 'Russia': {
-        pattern = /^(?=.*\d).{6}$/;
+        pattern = new RegExp(PostalCodePattern.RUSSIA);
+        message = PostalCodeMessages.Russia;
         break;
       }
       default: {
-        pattern = /^(?=.*\d).{6}$/;
+        pattern = new RegExp(PostalCodePattern.USA);
+        message = PostalCodeMessages.USA;
         break;
       }
     }
 
     if (addressType === AddressType.SHIPPING) {
-      setPatternShippingPostalCode(pattern);
+      setShippingPostalCodeFormat({
+        pattern: pattern,
+        message: message,
+      });
     } else if (addressType === AddressType.BILLING) {
-      setPatternBillingPostalCode(pattern);
+      setBillingPostalCodeFormat({
+        pattern: pattern,
+        message: message,
+      });
     }
   };
 
@@ -224,7 +244,7 @@ export const RegistrationForm = () => {
             name="shippingPostalcode"
             rules={[
               { required: true, message: 'Please, type  postal code' },
-              { pattern: patternShippingPostalCode, message: 'Wrong postal code format' },
+              { pattern: shippingPostalCodeFormat?.pattern, message: shippingPostalCodeFormat?.message },
             ]}
           >
             <Input className="form-item-address" variant="underlined" placeholder="postal code" />
@@ -279,7 +299,7 @@ export const RegistrationForm = () => {
                 name="billingPostalcode"
                 rules={[
                   { required: true, message: 'Please, type  postal code' },
-                  { pattern: patternBillingPostalCode, message: 'Wrong postal code format' },
+                  { pattern: billingPostalCodeFormat?.pattern, message: billingPostalCodeFormat?.message },
                 ]}
               >
                 <Input className="form-item-address" variant="underlined" placeholder="postal code" />

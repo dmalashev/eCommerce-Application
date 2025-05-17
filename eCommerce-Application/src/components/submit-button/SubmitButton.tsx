@@ -20,7 +20,7 @@ export const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProperti
   }, [form, values]);
 
   return (
-    <Button className="submit-button" type="primary" htmlType="submit" disabled={!submittable}>
+    <Button className="button-submit" type="primary" htmlType="submit" disabled={!submittable}>
       {children}
     </Button>
   );

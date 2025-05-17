@@ -13,6 +13,6 @@ export type CommercetoolsError = {
   statusCode: number;
 };
 type LoginRequest = Promise<{
-  customer: ClientResponse<CustomerPagedQueryResponse>;
+  customer: ClientResponse<CustomerSignInResult>;
   token: TokenStore;
 }>;

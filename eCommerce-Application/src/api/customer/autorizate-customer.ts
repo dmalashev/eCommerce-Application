@@ -2,8 +2,9 @@ import {
   ApiRoot,
   ClientResponse,
   createApiBuilderFromCtpClient,
+  Customer,
   CustomerDraft,
-  CustomerPagedQueryResponse,
+  CustomerSignInResult,
 } from '@commercetools/platform-sdk';
 import {
   projectKey,
@@ -18,16 +19,16 @@ import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetool
 import { checkingError } from '../functions/checking-errors';
 import { LoginRequest } from '../types-api';
 
-
-
-export async function login(customer: CustomerDraft):LoginRequest {
+export async function login(customer: CustomerDraft): LoginRequest {
   const { email, password } = customer;
   let token: TokenStore = {
     token: '',
     expirationTime: 0,
     refreshToken: '',
   };
-
+  if (!email || !password) {
+    throw new Error('Customer email and password are required.');
+  }
   const optionsPasswordFlow = (email: string, password: string): PasswordAuthMiddlewareOptions => {
     return {
       host: authUrl,
@@ -62,24 +63,24 @@ export async function login(customer: CustomerDraft):LoginRequest {
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
   try {
-    const response: ClientResponse<CustomerPagedQueryResponse> = await apiRoot
+    const response: ClientResponse<CustomerSignInResult> = await apiRoot
       .withProjectKey({ projectKey })
-      .customers()
-      .get()
-      .execute();
+      .login().post({ body: {email, password} }).execute();
 
-    console.log('Customer login and token return:', response.body.results, token);
+
+    console.log('Customer login and token return:', response.body, token);
 
     return {
-      customer: response, //  Customer object
+      customer: response.body, //  Customer object
       token, //  token
     };
   } catch (error: Error | any) {
     console.error(error);
     checkingError(error);
+
   }
   return {
-    customer: {} as ClientResponse<CustomerPagedQueryResponse> ,
+    customer: {} as ClientResponse<CustomerSignInResult>,
     token,
   };
 }

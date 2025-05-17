@@ -10,13 +10,15 @@ export function checkingError(error: commercetoolsError) {
   let message;
   if (error.name === 'BadRequest') {
     switch (error.code) {
-      case 'invalid_customer_account_credentials':
+      case 'invalid_customer_account_credentials': {
         message = error.message;
         break;
+      }
 
-      default:
+      default: {
         message = 'Неизвестная  ошибка';
         break;
+      }
     }
   } else {
     return 'Неизвестная  ошибка';

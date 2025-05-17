@@ -195,7 +195,13 @@ export const RegistrationForm = () => {
             <Input className="form-item-address" variant="underlined" placeholder="street" />
           </Form.Item>
 
-          <Form.Item name="shippingCity" rules={[{ required: true, message: 'Please, type city' }]}>
+          <Form.Item
+            name="shippingCity"
+            rules={[
+              { required: true, message: 'Please, type city' },
+              { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'City must contain only letters' },
+            ]}
+          >
             <Input className="form-item-address" variant="underlined" placeholder="city" />
           </Form.Item>
 
@@ -244,7 +250,13 @@ export const RegistrationForm = () => {
                 <Input className="form-item-address" variant="underlined" placeholder="street" />
               </Form.Item>
 
-              <Form.Item name="billingCity" rules={[{ required: true, message: 'Please, type city' }]}>
+              <Form.Item
+                name="billingCity"
+                rules={[
+                  { required: true, message: 'Please, type city' },
+                  { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'City must contain only letters' },
+                ]}
+              >
                 <Input className="form-item-address" variant="underlined" placeholder="city" />
               </Form.Item>
 

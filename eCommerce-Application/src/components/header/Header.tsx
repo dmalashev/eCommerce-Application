@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
 import { Layout, Menu } from 'antd';
+import formatName from '../../utils/format-name';
 
 const { Header } = Layout;
 const noSelectedKey: number = -1;
@@ -10,16 +11,14 @@ export default function HeaderView() {
   const location = useLocation();
 
   const navItems: {
-    login: PageRoutes;
-    registration: PageRoutes;
+    log_in: PageRoutes;
+    sign_up: PageRoutes;
     catalog: PageRoutes;
   } = {
-    login: PageRoutes.LOGIN,
-    registration: PageRoutes.REGISTRATION,
+    log_in: PageRoutes.LOGIN,
+    sign_up: PageRoutes.REGISTRATION,
     catalog: PageRoutes.CATALOG,
   };
-
-  const navNames: string[] = Object.keys(navItems);
 
   const currentPath: string = location.pathname;
 
@@ -38,10 +37,10 @@ export default function HeaderView() {
     key: number;
     label: string;
     onClick: () => void | Promise<void>;
-  }[] = navNames.map((item, index) => ({
+  }[] = Object.entries(navItems).map(([name, path], index) => ({
     key: index,
-    label: item,
-    onClick: () => navigate(`${item}`),
+    label: formatName(name),
+    onClick: () => navigate(`${path}`),
   }));
 
   return (

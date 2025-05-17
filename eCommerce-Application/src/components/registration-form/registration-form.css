@@ -37,18 +37,18 @@
     width: 300px !important;
   }
 
-  .btn-container {
+  .buttons-container {
     flex-direction: column !important;
   }
 }
 
-.btn-submit {
+.button-submit {
   padding-top: 25px;
   padding-bottom: 25px;
   color: white;
   background-color: #db4444;
 }
 
-.btn-login:hover {
+.button-login:hover {
   text-decoration: underline;
 }

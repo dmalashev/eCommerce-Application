@@ -180,15 +180,15 @@ export const RegistrationForm = () => {
             </Flex>
           )}
 
-          <Flex className="btn-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Button className="btn-submit" type="primary" htmlType="submit">
+          <Flex className="buttons-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+            <Button className="button-submit" type="primary" htmlType="submit">
               Create an account
             </Button>
 
             <Button
               onClick={() => navigate(PageRoutes.LOGIN)}
               color="default"
-              className="btn-login"
+              className="button-login"
               style={{ color: '#DB4444' }}
               variant="link"
             >

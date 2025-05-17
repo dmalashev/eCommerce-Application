@@ -1,4 +1,4 @@
-export const enum PageRoutes {
+export enum PageRoutes {
   MAIN = '/',
   LOGIN = '/login',
   REGISTRATION = '/registration',

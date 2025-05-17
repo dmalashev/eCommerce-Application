@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { PageRoutes } from '../../utils/page-routes';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -6,21 +7,21 @@ export default function Header() {
     <header style={{ display: 'flex', gap: '20px' }}>
       <button
         onClick={() => {
-          navigate('login');
+          navigate(PageRoutes.LOGIN);
         }}
       >
         Login
       </button>
       <button
         onClick={() => {
-          navigate('registration');
+          navigate(PageRoutes.REGISTRATION);
         }}
       >
         Registration
       </button>
       <button
         onClick={() => {
-          navigate('catalog');
+          navigate(PageRoutes.CATALOG);
         }}
       >
         Catalog

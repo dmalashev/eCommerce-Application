@@ -24,6 +24,11 @@ import { isOlderThan13 } from '../../utils/common';
 
 const { Title } = Typography;
 
+const enum AddressType {
+  SHIPPING = 'shipping',
+  BILLING = 'billing',
+}
+
 const onChange: DatePickerProps['onChange'] = (date, dateString) => {
   console.log(date, dateString);
 };
@@ -41,6 +46,8 @@ export const RegistrationForm = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const [isVisibleBillingAddress, setVisibleBillingAddress] = React.useState(true);
+  const [patternShippingPostalCode, setPatternShippingPostalCode] = React.useState<RegExp>();
+  const [patternBillingPostalCode, setPatternBillingPostalCode] = React.useState<RegExp>();
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
@@ -64,6 +71,38 @@ export const RegistrationForm = () => {
       type: 'error',
       content: 'You must fix some fields',
     });
+  };
+
+  const onShippingCountryChange = (value: string) => {
+    onCountryChange(AddressType.SHIPPING, value);
+  };
+
+  const onBillingCountryChange = (value: string) => {
+    onCountryChange(AddressType.BILLING, value);
+  };
+
+  const onCountryChange = (addressType: AddressType, value: string) => {
+    let pattern: RegExp;
+    switch (value) {
+      case 'USA': {
+        pattern = /^(?=.*\d).{5}$/;
+        break;
+      }
+      case 'Russia': {
+        pattern = /^(?=.*\d).{6}$/;
+        break;
+      }
+      default: {
+        pattern = /^(?=.*\d).{6}$/;
+        break;
+      }
+    }
+
+    if (addressType === AddressType.SHIPPING) {
+      setPatternShippingPostalCode(pattern);
+    } else if (addressType === AddressType.BILLING) {
+      setPatternBillingPostalCode(pattern);
+    }
   };
 
   const onChangeDefaultShippingAndBillingAddress: CheckboxProps['onChange'] = (event) => {
@@ -141,7 +180,7 @@ export const RegistrationForm = () => {
               { required: true, message: 'Please, select date' },
               {
                 validator: (_, value) =>
-                  isOlderThan13(value) ? Promise.resolve() : Promise.reject(new Error('You must be over 13')),
+                  isOlderThan13(value) ? Promise.resolve() : Promise.reject(new Error('You must be over 13 years old')),
               },
             ]}
           >
@@ -160,8 +199,13 @@ export const RegistrationForm = () => {
             <Input className="form-item-address" variant="underlined" placeholder="city" />
           </Form.Item>
 
-          <Form.Item name="shippingCountry" rules={[{ required: true, message: 'Please, type  country' }]}>
-            <Select className="form-item-address" variant="underlined" placeholder="country">
+          <Form.Item name="shippingCountry" rules={[{ required: true, message: 'Please, select  country' }]}>
+            <Select
+              onChange={onShippingCountryChange}
+              className="form-item-address"
+              variant="underlined"
+              placeholder="country"
+            >
               {countries.map((country, index) => (
                 <Select.Option key={index} value={country}>
                   {country}
@@ -170,7 +214,13 @@ export const RegistrationForm = () => {
             </Select>
           </Form.Item>
 
-          <Form.Item name="shippingPostalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
+          <Form.Item
+            name="shippingPostalcode"
+            rules={[
+              { required: true, message: 'Please, type  postal code' },
+              { pattern: patternShippingPostalCode, message: 'Wrong postal code format' },
+            ]}
+          >
             <Input className="form-item-address" variant="underlined" placeholder="postal code" />
           </Form.Item>
 
@@ -198,8 +248,13 @@ export const RegistrationForm = () => {
                 <Input className="form-item-address" variant="underlined" placeholder="city" />
               </Form.Item>
 
-              <Form.Item name="billingCountry" rules={[{ required: true, message: 'Please, type  country' }]}>
-                <Select className="form-item-address" variant="underlined" placeholder="country">
+              <Form.Item name="billingCountry" rules={[{ required: true, message: 'Please, select  country' }]}>
+                <Select
+                  onChange={onBillingCountryChange}
+                  className="form-item-address"
+                  variant="underlined"
+                  placeholder="country"
+                >
                   {countries.map((country, index) => (
                     <Select.Option key={index} value={country}>
                       {country}
@@ -208,7 +263,13 @@ export const RegistrationForm = () => {
                 </Select>
               </Form.Item>
 
-              <Form.Item name="billingPostalcode" rules={[{ required: true, message: 'Please, type  postal code' }]}>
+              <Form.Item
+                name="billingPostalcode"
+                rules={[
+                  { required: true, message: 'Please, type  postal code' },
+                  { pattern: patternBillingPostalCode, message: 'Wrong postal code format' },
+                ]}
+              >
                 <Input className="form-item-address" variant="underlined" placeholder="postal code" />
               </Form.Item>
 

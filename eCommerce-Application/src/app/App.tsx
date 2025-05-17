@@ -23,7 +23,7 @@ export default function App() {
             <Route path={PageRoutes.NOT_FOUND} element={<NotFound />}></Route>
           </Routes>
         </Content>
-        <Footer>The Records Store © 2025</Footer>
+        <Footer style={{ textAlign: 'center' }}>The Records Store © 2025</Footer>
       </Layout>
     </BrowserRouter>
   );

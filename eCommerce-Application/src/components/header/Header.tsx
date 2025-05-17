@@ -44,7 +44,7 @@ export default function HeaderView() {
   }));
 
   return (
-    <Header>
+    <Header style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'space-between' }}>
       <Menu items={navItemObjects} mode="horizontal" defaultSelectedKeys={[`${selectedKey}`]}></Menu>
     </Header>
   );

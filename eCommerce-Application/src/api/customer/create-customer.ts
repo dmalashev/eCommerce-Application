@@ -2,7 +2,7 @@ import { Client, ClientResponse } from '@commercetools/ts-client';
 import { projectKey, client as clientBuilder, httpMiddleware, authMiddleware } from '../client/client';
 import { ApiRoot, createApiBuilderFromCtpClient, CustomerSignInResult, MyCustomerDraft } from '@commercetools/platform-sdk';
 
-export async function createCustomer(customer: MyCustomerDraft) {
+export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
   const client: Client = clientBuilder
     .withProjectKey(projectKey)
     .withClientCredentialsFlow(authMiddleware)

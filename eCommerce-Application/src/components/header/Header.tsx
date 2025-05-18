@@ -12,7 +12,7 @@ type HeaderViewProperties = {
 
 export default function HeaderView({ onBurgerClick }: HeaderViewProperties) {
   return (
-    <Header style={{ backgroundColor: 'white' }}>
+    <Header style={{ backgroundColor: 'white' }} className="header">
       <Flex justify="space-between" align="center">
         <Logo />
         <HeaderMenu itemsClassName="menu-item" isHorizontal />

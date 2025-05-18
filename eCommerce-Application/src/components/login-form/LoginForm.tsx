@@ -26,8 +26,7 @@ export const LoginForm = () => {
       .catch((error_) => error(checkingError(error_)));
   };
 
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = () => {
     error();
   };
 
@@ -58,11 +57,27 @@ export const LoginForm = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item name="email" rules={[{ required: true, message: 'Please, type your email address' }]}>
+          <Form.Item
+            name="email"
+            rules={[
+              { required: true, message: 'Please, type your email address' },
+              { pattern: new RegExp(/^([\w.*-]+@([\w-]+\.)+[\w-]{2,4})?$/), message: 'Wrong email format' },
+            ]}
+          >
             <Input className="form-item" variant="underlined" placeholder="email" />
           </Form.Item>
 
-          <Form.Item name="password" rules={[{ required: true, message: 'Please, type password' }]}>
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: 'Please, type password' },
+              {
+                pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
+                message:
+                  'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
+              },
+            ]}
+          >
             <Input.Password
               className="form-item"
               variant="underlined"

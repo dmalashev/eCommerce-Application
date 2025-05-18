@@ -21,8 +21,8 @@ import {
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/common';
-import { createdCustomer, singUp } from '../../api/customer/create-customer';
-import { MyCustomerDraft } from '@commercetools/platform-sdk';
+import { singUp } from '../../api/customer/create-customer';
+import { checkingError } from '../../api/handleError/checking-errors';
 
 const { Title } = Typography;
 
@@ -63,7 +63,14 @@ export const RegistrationForm = () => {
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
-    success();
+    const valuesObject: Record<string, string> = form.getFieldsValue();
+    singUp(valuesObject)
+      .then((response) => () => {
+        success();
+        console.log(response);
+      })
+      .catch((errr) => error(checkingError(errr)));
+
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -78,10 +85,10 @@ export const RegistrationForm = () => {
     });
   };
 
-  const error = () => {
+  const error = (message = 'You must fix some fields' ) => {
     messageApi.open({
       type: 'error',
-      content: 'You must fix some fields',
+      content: message ,
     });
   };
 
@@ -316,10 +323,15 @@ export const RegistrationForm = () => {
           )}
 
           <Flex className="buttons-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Button onClick={() => {
-              const valuesObject: Record<string,string> = form.getFieldsValue();
-              singUp(valuesObject);
-            }} className="button-submit" type="primary" htmlType="submit">
+            <Button
+              onClick={() => {
+                const valuesObject: Record<string, string> = form.getFieldsValue();
+                singUp(valuesObject);
+              }}
+              className="button-submit"
+              type="primary"
+              htmlType="submit"
+            >
               Create an account
             </Button>
 

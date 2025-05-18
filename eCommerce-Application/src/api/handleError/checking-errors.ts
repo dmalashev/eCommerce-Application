@@ -42,7 +42,6 @@ export function checkingError(error: HttpError): string {
     }
   } else if (error.statusCode === 500) {
     message = 'something went wrong during the registration process. Please try again later.';
-      }
-
+  }
   return message; /// must be hint
 }

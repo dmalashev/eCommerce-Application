@@ -10,7 +10,8 @@ import {
 } from '@commercetools/platform-sdk';
 import { checkingError } from '../handleError/checking-errors';
 
-export async function createCustomer(customer: MyCustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
+export async function singUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
+  const customer: MyCustomerDraft = createdCustomer(object);
   try {
     const client: Client = clientBuilder
       .withProjectKey(projectKey)
@@ -19,7 +20,6 @@ export async function createCustomer(customer: MyCustomerDraft): Promise<ClientR
       .build();
 
     const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
-    console.log(customer);
     const response: ClientResponse<CustomerSignInResult> = await apiRoot
       .withProjectKey({ projectKey })
       .me()
@@ -28,7 +28,6 @@ export async function createCustomer(customer: MyCustomerDraft): Promise<ClientR
       .execute();
     return response;
   } catch (error: Error | any) {
-    checkingError(error);
     return Promise.reject(error);
   }
 }
@@ -72,18 +71,8 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     defaultShippingAddress: arrayAddresses.indexOf(shippingAddress),
     defaultBillingAddress: arrayAddresses.indexOf(billingAddress),
   };
-  return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1)) as MyCustomerDraft ;
+  return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1)) as MyCustomerDraft;
 };
 
 
-export const singUp = async (object: Record<string, string>): Promise<void> => {
-  try {
 
-    const response: ClientResponse<CustomerSignInResult> = await createCustomer(createdCustomer(object));
-    console.log(response.body?.customer)
-  }catch (error: Error | any) {
-    checkingError(error);
-  }
-};
-
-export default createCustomer;

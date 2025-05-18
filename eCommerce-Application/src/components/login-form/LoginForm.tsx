@@ -48,7 +48,13 @@ export const LoginForm = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item name="email" rules={[{ required: true, message: 'Please, type your email address' }]}>
+          <Form.Item
+            name="email"
+            rules={[
+              { required: true, message: 'Please, type your email address' },
+              { pattern: new RegExp(/^([\w.*-]+@([\w-]+\.)+[\w-]{2,4})?$/), message: 'Wrong email format' },
+            ]}
+          >
             <Input className="form-item" variant="underlined" placeholder="email" />
           </Form.Item>
 

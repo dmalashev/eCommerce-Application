@@ -4,6 +4,10 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { PageRoutes } from '../../utils/page-routes';
 import { useNavigate } from 'react-router';
 import './login-form.css';
+import { createdCustomer } from '../../api/customer/create-customer';
+import { login } from '../../api/customer/autorizate-customer';
+import { CustomerDraft } from '@commercetools/platform-sdk';
+import { checkingError } from '../../api/handleError/checking-errors';
 
 const { Title } = Typography;
 export const LoginForm = () => {
@@ -13,7 +17,13 @@ export const LoginForm = () => {
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
-    success();
+    const valuesObject: CustomerDraft = form.getFieldsValue();
+    login(valuesObject)
+      .then((response) => {
+        console.log(response);
+        success();
+      })
+      .catch((error_) => error(checkingError(error_)));
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -24,14 +34,14 @@ export const LoginForm = () => {
   const success = () => {
     messageApi.open({
       type: 'success',
-      content: 'You have created an account',
+      content: 'You are login',
     });
   };
 
-  const error = () => {
+  const error = (message = 'You must fix some fields') => {
     messageApi.open({
       type: 'error',
-      content: 'You must fix some fields',
+      content: message,
     });
   };
 

@@ -65,12 +65,11 @@ export const RegistrationForm = () => {
     console.log('Success:', values);
     const valuesObject: Record<string, string> = form.getFieldsValue();
     singUp(valuesObject)
-      .then((response) => () => {
+      .then((response) => {
         success();
         console.log(response);
       })
-      .catch((errr) => error(checkingError(errr)));
-
+      .catch((error_) => error(checkingError(error_)));
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -85,10 +84,10 @@ export const RegistrationForm = () => {
     });
   };
 
-  const error = (message = 'You must fix some fields' ) => {
+  const error = (message = 'You must fix some fields') => {
     messageApi.open({
       type: 'error',
-      content: message ,
+      content: message,
     });
   };
 
@@ -323,15 +322,7 @@ export const RegistrationForm = () => {
           )}
 
           <Flex className="buttons-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Button
-              onClick={() => {
-                const valuesObject: Record<string, string> = form.getFieldsValue();
-                singUp(valuesObject);
-              }}
-              className="button-submit"
-              type="primary"
-              htmlType="submit"
-            >
+            <Button className="button-submit" type="primary" htmlType="submit">
               Create an account
             </Button>
 

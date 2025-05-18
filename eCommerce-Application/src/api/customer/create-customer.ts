@@ -8,10 +8,10 @@ import {
   CustomerSignInResult,
   MyCustomerDraft,
 } from '@commercetools/platform-sdk';
-import { checkingError } from '../handleError/checking-errors';
 
 export async function singUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
   const customer: MyCustomerDraft = createdCustomer(object);
+  console.log('creaTED CUSTOMER');
   try {
     const client: Client = clientBuilder
       .withProjectKey(projectKey)
@@ -57,8 +57,8 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     streetName: object?.shippingStreet,
     postalCode: object?.shippingPostalcode,
   };
-  const arrayAddresses: BaseAddress[] = [billingAddress, shippingAddress].filter((obj) =>
-    Object.values(obj).every((value) => value !== undefined),
+  const arrayAddresses: BaseAddress[] = [billingAddress, shippingAddress].filter((object_) =>
+    Object.values(object_).every((value) => value !== undefined),
   );
 
   const customerDraft: MyCustomerDraft = {
@@ -73,6 +73,3 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
   };
   return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1)) as MyCustomerDraft;
 };
-
-
-

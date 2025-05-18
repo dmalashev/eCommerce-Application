@@ -15,10 +15,8 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
-import { checkingError } from '../handleError/checking-errors';
-import { LoginRequest } from '../types-api';
 
-export async function login(customer: CustomerDraft): LoginRequest {
+export async function login(customer: CustomerDraft) {
   const { email, password } = customer;
   let token: TokenStore = {
     token: '',
@@ -69,18 +67,11 @@ export async function login(customer: CustomerDraft): LoginRequest {
       .post({ body: { email, password } })
       .execute();
 
-    console.log('Customer login and token return:', response.body, token);
-
     return {
       customer: response, //  Customer object
       token, //  token
     };
   } catch (error: Error | any) {
-    console.error(error);
-    checkingError(error);
+    return Promise.reject(error);
   }
-  return {
-    customer: {} as ClientResponse<CustomerSignInResult>,
-    token,
-  };
 }

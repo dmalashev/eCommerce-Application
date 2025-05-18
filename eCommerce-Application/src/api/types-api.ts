@@ -5,7 +5,7 @@ export enum ErrorsName {
   BadRequest = 'BadRequest',
 }
 export enum BadRequest {
-  InvalidCustomerAccountCredentials = 'InvalidCustomerAccountCredentials',
+  InvalidCustomerAccountCredentials = 'invalid_customer_account_credentials',
   DuplicateField = 'DuplicateField',
   General = 'General',
   InvalidOperation = 'InvalidOperation',

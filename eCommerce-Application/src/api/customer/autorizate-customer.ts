@@ -15,7 +15,7 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
-import { checkingError } from '../functions/checking-errors';
+import { checkingError } from '../handleError/checking-errors';
 import { LoginRequest } from '../types-api';
 
 export async function login(customer: CustomerDraft): LoginRequest {

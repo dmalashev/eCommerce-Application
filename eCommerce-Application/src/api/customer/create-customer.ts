@@ -7,7 +7,7 @@ import {
   CustomerSignInResult,
   MyCustomerDraft,
 } from '@commercetools/platform-sdk';
-import { checkingError } from '../functions/checking-errors';
+import { checkingError } from '../handleError/checking-errors';
 
 export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
   try {
@@ -30,6 +30,3 @@ export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
     checkingError(error);
   }
 }
-
-
-

@@ -61,12 +61,7 @@ export default function HeaderView() {
     <Header style={{ backgroundColor: 'white' }}>
       <Flex justify="space-between" align="center">
         <Logo />
-        <Menu
-          items={navItemObjects}
-          mode="horizontal"
-          defaultSelectedKeys={[selectedKey]}
-          disabledOverflow={true}
-        ></Menu>
+        <Menu items={navItemObjects} mode="horizontal" selectedKeys={[selectedKey]} disabledOverflow={true}></Menu>
         <Flex gap="small">
           <Button type="default" icon={<LoginOutlined />} onClick={onClickLogin}>
             Log In

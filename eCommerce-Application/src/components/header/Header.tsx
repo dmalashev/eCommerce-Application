@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button, Flex } from 'antd';
+import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import Logo from '../logo/Logo';
 
@@ -12,12 +13,8 @@ export default function HeaderView() {
   const location = useLocation();
 
   const navItems: {
-    log_in: PageRoutes;
-    sign_up: PageRoutes;
     catalog: PageRoutes;
   } = {
-    log_in: PageRoutes.LOGIN,
-    sign_up: PageRoutes.REGISTRATION,
     catalog: PageRoutes.CATALOG,
   };
 
@@ -41,13 +38,23 @@ export default function HeaderView() {
   }[] = Object.entries(navItems).map(([name, path], index) => ({
     key: index,
     label: formatName(name),
-    onClick: () => navigate(`${path}`),
+    onClick: () => navigate(path),
   }));
 
   return (
-    <Header style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'space-between' }}>
-      <Logo />
-      <Menu items={navItemObjects} mode="horizontal" defaultSelectedKeys={[`${selectedKey}`]}></Menu>
+    <Header style={{ backgroundColor: 'white' }}>
+      <Flex justify="space-between" align="center">
+        <Logo />
+        <Menu items={navItemObjects} mode="horizontal" defaultSelectedKeys={[`${selectedKey}`]}></Menu>
+        <Flex gap="small">
+          <Button type="default" icon={<LoginOutlined />} onClick={() => navigate(PageRoutes.LOGIN)}>
+            Log In
+          </Button>
+          <Button type="primary" icon={<UserAddOutlined />} onClick={() => navigate(PageRoutes.REGISTRATION)}>
+            Sign Up
+          </Button>
+        </Flex>
+      </Flex>
     </Header>
   );
 }

@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
 import { Layout, Menu } from 'antd';
 import formatName from '../../utils/format-name';
+import Logo from '../logo/Logo';
 
 const { Header } = Layout;
 const noSelectedKey: number = -1;
@@ -45,6 +46,7 @@ export default function HeaderView() {
 
   return (
     <Header style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'space-between' }}>
+      <Logo />
       <Menu items={navItemObjects} mode="horizontal" defaultSelectedKeys={[`${selectedKey}`]}></Menu>
     </Header>
   );

@@ -8,16 +8,6 @@
   }
 }
 
-.form-item-address {
-  width: 400px !important;
-}
-
-@media (width <= 450px) {
-  .form-item-address {
-    width: 300px !important;
-  }
-}
-
 .form-container {
   display: flex;
   flex-direction: column;
@@ -43,12 +33,11 @@
 }
 
 .button-submit {
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding: 25px;
   color: white;
   background-color: #db4444;
 }
 
-.button-login:hover {
+.button-signup:hover {
   text-decoration: underline;
 }

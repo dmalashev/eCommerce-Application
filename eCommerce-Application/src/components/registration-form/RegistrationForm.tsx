@@ -21,6 +21,8 @@ import {
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/common';
+import { createdCustomer, singUp } from '../../api/customer/create-customer';
+import { MyCustomerDraft } from '@commercetools/platform-sdk';
 
 const { Title } = Typography;
 
@@ -314,7 +316,10 @@ export const RegistrationForm = () => {
           )}
 
           <Flex className="buttons-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Button className="button-submit" type="primary" htmlType="submit">
+            <Button onClick={() => {
+              const valuesObject: Record<string,string> = form.getFieldsValue();
+              singUp(valuesObject);
+            }} className="button-submit" type="primary" htmlType="submit">
               Create an account
             </Button>
 

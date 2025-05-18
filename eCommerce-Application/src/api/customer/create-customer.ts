@@ -10,7 +10,7 @@ import {
 } from '@commercetools/platform-sdk';
 import { checkingError } from '../handleError/checking-errors';
 
-export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
+export async function createCustomer(customer: MyCustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
   try {
     const client: Client = clientBuilder
       .withProjectKey(projectKey)
@@ -26,13 +26,14 @@ export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
       .signup()
       .post({ body: customer })
       .execute();
-    console.log('Customer created:', response.body?.customer);
+    return response;
   } catch (error: Error | any) {
     checkingError(error);
+    return Promise.reject(error);
   }
 }
 
-export const createdCustomer = (object: Record<string, string>) => {
+export const createdCustomer = (object: Record<string, string>): MyCustomerDraft => {
   const countryMap: Record<string, string> = {
     Russia: 'RU',
     Germany: 'DE',
@@ -60,7 +61,6 @@ export const createdCustomer = (object: Record<string, string>) => {
   const arrayAddresses: BaseAddress[] = [billingAddress, shippingAddress].filter((obj) =>
     Object.values(obj).every((value) => value !== undefined),
   );
-  console.log(arrayAddresses);
 
   const customerDraft: MyCustomerDraft = {
     firstName: object.name,
@@ -72,5 +72,18 @@ export const createdCustomer = (object: Record<string, string>) => {
     defaultShippingAddress: arrayAddresses.indexOf(shippingAddress),
     defaultBillingAddress: arrayAddresses.indexOf(billingAddress),
   };
-  return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1));
+  return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1)) as MyCustomerDraft ;
 };
+
+
+export const singUp = async (object: Record<string, string>): Promise<void> => {
+  try {
+
+    const response: ClientResponse<CustomerSignInResult> = await createCustomer(createdCustomer(object));
+    console.log(response.body?.customer)
+  }catch (error: Error | any) {
+    checkingError(error);
+  }
+};
+
+export default createCustomer;

@@ -20,6 +20,8 @@ import {
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/common';
+import { singUp } from '../../api/customer/create-customer';
+import { checkingError } from '../../api/handleError/checking-errors';
 
 const { Title } = Typography;
 
@@ -46,8 +48,15 @@ export const RegistrationForm = () => {
   const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
 
-  const onFinish: FormProps<FieldType>['onFinish'] = () => {
-    success();
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log('Success:', values);
+    const valuesObject: Record<string, string> = form.getFieldsValue();
+    singUp(valuesObject)
+      .then((response) => {
+        success();
+        console.log(response);
+      })
+      .catch((error_) => error(checkingError(error_)));
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = () => {
@@ -61,10 +70,10 @@ export const RegistrationForm = () => {
     });
   };
 
-  const error = () => {
+  const error = (message = 'You must fix some fields') => {
     messageApi.open({
       type: 'error',
-      content: 'You must fix some fields',
+      content: message,
     });
   };
 

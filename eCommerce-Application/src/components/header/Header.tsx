@@ -1,31 +1,25 @@
-import { useNavigate } from 'react-router';
-import { PageRoutes } from '../../utils/page-routes';
+import { Layout, Flex } from 'antd';
+import Logo from '../logo/Logo';
+import HeaderMenu from '../header-menu/HeaderMenu';
+import { MenuOutlined } from '@ant-design/icons';
+import './header.css';
 
-export default function Header() {
-  const navigate = useNavigate();
+const { Header } = Layout;
+
+type HeaderViewProperties = {
+  onBurgerClick: () => void;
+};
+
+export default function HeaderView({ onBurgerClick }: HeaderViewProperties) {
   return (
-    <header style={{ display: 'flex', gap: '20px' }}>
-      <button
-        onClick={() => {
-          navigate(PageRoutes.LOGIN);
-        }}
-      >
-        Login
-      </button>
-      <button
-        onClick={() => {
-          navigate(PageRoutes.REGISTRATION);
-        }}
-      >
-        Registration
-      </button>
-      <button
-        onClick={() => {
-          navigate(PageRoutes.CATALOG);
-        }}
-      >
-        Catalog
-      </button>
-    </header>
+    <Header style={{ backgroundColor: 'white' }} className="header">
+      <Flex justify="space-between" align="center">
+        <Logo />
+        <HeaderMenu itemsClassName="menu-item" isHorizontal />
+        <div className="burger-button" onClick={onBurgerClick}>
+          <MenuOutlined style={{ fontSize: 24 }} />
+        </div>
+      </Flex>
+    </Header>
   );
 }

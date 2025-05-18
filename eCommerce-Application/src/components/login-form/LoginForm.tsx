@@ -11,13 +11,11 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = () => {
     success();
   };
 
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = () => {
     error();
   };
 

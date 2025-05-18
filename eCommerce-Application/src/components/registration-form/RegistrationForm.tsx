@@ -8,7 +8,6 @@ import {
   Checkbox,
   CheckboxProps,
   DatePicker,
-  DatePickerProps,
   Divider,
   Flex,
   Form,
@@ -39,18 +38,6 @@ enum PostalCodePattern {
   USA = '^(?=.*\\d).{5}$',
 }
 
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-  console.log(date, dateString);
-};
-
-const onChangeDefaultShippingAddress: CheckboxProps['onChange'] = (event) => {
-  console.log(`checked = ${event.target.checked}`);
-};
-
-const onChangeDefaultBillingAddress: CheckboxProps['onChange'] = (event) => {
-  console.log(`checked = ${event.target.checked}`);
-};
-
 export const RegistrationForm = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -59,13 +46,11 @@ export const RegistrationForm = () => {
   const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = () => {
     success();
   };
 
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = () => {
     error();
   };
 
@@ -126,7 +111,6 @@ export const RegistrationForm = () => {
   };
 
   const onChangeDefaultShippingAndBillingAddress: CheckboxProps['onChange'] = (event) => {
-    console.log(`checked = ${event.target.checked}`);
     setVisibleBillingAddress(!event.target.checked);
   };
 
@@ -204,7 +188,7 @@ export const RegistrationForm = () => {
               },
             ]}
           >
-            <DatePicker className="form-item" placeholder="date of birth" onChange={onChange} variant="underlined" />
+            <DatePicker className="form-item" placeholder="date of birth" variant="underlined" />
           </Form.Item>
 
           <Divider className="form-item" style={{ borderColor: '#000' }}>
@@ -251,9 +235,7 @@ export const RegistrationForm = () => {
           </Form.Item>
 
           <Form.Item name="defaultShippingAddressChecker">
-            <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAddress}>
-              as shipping default address
-            </Checkbox>
+            <Checkbox className="form-item-checker"> as shipping default address </Checkbox>
           </Form.Item>
           <Form.Item name="defaultShippingBillingAddressChecker">
             <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAndBillingAddress}>
@@ -306,9 +288,7 @@ export const RegistrationForm = () => {
               </Form.Item>
 
               <Form.Item name="defaultBillingAddressChecker">
-                <Checkbox className="form-item-checker" onChange={onChangeDefaultBillingAddress}>
-                  as billing default address
-                </Checkbox>
+                <Checkbox className="form-item-checker">as billing default address</Checkbox>
               </Form.Item>
             </Flex>
           )}

@@ -14,7 +14,7 @@ const { Content } = Layout;
 export default function App() {
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header />
         <Content>
           <Routes>

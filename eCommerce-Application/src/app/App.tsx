@@ -8,14 +8,19 @@ import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import { PageRoutes } from '../utils/page-routes';
 import { Layout } from 'antd';
+import { useState } from 'react';
+import BurgerMenu from '../components/burger-menu/BurgerMenu';
 
 const { Content } = Layout;
 
 export default function App() {
+  const [isBurgerOpened, setIsBurgerOpened] = useState(false);
+
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: '100vh' }}>
-        <Header />
+        <Header onBurgerClick={() => setIsBurgerOpened(true)} />
+        <BurgerMenu isBurgerOpened={isBurgerOpened} onBurgerClose={() => setIsBurgerOpened(false)} />
         <Content>
           <Routes>
             <Route path={PageRoutes.MAIN} element={<Main />}></Route>

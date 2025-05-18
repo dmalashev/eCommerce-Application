@@ -1,0 +1,20 @@
+.burger-button {
+  cursor: pointer;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+}
+
+@media (width <= 767px) {
+  .burger-button {
+    display: flex;
+  }
+
+  .menu-item {
+    display: none;
+  }
+}

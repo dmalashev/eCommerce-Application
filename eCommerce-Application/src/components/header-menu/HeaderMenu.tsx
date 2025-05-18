@@ -7,7 +7,7 @@ import formatName from '../../utils/format-name';
 
 const noSelectedKey: string = '';
 
-export default function HeaderMenu({ isHorizontal = false }) {
+export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);
@@ -62,9 +62,10 @@ export default function HeaderMenu({ isHorizontal = false }) {
         mode={isHorizontal ? 'horizontal' : 'vertical'}
         selectedKeys={[selectedKey]}
         disabledOverflow={true}
+        className={itemsClassName}
         style={{ border: 'none' }}
       ></Menu>
-      <Flex gap="small" vertical={!isHorizontal}>
+      <Flex gap="small" vertical={!isHorizontal} className={itemsClassName}>
         <Button type="default" icon={<LoginOutlined />} onClick={onClickLogin}>
           Log In
         </Button>

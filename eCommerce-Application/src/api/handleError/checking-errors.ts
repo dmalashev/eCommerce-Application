@@ -6,7 +6,6 @@ export function checkingError(error: HttpError): string {
   if (error.name === ErrorsName.BadRequest) {
     switch (error.code) {
       case BadRequest.InvalidCustomerAccountCredentials: {
-      case BadRequest.InvalidCustomerAccountCredentials: {
         message = error.message;
         break;
       }
@@ -44,9 +43,6 @@ export function checkingError(error: HttpError): string {
   } else if (error.statusCode === 500) {
     message = 'something went wrong during the registration process. Please try again later.';
       }
-    }
-  } else if (error.statusCode === 500) {
-    message = 'something went wrong during the registration process. Please try again later.';
-  }
+
   return message; /// must be hint
 }

@@ -53,8 +53,12 @@ export const RegistrationForm = () => {
     const valuesObject: Record<string, string> = form.getFieldsValue();
     singUp(valuesObject)
       .then((response) => {
-        success();
         console.log(response);
+        success();
+        setTimeout(() => {
+          navigate('/')
+        }, 1000);
+
       })
       .catch((error_) => error(checkingError(error_)));
   };

@@ -14,7 +14,7 @@ export default function HeaderView() {
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);
 
-  const refreshMenu = () => {
+  const refreshMenu = (): void => {
     setMenuKey((previousKey) => previousKey + 1);
   };
 
@@ -47,12 +47,12 @@ export default function HeaderView() {
     onClick: () => navigate(path),
   }));
 
-  const onClickLogin = () => {
+  const onClickLogin = (): void => {
     refreshMenu();
     navigate(PageRoutes.LOGIN);
   };
 
-  const onClickRegistration = () => {
+  const onClickRegistration = (): void => {
     refreshMenu();
     navigate(PageRoutes.REGISTRATION);
   };

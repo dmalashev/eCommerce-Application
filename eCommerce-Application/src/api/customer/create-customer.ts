@@ -3,6 +3,7 @@ import { projectKey, client as clientBuilder, httpMiddleware, authMiddleware } f
 
 import {
   ApiRoot,
+  BaseAddress,
   createApiBuilderFromCtpClient,
   CustomerSignInResult,
   MyCustomerDraft,
@@ -18,7 +19,7 @@ export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
       .build();
 
     const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
-
+    console.log(customer);
     const response: ClientResponse<CustomerSignInResult> = await apiRoot
       .withProjectKey({ projectKey })
       .me()
@@ -30,3 +31,46 @@ export async function createCustomer(customer: MyCustomerDraft): Promise<void> {
     checkingError(error);
   }
 }
+
+export const createdCustomer = (object: Record<string, string>) => {
+  const countryMap: Record<string, string> = {
+    Russia: 'RU',
+    Germany: 'DE',
+    France: 'FR',
+    Ukraine: 'UA',
+    USA: 'US',
+  };
+
+  const billingAddress: BaseAddress = {
+    city: object?.billingCity,
+    country: countryMap[object?.billingCountry],
+    firstName: object?.name,
+    lastName: object?.lastName,
+    streetName: object?.billingStreet,
+    postalCode: object?.billingPostalcode,
+  };
+  const shippingAddress: BaseAddress = {
+    city: object?.shippingCity,
+    country: countryMap[object?.shippingCountry],
+    firstName: object?.name,
+    lastName: object?.lastName,
+    streetName: object?.shippingStreet,
+    postalCode: object?.shippingPostalcode,
+  };
+  const arrayAddresses: BaseAddress[] = [billingAddress, shippingAddress].filter((obj) =>
+    Object.values(obj).every((value) => value !== undefined),
+  );
+  console.log(arrayAddresses);
+
+  const customerDraft: MyCustomerDraft = {
+    firstName: object.name,
+    lastName: object.lastName,
+    email: object.email,
+    password: object.password,
+    dateOfBirth: new Date(object.date).toISOString().split('T')[0],
+    addresses: arrayAddresses,
+    defaultShippingAddress: arrayAddresses.indexOf(shippingAddress),
+    defaultBillingAddress: arrayAddresses.indexOf(billingAddress),
+  };
+  return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1));
+};

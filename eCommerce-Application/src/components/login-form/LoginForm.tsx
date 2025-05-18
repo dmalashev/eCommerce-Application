@@ -58,7 +58,17 @@ export const LoginForm = () => {
             <Input className="form-item" variant="underlined" placeholder="email" />
           </Form.Item>
 
-          <Form.Item name="password" rules={[{ required: true, message: 'Please, type password' }]}>
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: 'Please, type password' },
+              {
+                pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
+                message:
+                  'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
+              },
+            ]}
+          >
             <Input.Password
               className="form-item"
               variant="underlined"

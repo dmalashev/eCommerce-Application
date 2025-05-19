@@ -4,6 +4,7 @@ import {
   createApiBuilderFromCtpClient,
   CustomerDraft,
   CustomerSignInResult,
+  ErrorResponse,
 } from '@commercetools/platform-sdk';
 import {
   projectKey,
@@ -15,6 +16,7 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
+import { checkingError } from '../handleError/checking-errors';
 
 export async function login(customer: CustomerDraft) {
   const { email, password } = customer;
@@ -74,7 +76,7 @@ export async function login(customer: CustomerDraft) {
       customer: response, //  Customer object
       token, //  token
     };
-  } catch (error: Error | any) {
-    return Promise.reject(error);
+  } catch (error) {
+    checkingError(error as ErrorResponse);
   }
 }

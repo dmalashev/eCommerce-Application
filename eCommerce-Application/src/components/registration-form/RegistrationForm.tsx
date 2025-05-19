@@ -56,9 +56,8 @@ export const RegistrationForm = () => {
         console.log(response);
         success();
         setTimeout(() => {
-          navigate('/')
+          navigate('/');
         }, 1000);
-
       })
       .catch((error_) => error(checkingError(error_)));
   };

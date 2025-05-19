@@ -49,12 +49,17 @@ export const RegistrationForm = () => {
   const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const auth = useAuth();
+  const auth = useAuth();
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
     const valuesObject: Record<string, string> = form.getFieldsValue();
     singUp(valuesObject)
       .then(() => {
+      .then(() => {
         success();
+        if (auth && auth.setIsLoggedIn) {
+          auth.setIsLoggedIn(true);
+        }
         if (auth && auth.setIsLoggedIn) {
           auth.setIsLoggedIn(true);
         }

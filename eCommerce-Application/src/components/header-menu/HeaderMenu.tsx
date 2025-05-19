@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import { logout } from '../../api/customer/logout';
+import { useAuth } from '../../AuthProvider';
 
 const noSelectedKey: string = '';
 
 
-export default function HeaderMenu({ isHorizontal = false, itemsClassName = '', isLoggedIn = false }) {
+export default function HeaderMenu({ isHorizontal = false, itemsClassName = ''}) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);
@@ -17,9 +18,8 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '', 
   const refreshMenu = (): void => {
     setMenuKey((previousKey) => previousKey + 1);
   };
-  if (localStorage.getItem('access_token')) {
-    isLoggedIn = true;
-  }
+  const auth = useAuth();
+  const isLoggedIn = auth?.isLoggedIn ?? false
   const navItems: {
     home: PageRoutes;
     catalog: PageRoutes;

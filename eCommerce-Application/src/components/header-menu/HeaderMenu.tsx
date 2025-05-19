@@ -5,7 +5,7 @@ import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import { logout } from '../../api/customer/logout';
-import { useAuth } from '../../AuthProvider';
+import { useAuth } from '../../utils/hooks';
 
 const noSelectedKey: string = '';
 

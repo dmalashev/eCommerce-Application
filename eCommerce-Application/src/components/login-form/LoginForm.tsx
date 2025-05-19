@@ -19,8 +19,10 @@ export const LoginForm = () => {
     const valuesObject: CustomerDraft = form.getFieldsValue();
     login(valuesObject)
       .then((response) => {
-        console.log(response);
         success();
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
       })
       .catch((error_) => error(checkingError(error_)));
   };

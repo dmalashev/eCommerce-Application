@@ -19,9 +19,9 @@ import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetool
 export async function login(customer: CustomerDraft) {
   const { email, password } = customer;
   let token: TokenStore = {
-    token: '',
-    expirationTime: 0,
-    refreshToken: '',
+    token: localStorage.getItem('token') || '',
+    expirationTime: Number(localStorage.getItem('token_expiration') || 0),
+    refreshToken: localStorage.getItem('refresh_token') || '',
   };
   if (!email || !password) {
     throw new Error('Customer email and password are required.');
@@ -46,6 +46,9 @@ export async function login(customer: CustomerDraft) {
         },
         set(tokenObject: TokenStore): void {
           token = tokenObject;
+          localStorage.setItem('access_token', token.token);
+          localStorage.setItem('refresh_token', token.refreshToken!);
+          localStorage.setItem('token_expiration', String(token.expirationTime));
         },
       },
     };

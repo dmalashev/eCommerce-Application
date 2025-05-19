@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
-import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
+import { LoginOutlined, LogoutOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import { logout } from '../../api/customer/logout';
 import { useAuth } from '../../utils/hooks';
@@ -13,12 +13,13 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);
+  const auth = useAuth();
+
+  const isLoggedIn: boolean = auth?.isLoggedIn ?? false;
 
   const refreshMenu = (): void => {
     setMenuKey((previousKey) => previousKey + 1);
   };
-  const auth = useAuth();
-  const isLoggedIn = auth?.isLoggedIn ?? false;
 
   const navItems: {
     home: PageRoutes;
@@ -57,6 +58,8 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
   const onClickLogOut = (): void => {
     logout();
     navigate(PageRoutes.MAIN);
+    auth.setIsLoggedIn(false);
+    refreshMenu();
   };
 
   const onClickRegistration = (): void => {
@@ -75,12 +78,18 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
         style={{ border: 'none' }}
       ></Menu>
       <Flex gap="small" vertical={!isHorizontal} className={itemsClassName}>
-        <Button type="default" icon={<LoginOutlined />} onClick={onClickLogin}>
+        <Button
+          type="default"
+          icon={isLoggedIn ? <LogoutOutlined /> : <LoginOutlined />}
+          onClick={isLoggedIn ? onClickLogOut : onClickLogin}
+        >
           {isLoggedIn ? 'Log out' : 'Log in'}
         </Button>
-        <Button type="primary" icon={<UserAddOutlined />} onClick={onClickRegistration}>
-          Sign Up
-        </Button>
+        {isLoggedIn ? undefined : (
+          <Button type="primary" icon={<UserAddOutlined />} onClick={onClickRegistration}>
+            Sign Up
+          </Button>
+        )}
       </Flex>
     </>
   );

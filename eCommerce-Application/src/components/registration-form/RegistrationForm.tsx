@@ -51,6 +51,7 @@ export const RegistrationForm = () => {
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
     const valuesObject: Record<string, string> = form.getFieldsValue();
+    console.log(valuesObject);
     singUp(valuesObject)
       .then((response) => {
         console.log(response);
@@ -122,7 +123,7 @@ export const RegistrationForm = () => {
     }
   };
 
-  const onChangeDefaultShippingAndBillingAddress: CheckboxProps['onChange'] = (event) => {
+  const onChangeShippingAndBillingAddress: CheckboxProps['onChange'] = (event) => {
     setVisibleBillingAddress(!event.target.checked);
   };
 
@@ -246,11 +247,11 @@ export const RegistrationForm = () => {
             <Input className="form-item-address" variant="underlined" placeholder="postal code" />
           </Form.Item>
 
-          <Form.Item name="defaultShippingAddressChecker">
+          <Form.Item name="defaultShippingAddressChecker" valuePropName="checked">
             <Checkbox className="form-item-checker"> as shipping default address </Checkbox>
           </Form.Item>
-          <Form.Item name="defaultShippingBillingAddressChecker">
-            <Checkbox className="form-item-checker" onChange={onChangeDefaultShippingAndBillingAddress}>
+          <Form.Item name="theSameShippingBillingAddressChecker" valuePropName="checked">
+            <Checkbox className="form-item-checker" onChange={onChangeShippingAndBillingAddress}>
               as the same address for billing and shipping
             </Checkbox>
           </Form.Item>
@@ -299,7 +300,7 @@ export const RegistrationForm = () => {
                 <Input className="form-item-address" variant="underlined" placeholder="postal code" />
               </Form.Item>
 
-              <Form.Item name="defaultBillingAddressChecker">
+              <Form.Item name="defaultBillingAddressChecker" valuePropName="checked">
                 <Checkbox className="form-item-checker">as billing default address</Checkbox>
               </Form.Item>
             </Flex>

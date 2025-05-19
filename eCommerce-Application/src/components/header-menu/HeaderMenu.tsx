@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
@@ -9,8 +9,7 @@ import { useAuth } from '../../AuthProvider';
 
 const noSelectedKey: string = '';
 
-
-export default function HeaderMenu({ isHorizontal = false, itemsClassName = ''}) {
+export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);

@@ -22,7 +22,7 @@ import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/common';
 import { singUp } from '../../api/customer/create-customer';
 import { checkingError } from '../../api/handleError/checking-errors';
-import { useAuth } from '../../app/AuthProvider';
+import { useAuth } from '../../utils/hooks';
 
 const { Title } = Typography;
 

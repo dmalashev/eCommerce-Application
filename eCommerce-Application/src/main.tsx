@@ -8,3 +8,8 @@ createRoot(document.querySelector('body')!).render(
     <App />
   </AuthProvider>,
 );
+createRoot(document.querySelector('body')!).render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+);

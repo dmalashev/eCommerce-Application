@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
@@ -8,7 +9,8 @@ import { useAuth } from '../../app/AuthProvider';
 
 const noSelectedKey: string = '';
 
-export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }) {
+
+export default function HeaderMenu({ isHorizontal = false, itemsClassName = ''}) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);
@@ -69,6 +71,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
       ></Menu>
       <Flex gap="small" vertical={!isHorizontal} className={itemsClassName}>
         <Button type="default" icon={<LoginOutlined />} onClick={onClickLogin}>
+          {isLoggedIn ? 'Log out' : 'Log in'}
           {isLoggedIn ? 'Log out' : 'Log in'}
         </Button>
         <Button type="primary" icon={<UserAddOutlined />} onClick={onClickRegistration}>

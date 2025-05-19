@@ -18,7 +18,7 @@ export const LoginForm = () => {
     console.log('Success:', values);
     const valuesObject: CustomerDraft = form.getFieldsValue();
     login(valuesObject)
-      .then((response) => {
+      .then(() => {
         success();
         setTimeout(() => {
           navigate('/');

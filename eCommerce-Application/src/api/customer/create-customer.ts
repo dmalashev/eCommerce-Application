@@ -6,13 +6,14 @@ import {
   BaseAddress,
   createApiBuilderFromCtpClient,
   CustomerSignInResult,
+  ErrorResponse,
   MyCustomerDraft,
 } from '@commercetools/platform-sdk';
 import { login } from './autorizate-customer';
+import { checkingError } from '../handleError/checking-errors';
 
 export async function singUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
   const customer: MyCustomerDraft = createdCustomer(object);
-  console.log('creaTED CUSTOMER');
   try {
     const client: Client = clientBuilder
       .withProjectKey(projectKey)
@@ -28,9 +29,11 @@ export async function singUp(object: Record<string, string>): Promise<ClientResp
       .post({ body: customer })
       .execute();
     await login(customer);
+
     return response;
-  } catch (error: Error | any) {
-    return Promise.reject(error);
+  } catch (error) {
+    checkingError(error as ErrorResponse);
+    throw error;
   }
 }
 
@@ -73,5 +76,5 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     defaultShippingAddress: arrayAddresses.indexOf(shippingAddress),
     defaultBillingAddress: arrayAddresses.indexOf(billingAddress),
   };
-  return Object.fromEntries(Object.entries(customerDraft).filter(([_, value]) => value !== -1)) as MyCustomerDraft;
+  return Object.fromEntries(Object.entries(customerDraft).filter((entry) => entry[1] !== -1)) as MyCustomerDraft;
 };

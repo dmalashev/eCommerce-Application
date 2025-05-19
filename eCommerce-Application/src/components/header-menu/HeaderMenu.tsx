@@ -4,12 +4,11 @@ import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
-import { useAuth } from '../../AuthProvider';
+import { useAuth } from '../../app/AuthProvider';
 
 const noSelectedKey: string = '';
 
-
-export default function HeaderMenu({ isHorizontal = false, itemsClassName = ''}) {
+export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);
@@ -18,7 +17,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = ''})
     setMenuKey((previousKey) => previousKey + 1);
   };
   const auth = useAuth();
-  const isLoggedIn = auth?.isLoggedIn ?? false
+  const isLoggedIn = auth?.isLoggedIn ?? false;
   const navItems: {
     home: PageRoutes;
     catalog: PageRoutes;

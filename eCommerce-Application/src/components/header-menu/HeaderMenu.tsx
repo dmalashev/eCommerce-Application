@@ -19,7 +19,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
   };
   const auth = useAuth();
   const isLoggedIn = auth?.isLoggedIn ?? false;
-  
+
   const navItems: {
     home: PageRoutes;
     catalog: PageRoutes;

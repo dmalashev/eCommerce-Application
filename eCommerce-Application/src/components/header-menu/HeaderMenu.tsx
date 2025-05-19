@@ -4,6 +4,7 @@ import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
+import { logout } from '../../api/customer/logout';
 
 const noSelectedKey: string = '';
 
@@ -48,6 +49,11 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
   const onClickLogin = (): void => {
     refreshMenu();
     navigate(PageRoutes.LOGIN);
+  };
+
+  const onClickLogOut = (): void => {
+    logout();
+    navigate(PageRoutes.MAIN);
   };
 
   const onClickRegistration = (): void => {

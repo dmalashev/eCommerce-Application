@@ -6,35 +6,28 @@ import {
   BaseAddress,
   createApiBuilderFromCtpClient,
   CustomerSignInResult,
-  ErrorResponse,
   MyCustomerDraft,
 } from '@commercetools/platform-sdk';
 import { login } from './autorizate-customer';
-import { checkingError } from '../handleError/checking-errors';
 
 export async function singUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
   const customer: MyCustomerDraft = createdCustomer(object);
-  try {
-    const client: Client = clientBuilder
-      .withProjectKey(projectKey)
-      .withClientCredentialsFlow(authMiddleware)
-      .withHttpMiddleware(httpMiddleware)
-      .build();
+  const client: Client = clientBuilder
+    .withProjectKey(projectKey)
+    .withClientCredentialsFlow(authMiddleware)
+    .withHttpMiddleware(httpMiddleware)
+    .build();
 
-    const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
-    const response: ClientResponse<CustomerSignInResult> = await apiRoot
-      .withProjectKey({ projectKey })
-      .me()
-      .signup()
-      .post({ body: customer })
-      .execute();
-    await login(customer);
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
+  const response: ClientResponse<CustomerSignInResult> = await apiRoot
+    .withProjectKey({ projectKey })
+    .me()
+    .signup()
+    .post({ body: customer })
+    .execute();
+  await login(customer);
 
-    return response;
-  } catch (error) {
-    checkingError(error as ErrorResponse);
-    throw error;
-  }
+  return response;
 }
 
 export const createdCustomer = (object: Record<string, string>): MyCustomerDraft => {

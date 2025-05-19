@@ -7,19 +7,23 @@ import './login-form.css';
 import { login } from '../../api/customer/autorizate-customer';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { checkingError } from '../../api/handleError/checking-errors';
+import { useAuth } from '../../AuthProvider';
 
 const { Title } = Typography;
 export const LoginForm = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
+  const auth = useAuth();
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
     const valuesObject: CustomerDraft = form.getFieldsValue();
     login(valuesObject)
       .then((response) => {
         success();
+        if (auth && auth.setIsLoggedIn) {
+          auth.setIsLoggedIn(true);
+        }
         setTimeout(() => {
           navigate('/');
         }, 1000);

@@ -53,7 +53,6 @@ export const RegistrationForm = () => {
     const valuesObject: Record<string, string> = form.getFieldsValue();
     singUp(valuesObject)
       .then((response) => {
-        console.log(response);
         success();
         setTimeout(() => {
           navigate('/')

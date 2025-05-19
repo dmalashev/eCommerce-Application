@@ -10,7 +10,7 @@ import { useAuth } from '../../AuthProvider';
 const noSelectedKey: string = '';
 
 
-export default function HeaderMenu({ isHorizontal = false, itemsClassName = '', isLoggedIn = false }) {
+export default function HeaderMenu({ isHorizontal = false, itemsClassName = ''}) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuKey, setMenuKey] = useState(0);

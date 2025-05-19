@@ -64,7 +64,7 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     lastName: object.lastName,
     email: object.email,
     password: object.password,
-    dateOfBirth: new Date(object.date).toISOString().split('T')[0],
+    dateOfBirth: new Date(object.date).toLocaleDateString('sv-SE'),
     addresses: arrayAddresses,
     defaultShippingAddress: arrayAddresses.indexOf(shippingAddress),
     defaultBillingAddress: arrayAddresses.indexOf(billingAddress),

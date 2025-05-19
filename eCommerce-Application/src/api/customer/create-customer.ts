@@ -1,10 +1,5 @@
 import { Client, ClientResponse } from '@commercetools/ts-client';
-import {
-  projectKey,
-  client as clientBuilder,
-  httpMiddleware,
-  authMiddleware,
-} from '../client/client';
+import { projectKey, client as clientBuilder, httpMiddleware, authMiddleware } from '../client/client';
 
 import {
   ApiRoot,

@@ -4,6 +4,8 @@ import { PageRoutes } from '../../utils/page-routes';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
+import { logout } from '../../api/customer/logout';
+import { useAuth } from '../../utils/hooks';
 
 const noSelectedKey: string = '';
 
@@ -15,6 +17,8 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
   const refreshMenu = (): void => {
     setMenuKey((previousKey) => previousKey + 1);
   };
+  const auth = useAuth();
+  const isLoggedIn = auth?.isLoggedIn ?? false;
 
   const navItems: {
     home: PageRoutes;
@@ -50,6 +54,11 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
     navigate(PageRoutes.LOGIN);
   };
 
+  const onClickLogOut = (): void => {
+    logout();
+    navigate(PageRoutes.MAIN);
+  };
+
   const onClickRegistration = (): void => {
     refreshMenu();
     navigate(PageRoutes.REGISTRATION);
@@ -67,7 +76,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
       ></Menu>
       <Flex gap="small" vertical={!isHorizontal} className={itemsClassName}>
         <Button type="default" icon={<LoginOutlined />} onClick={onClickLogin}>
-          Log In
+          {isLoggedIn ? 'Log out' : 'Log in'}
         </Button>
         <Button type="primary" icon={<UserAddOutlined />} onClick={onClickRegistration}>
           Sign Up

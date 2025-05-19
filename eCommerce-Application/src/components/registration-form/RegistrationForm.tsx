@@ -22,6 +22,7 @@ import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/common';
 import { singUp } from '../../api/customer/create-customer';
 import { checkingError } from '../../api/handleError/checking-errors';
+import { useAuth } from '../../utils/hooks';
 
 const { Title } = Typography;
 
@@ -47,14 +48,19 @@ export const RegistrationForm = () => {
   const [isVisibleBillingAddress, setVisibleBillingAddress] = React.useState(true);
   const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
-
+  const auth = useAuth();
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
     const valuesObject: Record<string, string> = form.getFieldsValue();
     singUp(valuesObject)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         success();
+        if (auth && auth.setIsLoggedIn) {
+          auth.setIsLoggedIn(true);
+        }
+        if (auth && auth.setIsLoggedIn) {
+          auth.setIsLoggedIn(true);
+        }
         setTimeout(() => {
           navigate('/');
         }, 1000);

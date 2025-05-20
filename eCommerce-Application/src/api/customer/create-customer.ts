@@ -60,9 +60,12 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
         postalCode: object?.billingPostalcode,
       };
 
-  const arrayAddresses: BaseAddress[] = [billingAddress, shippingAddress].filter((object_) =>
-    Object.values(object_).every((value) => value !== undefined),
-  );
+  const arrayAddresses: BaseAddress[] = [shippingAddress];
+  if (!object?.theSameShippingBillingAddressChecker) {
+    arrayAddresses.push(billingAddress);
+  }
+
+  arrayAddresses.filter((object_) => Object.values(object_).every((value) => value !== undefined));
 
   const customerDraft: MyCustomerDraft = {
     firstName: object.name,
@@ -71,6 +74,8 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     password: object.password,
     dateOfBirth: new Date(object.date).toLocaleDateString('sv-SE'),
     addresses: arrayAddresses,
+    shippingAddresses: [arrayAddresses.indexOf(shippingAddress)],
+    billingAddresses: [arrayAddresses.indexOf(billingAddress)],
     ...(object?.defaultShippingAddressChecker && { defaultShippingAddress: arrayAddresses.indexOf(shippingAddress) }),
     ...((object?.defaultBillingAddressChecker ||
       (object?.defaultShippingAddressChecker && object?.theSameShippingBillingAddressChecker)) && {

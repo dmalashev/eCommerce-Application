@@ -181,6 +181,10 @@ export const RegistrationForm = () => {
             rules={[
               { required: true, message: 'Please, type password' },
               {
+                pattern: new RegExp(/^(?!\s)(?!.*\s$).+/),
+                message: 'Please, delete leading or trailing spaces',
+              },
+              {
                 pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
                 message:
                   'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',

@@ -39,14 +39,6 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     USA: 'US',
   };
 
-  const billingAddress: BaseAddress = {
-    city: object?.billingCity,
-    country: countryMap[object?.billingCountry],
-    firstName: object?.name,
-    lastName: object?.lastName,
-    streetName: object?.billingStreet,
-    postalCode: object?.billingPostalcode,
-  };
   const shippingAddress: BaseAddress = {
     city: object?.shippingCity,
     country: countryMap[object?.shippingCountry],
@@ -55,9 +47,24 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     streetName: object?.shippingStreet,
     postalCode: object?.shippingPostalcode,
   };
-  const arrayAddresses: BaseAddress[] = [billingAddress, shippingAddress].filter((object_) =>
-    Object.values(object_).every((value) => value !== undefined),
-  );
+
+  const billingAddress: BaseAddress = object?.theSameShippingBillingAddressChecker
+    ? shippingAddress
+    : {
+        city: object?.billingCity,
+        country: countryMap[object?.billingCountry],
+        firstName: object?.name,
+        lastName: object?.lastName,
+        streetName: object?.billingStreet,
+        postalCode: object?.billingPostalcode,
+      };
+
+  const arrayAddresses: BaseAddress[] = [shippingAddress];
+  if (!object?.theSameShippingBillingAddressChecker) {
+    arrayAddresses.push(billingAddress);
+  }
+
+  arrayAddresses.filter((object_) => Object.values(object_).every((value) => value !== undefined));
 
   const customerDraft: MyCustomerDraft = {
     firstName: object.name,
@@ -66,8 +73,14 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     password: object.password,
     dateOfBirth: new Date(object.date).toLocaleDateString('sv-SE'),
     addresses: arrayAddresses,
-    defaultShippingAddress: arrayAddresses.indexOf(shippingAddress),
-    defaultBillingAddress: arrayAddresses.indexOf(billingAddress),
+    shippingAddresses: [arrayAddresses.indexOf(shippingAddress)],
+    billingAddresses: [arrayAddresses.indexOf(billingAddress)],
+    ...(object?.defaultShippingAddressChecker && { defaultShippingAddress: arrayAddresses.indexOf(shippingAddress) }),
+    ...((object?.defaultBillingAddressChecker ||
+      (object?.defaultShippingAddressChecker && object?.theSameShippingBillingAddressChecker)) && {
+      defaultBillingAddress: arrayAddresses.indexOf(billingAddress),
+    }),
   };
+
   return Object.fromEntries(Object.entries(customerDraft).filter((entry) => entry[1] !== -1)) as MyCustomerDraft;
 };

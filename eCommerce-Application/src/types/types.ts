@@ -14,7 +14,7 @@ export type FieldType = {
   billingPostalcode?: string;
   defaultShippingAddressChecker?: boolean;
   defaultBillingAddressChecker?: boolean;
-  defaultShippingBillingAddressChecker?: boolean;
+  theSameShippingBillingAddressChecker?: boolean;
 };
 
 export type PostalCodeFormat = {

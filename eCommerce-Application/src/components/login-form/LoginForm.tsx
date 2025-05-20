@@ -15,8 +15,7 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const auth = useAuth();
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: CustomerDraft = form.getFieldsValue();
     login(valuesObject)
       .then(() => {
@@ -76,6 +75,10 @@ export const LoginForm = () => {
             name="password"
             rules={[
               { required: true, message: 'Please, type password' },
+              {
+                pattern: new RegExp(/^(?!\s)(?!.*\s$).+/),
+                message: 'Please, delete leading or trailing spaces',
+              },
               {
                 pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
                 message:

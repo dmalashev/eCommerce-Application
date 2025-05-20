@@ -15,8 +15,7 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const auth = useAuth();
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: CustomerDraft = form.getFieldsValue();
     login(valuesObject)
       .then(() => {

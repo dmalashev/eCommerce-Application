@@ -73,8 +73,6 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     password: object.password,
     dateOfBirth: new Date(object.date).toLocaleDateString('sv-SE'),
     addresses: arrayAddresses,
-    shippingAddresses: [arrayAddresses.indexOf(shippingAddress)],
-    billingAddresses: [arrayAddresses.indexOf(billingAddress)],
     ...(object?.defaultShippingAddressChecker && { defaultShippingAddress: arrayAddresses.indexOf(shippingAddress) }),
     ...((object?.defaultBillingAddressChecker ||
       (object?.defaultShippingAddressChecker && object?.theSameShippingBillingAddressChecker)) && {

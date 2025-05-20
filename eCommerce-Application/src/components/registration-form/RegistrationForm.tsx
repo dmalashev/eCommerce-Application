@@ -51,7 +51,6 @@ export const RegistrationForm = () => {
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
     const valuesObject: Record<string, string> = form.getFieldsValue();
-    console.log(valuesObject);
     singUp(valuesObject)
       .then((response) => {
         console.log(response);

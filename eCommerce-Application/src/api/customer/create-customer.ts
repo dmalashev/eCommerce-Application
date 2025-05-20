@@ -48,7 +48,6 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     postalCode: object?.shippingPostalcode,
   };
 
-  console.log('ths same = ' + object?.theSameShippingBillingAddressChecker);
   const billingAddress: BaseAddress = object?.theSameShippingBillingAddressChecker
     ? shippingAddress
     : {

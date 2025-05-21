@@ -1,3 +1,5 @@
+import { MyCustomerDraft } from '@commercetools/platform-sdk';
+
 export type FieldType = {
   name?: string;
   lastName?: string;
@@ -21,3 +23,8 @@ export type PostalCodeFormat = {
   pattern: RegExp;
   message: string;
 };
+
+export interface MyCustomerDraftExtended extends MyCustomerDraft {
+  shippingAddresses?: Array<number>;
+  billingAddresses?: Array<number>;
+}

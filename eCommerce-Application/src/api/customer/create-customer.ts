@@ -9,6 +9,7 @@ import {
   MyCustomerDraft,
 } from '@commercetools/platform-sdk';
 import { login } from './autorizate-customer';
+import { MyCustomerDraftExtended } from '../../types/types';
 
 export async function singUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
   const customer: MyCustomerDraft = createdCustomer(object);
@@ -66,13 +67,15 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
 
   arrayAddresses.filter((object_) => Object.values(object_).every((value) => value !== undefined));
 
-  const customerDraft: MyCustomerDraft = {
+  const customerDraft: MyCustomerDraftExtended = {
     firstName: object.name,
     lastName: object.lastName,
     email: object.email,
     password: object.password,
     dateOfBirth: new Date(object.date).toLocaleDateString('sv-SE'),
     addresses: arrayAddresses,
+    shippingAddresses: [arrayAddresses.indexOf(shippingAddress)],
+    billingAddresses: [arrayAddresses.indexOf(billingAddress)],
     ...(object?.defaultShippingAddressChecker && { defaultShippingAddress: arrayAddresses.indexOf(shippingAddress) }),
     ...((object?.defaultBillingAddressChecker ||
       (object?.defaultShippingAddressChecker && object?.theSameShippingBillingAddressChecker)) && {
@@ -80,5 +83,7 @@ export const createdCustomer = (object: Record<string, string>): MyCustomerDraft
     }),
   };
 
-  return Object.fromEntries(Object.entries(customerDraft).filter((entry) => entry[1] !== -1)) as MyCustomerDraft;
+  return Object.fromEntries(
+    Object.entries(customerDraft).filter((entry) => entry[1] !== -1),
+  ) as MyCustomerDraftExtended;
 };

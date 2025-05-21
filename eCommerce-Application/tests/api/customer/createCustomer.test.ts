@@ -71,6 +71,6 @@ describe('createdCustomer', () => {
 
     const result: MyCustomerDraft = createdCustomer(input);
 
-    expect(result.dateOfBirth).toBe('1990-01-01'); 
+    expect(result.dateOfBirth).toBe('1990-01-01');
   });
 });

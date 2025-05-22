@@ -20,5 +20,9 @@ export default defineConfig({
     setupFiles: './src/setup-tests.ts',
     exclude: [...configDefaults.exclude],
     passWithNoTests: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text'],
+    },
   },
 });

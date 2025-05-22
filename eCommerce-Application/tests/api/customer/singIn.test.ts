@@ -72,7 +72,7 @@ describe('login()', () => {
     expect(result.token).toBeDefined();
     expect(typeof result.token.token).toBe('string');
   });
-  
+
   test('should throw error if email or password is missing', async () => {
     await expect(login({ email: '', password: '' })).rejects.toThrow('Customer email and password are required.');
   });

@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { singUp } from '../../../src/api/customer/create-customer';
 import { login } from '../../../src/api/customer/autorizate-customer';
 
-vi.mock('../client/client', () => ({
+vi.mock('../../../src/api/client', () => ({
   client: {
     withProjectKey: vi.fn(() => ({
       withClientCredentialsFlow: vi.fn(() => ({

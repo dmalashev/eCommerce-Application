@@ -12,6 +12,9 @@ export default defineConfig({
         lintCommand: 'eslint "./src/**/*.{ts,tsx,js}"',
         useFlatConfig: true,
       },
+      stylelint: {
+        lintCommand: 'stylelint ./src/**/*.css',
+      },
     }),
   ],
   test: {

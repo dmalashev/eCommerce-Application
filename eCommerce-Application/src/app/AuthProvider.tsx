@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState, ReactNode } from 'react';
+import { StorageTokenKeys } from '../types/enums';
 
 export type AuthContextType = {
   isLoggedIn: boolean;
@@ -11,7 +12,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
     if (token) {
       setIsLoggedIn(true);
     }

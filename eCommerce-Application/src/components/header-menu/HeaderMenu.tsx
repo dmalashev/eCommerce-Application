@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { PageRoutes } from '../../utils/page-routes';
+import { PageRoutes } from '../../types/page-routes';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, LogoutOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import { logout } from '../../api/customer/logout';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 
 const noSelectedKey: string = '';
 

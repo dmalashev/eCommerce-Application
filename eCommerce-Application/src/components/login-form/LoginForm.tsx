@@ -1,13 +1,13 @@
 import { Button, Flex, Form, FormProps, Input, message, Typography } from 'antd';
 import { FieldType } from '../../types/types';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { PageRoutes } from '../../utils/page-routes';
+import { PageRoutes } from '../../types/page-routes';
 import { useNavigate } from 'react-router';
 import './login-form.css';
 import { login } from '../../api/customer/autorizate-customer';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { checkingError } from '../../api/handleError/checking-errors';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 
 const { Title } = Typography;
 export const LoginForm = () => {

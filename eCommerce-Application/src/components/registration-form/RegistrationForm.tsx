@@ -2,7 +2,7 @@ import './registration-form.css';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { countries } from '../../utils/countries';
-import { PageRoutes } from '../../utils/page-routes';
+import { PageRoutes } from '../../types/page-routes';
 import {
   Button,
   Checkbox,
@@ -19,10 +19,10 @@ import {
 } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType, PostalCodeFormat } from '../../types/types';
-import { isOlderThan13 } from '../../utils/common';
+import { isOlderThan13 } from '../../utils/is-older-than-13';
 import { singUp } from '../../api/customer/create-customer';
 import { checkingError } from '../../api/handleError/checking-errors';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 
 const { Title } = Typography;
 

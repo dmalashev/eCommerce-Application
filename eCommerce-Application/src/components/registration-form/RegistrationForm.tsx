@@ -1,7 +1,7 @@
 import './registration-form.css';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { countries } from '../../utils/countries';
+import { Countries } from '../../types/countries';
 import { PageRoutes } from '../../types/page-routes';
 import {
   Button,
@@ -40,6 +40,8 @@ enum PostalCodePattern {
   RUSSIA = '^(?=.\\d).{6}$',
   USA = '^(?=.*\\d).{5}$',
 }
+
+const countriesNames: Countries[] = Object.values(Countries);
 
 export const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -244,7 +246,7 @@ export const RegistrationForm = () => {
               variant="underlined"
               placeholder="country"
             >
-              {countries.map((country, index) => (
+              {countriesNames.map((country, index) => (
                 <Select.Option key={index} value={country}>
                   {country}
                 </Select.Option>
@@ -297,7 +299,7 @@ export const RegistrationForm = () => {
                   variant="underlined"
                   placeholder="country"
                 >
-                  {countries.map((country, index) => (
+                  {countriesNames.map((country, index) => (
                     <Select.Option key={index} value={country}>
                       {country}
                     </Select.Option>

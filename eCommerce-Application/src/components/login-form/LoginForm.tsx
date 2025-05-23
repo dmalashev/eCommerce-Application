@@ -68,7 +68,7 @@ export const LoginForm = () => {
               { pattern: new RegExp(/^([\w.*-]+@([\w-]+\.)+[\w-]{2,4})?$/), message: 'Wrong email format' },
             ]}
           >
-            <Input className="form-item" variant="underlined" placeholder="email" />
+            <Input className="form-item" variant="underlined" placeholder="email" data-testid="email-input" />
           </Form.Item>
 
           <Form.Item

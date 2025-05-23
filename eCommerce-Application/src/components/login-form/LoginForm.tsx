@@ -27,7 +27,7 @@ export const LoginForm = () => {
           auth.setIsLoggedIn(true);
         }
         setTimeout(() => {
-          navigate('/');
+          navigate(PageRoutes.MAIN);
         }, 1000);
       })
       .catch((error_) => error(checkingError(error_)));

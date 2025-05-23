@@ -1,7 +1,7 @@
 import { Button, Flex, Form, FormProps, Input, message, Typography } from 'antd';
 import { FieldType } from '../../types/types';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { PageRoutes } from '../../types/page-routes';
+import { PageRoutes } from '../../types/enums';
 import { useNavigate } from 'react-router';
 import './login-form.css';
 import { login } from '../../api/customer/autorizate-customer';

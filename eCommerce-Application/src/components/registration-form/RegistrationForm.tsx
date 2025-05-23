@@ -1,8 +1,7 @@
 import './registration-form.css';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { Countries } from '../../types/countries';
-import { PageRoutes } from '../../types/page-routes';
+import { PageRoutes, Countries } from '../../types/enums';
 import {
   Button,
   Checkbox,

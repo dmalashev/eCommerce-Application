@@ -1,7 +1,7 @@
 import { FrownOutlined } from '@ant-design/icons';
 import { Button, Flex, Typography } from 'antd';
 import { useNavigate } from 'react-router';
-import { PageRoutes } from '../../types/page-routes';
+import { PageRoutes } from '../../types/enums';
 
 const { Title, Text } = Typography;
 

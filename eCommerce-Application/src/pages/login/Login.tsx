@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router';
 import { LoginForm } from '../../components/login-form/LoginForm';
 import { useAuth } from '../../hooks/hooks';
-import { PageRoutes } from '../../types/page-routes';
+import { PageRoutes } from '../../types/enums';
 
 export default function Login() {
   const auth = useAuth();

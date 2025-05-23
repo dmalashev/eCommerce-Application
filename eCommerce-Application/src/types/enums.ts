@@ -5,3 +5,8 @@ export const enum PageRoutes {
   CATALOG = '/catalog',
   NOT_FOUND = '*',
 }
+
+export enum Countries {
+  RUSSIA = 'Russia',
+  USA = 'USA',
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { PageRoutes } from '../../types/page-routes';
+import { PageRoutes } from '../../types/enums';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, LogoutOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';

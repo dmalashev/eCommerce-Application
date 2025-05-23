@@ -20,7 +20,7 @@ import {
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/is-older-than-13';
-import { singUp } from '../../api/customer/create-customer';
+import { signUp } from '../../api/customer/create-customer';
 import { checkingError } from '../../api/handleError/checking-errors';
 import { useAuth } from '../../hooks/hooks';
 
@@ -51,9 +51,11 @@ export const RegistrationForm = () => {
   const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const auth = useAuth();
+
   const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: Record<string, string> = form.getFieldsValue();
-    singUp(valuesObject)
+
+    signUp(valuesObject)
       .then(() => {
         success();
         if (auth && auth.setIsLoggedIn) {

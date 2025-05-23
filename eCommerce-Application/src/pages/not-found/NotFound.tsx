@@ -7,6 +7,7 @@ const { Title, Text } = Typography;
 
 export default function NotFound() {
   const navigate = useNavigate();
+
   return (
     <Flex vertical justify="center" align="center" gap="middle">
       <Title level={2}>

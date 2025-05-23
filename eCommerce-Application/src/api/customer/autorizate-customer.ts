@@ -18,14 +18,17 @@ import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetool
 
 export async function login(customer: CustomerDraft) {
   const { email, password } = customer;
+
   let token: TokenStore = {
     token: localStorage.getItem('token') || '',
     expirationTime: Number(localStorage.getItem('token_expiration') || 0),
     refreshToken: localStorage.getItem('refresh_token') || '',
   };
+
   if (!email || !password) {
     throw new Error('Customer email and password are required.');
   }
+
   const optionsPasswordFlow = (email: string, password: string): PasswordAuthMiddlewareOptions => {
     return {
       host: authUrl,
@@ -57,9 +60,9 @@ export async function login(customer: CustomerDraft) {
   const client: Client = clientBuilder
     .withProjectKey(projectKey)
     .withPasswordFlow(optionsPasswordFlow(email, password!))
-
     .withHttpMiddleware(httpMiddleware)
     .build();
+
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
@@ -71,6 +74,6 @@ export async function login(customer: CustomerDraft) {
 
   return {
     customer: response, //  Customer object
-    token, //  token
+    token, //  Token
   };
 }

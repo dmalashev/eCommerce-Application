@@ -10,13 +10,16 @@ import { checkingError } from '../../api/handleError/checking-errors';
 import { useAuth } from '../../hooks/hooks';
 
 const { Title } = Typography;
+
 export const LoginForm = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const auth = useAuth();
+
   const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: CustomerDraft = form.getFieldsValue();
+
     login(valuesObject)
       .then(() => {
         success();

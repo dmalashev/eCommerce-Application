@@ -19,6 +19,7 @@ beforeAll(() => {
   });
 });
 
+// email input
 describe('EmailInput', () => {
   it('should render and accept input', () => {
     renderWithRouter(<LoginForm />);
@@ -86,6 +87,104 @@ describe('EmailInput', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Please, type your email address')).toBeInTheDocument();
+    });
+  });
+});
+
+// password input
+describe('PasswordInput', () => {
+  it('should render and accept input', () => {
+    renderWithRouter(<LoginForm />);
+
+    const passwordInput = screen.getByTestId('password-input') as HTMLInputElement;
+    expect(passwordInput.value).toBe('');
+
+    passwordInput.value = 'Password1';
+    passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+    expect(passwordInput.value).toBe('Password1');
+  });
+
+  it('shows error message for invalid password', async () => {
+    renderWithRouter(<LoginForm />);
+
+    const passwordInput = screen.getByTestId('password-input') as HTMLInputElement;
+    expect(passwordInput.value).toBe('');
+
+    fireEvent.change(passwordInput, { target: { value: 'passWithoutNumber' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
+        ),
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(passwordInput, { target: { value: 'passwithoutuppercase1' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
+        ),
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(passwordInput, { target: { value: 'PASSWITHOUTLOWERCASE1' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('shows error message for password with trailing or leading spaces', async () => {
+    renderWithRouter(<LoginForm />);
+
+    const passwordInput = screen.getByTestId('password-input') as HTMLInputElement;
+    expect(passwordInput.value).toBe('');
+
+    fireEvent.change(passwordInput, { target: { value: ' Password1 ' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(screen.getByText('Please, delete leading or trailing spaces')).toBeInTheDocument();
+    });
+
+    fireEvent.change(passwordInput, { target: { value: ' Password1' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(screen.getByText('Please, delete leading or trailing spaces')).toBeInTheDocument();
+    });
+
+    fireEvent.change(passwordInput, { target: { value: 'Password1 ' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(screen.getByText('Please, delete leading or trailing spaces')).toBeInTheDocument();
+    });
+  });
+
+  it('shows error message for empty password', async () => {
+    renderWithRouter(<LoginForm />);
+
+    const passwordInput = screen.getByTestId('password-input') as HTMLInputElement;
+    expect(passwordInput.value).toBe('');
+
+    fireEvent.change(passwordInput, { target: { value: ' ' } });
+    fireEvent.change(passwordInput, { target: { value: '' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(screen.getByText('Please, type password')).toBeInTheDocument();
     });
   });
 });

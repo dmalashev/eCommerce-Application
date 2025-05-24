@@ -97,6 +97,7 @@ export const LoginForm = () => {
               className="form-item"
               variant="underlined"
               placeholder="password"
+              data-testid="password-input"
               iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
             />
           </Form.Item>

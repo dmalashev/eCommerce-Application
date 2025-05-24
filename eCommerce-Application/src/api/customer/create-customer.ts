@@ -1,6 +1,5 @@
 import { Client, ClientResponse } from '@commercetools/ts-client';
 import { projectKey, client as clientBuilder, httpMiddleware, authMiddleware } from '../client/client';
-
 import {
   ApiRoot,
   BaseAddress,
@@ -11,7 +10,7 @@ import {
 import { login } from './autorizate-customer';
 import { MyCustomerDraftExtended } from '../../types/types';
 
-export async function singUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
+export async function signUp(object: Record<string, string>): Promise<ClientResponse<CustomerSignInResult>> {
   const customer: MyCustomerDraft = createdCustomer(object);
   const client: Client = clientBuilder
     .withProjectKey(projectKey)
@@ -20,12 +19,14 @@ export async function singUp(object: Record<string, string>): Promise<ClientResp
     .build();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
+
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .signup()
     .post({ body: customer })
     .execute();
+
   await login(customer);
 
   return response;

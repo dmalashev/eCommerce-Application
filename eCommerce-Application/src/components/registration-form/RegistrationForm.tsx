@@ -1,8 +1,7 @@
 import './registration-form.css';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { countries } from '../../utils/countries';
-import { PageRoutes } from '../../utils/page-routes';
+import { PageRoutes, Countries } from '../../types/enums';
 import {
   Button,
   Checkbox,
@@ -18,10 +17,10 @@ import {
   Typography,
 } from 'antd';
 import { FieldType, PostalCodeFormat } from '../../types/types';
-import { isOlderThan13 } from '../../utils/common';
-import { singUp } from '../../api/customer/create-customer';
+import { isOlderThan13 } from '../../utils/is-older-than-13';
+import { signUp } from '../../api/customer/create-customer';
 import { checkingError } from '../../api/handleError/checking-errors';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 import { EmailInput } from '../inputs/email-input/EmailInput';
 import { PasswordInput } from '../inputs/password-input/PasswordInput';
 
@@ -42,6 +41,8 @@ enum PostalCodePattern {
   USA = '^(?=.*\\d).{5}$',
 }
 
+const countriesNames: Countries[] = Object.values(Countries);
+
 export const RegistrationForm = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -50,9 +51,11 @@ export const RegistrationForm = () => {
   const [shippingPostalCodeFormat, setShippingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const [billingPostalCodeFormat, setBillingPostalCodeFormat] = React.useState<PostalCodeFormat>();
   const auth = useAuth();
+
   const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: Record<string, string> = form.getFieldsValue();
-    singUp(valuesObject)
+
+    signUp(valuesObject)
       .then(() => {
         success();
         if (auth && auth.setIsLoggedIn) {
@@ -62,7 +65,7 @@ export const RegistrationForm = () => {
           auth.setIsLoggedIn(true);
         }
         setTimeout(() => {
-          navigate('/');
+          navigate(PageRoutes.MAIN);
         }, 1000);
       })
       .catch((error_) => error(checkingError(error_)));
@@ -208,7 +211,7 @@ export const RegistrationForm = () => {
               variant="underlined"
               placeholder="country"
             >
-              {countries.map((country, index) => (
+              {countriesNames.map((country, index) => (
                 <Select.Option key={index} value={country}>
                   {country}
                 </Select.Option>
@@ -261,7 +264,7 @@ export const RegistrationForm = () => {
                   variant="underlined"
                   placeholder="country"
                 >
-                  {countries.map((country, index) => (
+                  {countriesNames.map((country, index) => (
                     <Select.Option key={index} value={country}>
                       {country}
                     </Select.Option>

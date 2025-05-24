@@ -6,7 +6,7 @@ import NotFound from '../pages/not-found/NotFound';
 import Catalog from '../pages/catalog/Catalog';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
-import { PageRoutes } from '../utils/page-routes';
+import { PageRoutes } from '../types/enums';
 import { Layout } from 'antd';
 import { useState } from 'react';
 import BurgerMenu from '../components/burger-menu/BurgerMenu';

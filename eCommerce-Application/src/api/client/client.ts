@@ -7,9 +7,9 @@ const authUrl: string = import.meta.env.VITE_AUTH_URL;
 const apiUrl: string = import.meta.env.VITE_API_URL;
 const scopes: string = import.meta.env.VITE_SCOPES;
 
-const userScopesClientId = import.meta.env.VITE_USER_API_CLIENT_ID;
-const userScopesClientSecret = import.meta.env.VITE_USER_API_CLIENT_SECRET;
-const userScopes = import.meta.env.VITE_USER_API_SCOPES;
+const userScopesClientId: string = import.meta.env.VITE_USER_API_CLIENT_ID;
+const userScopesClientSecret: string = import.meta.env.VITE_USER_API_CLIENT_SECRET;
+const userScopes: string = import.meta.env.VITE_USER_API_SCOPES;
 
 // Authorization of the server application to create a user
 const authMiddleware: AuthMiddlewareOptions = {
@@ -22,13 +22,15 @@ const authMiddleware: AuthMiddlewareOptions = {
   scopes: scopes.split(','),
   httpClient: fetch,
 };
-// middleware for sending requests
+
+// Middleware for sending requests
 const httpMiddleware: HttpMiddlewareOptions = {
   host: apiUrl,
   includeOriginalRequest: true,
   includeRequestInErrorResponse: true,
   httpClient: fetch,
 };
+
 const client: ClientBuilder = new ClientBuilder();
 
 export {

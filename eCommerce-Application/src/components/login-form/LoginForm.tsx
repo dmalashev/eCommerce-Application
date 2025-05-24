@@ -1,23 +1,27 @@
 import { Button, Flex, Form, FormProps, message, Typography } from 'antd';
 import { FieldType } from '../../types/types';
-import { PageRoutes } from '../../utils/page-routes';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { PageRoutes } from '../../types/enums';
 import { useNavigate } from 'react-router';
 import './login-form.css';
 import { login } from '../../api/customer/autorizate-customer';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { checkingError } from '../../api/handleError/checking-errors';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 import { PasswordInput } from '../inputs/password-input/PasswordInput';
 import { EmailInput } from '../inputs/email-input/EmailInput';
 
 const { Title } = Typography;
+
 export const LoginForm = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const auth = useAuth();
+
   const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: CustomerDraft = form.getFieldsValue();
+
     login(valuesObject)
       .then(() => {
         success();
@@ -25,7 +29,7 @@ export const LoginForm = () => {
           auth.setIsLoggedIn(true);
         }
         setTimeout(() => {
-          navigate('/');
+          navigate(PageRoutes.MAIN);
         }, 1000);
       })
       .catch((error_) => error(checkingError(error_)));

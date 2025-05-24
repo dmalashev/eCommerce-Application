@@ -12,6 +12,9 @@ export default defineConfig({
         lintCommand: 'eslint "./src/**/*.{ts,tsx,js}"',
         useFlatConfig: true,
       },
+      stylelint: {
+        lintCommand: 'stylelint ./src/**/*.css',
+      },
     }),
   ],
   test: {
@@ -20,5 +23,9 @@ export default defineConfig({
     setupFiles: './src/setup-tests.ts',
     exclude: [...configDefaults.exclude],
     passWithNoTests: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text'],
+    },
   },
 });

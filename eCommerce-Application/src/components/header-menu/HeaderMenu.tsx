@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { PageRoutes } from '../../utils/page-routes';
+import { PageRoutes } from '../../types/enums';
 import { Menu, Button, Flex } from 'antd';
 import { LoginOutlined, LogoutOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import { logout } from '../../api/customer/logout';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 
-const noSelectedKey: string = '';
+const NO_SELECTED_KEY: string = '';
 
 export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }) {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
 
   const currentPath: string = location.pathname;
 
-  let selectedKey: string = noSelectedKey;
+  let selectedKey: string = NO_SELECTED_KEY;
 
   for (const [name, path] of Object.entries(navItems)) {
     if (path === currentPath) {
@@ -83,7 +83,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
           icon={isLoggedIn ? <LogoutOutlined /> : <LoginOutlined />}
           onClick={isLoggedIn ? onClickLogOut : onClickLogin}
         >
-          {isLoggedIn ? 'Log out' : 'Log in'}
+          {isLoggedIn ? 'Log Out' : 'Log In'}
         </Button>
         {isLoggedIn ? undefined : (
           <Button type="primary" icon={<UserAddOutlined />} onClick={onClickRegistration}>

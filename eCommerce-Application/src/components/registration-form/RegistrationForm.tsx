@@ -97,18 +97,22 @@ export const RegistrationForm = () => {
 
   const onCountryChange = (addressType: AddressType, value: string) => {
     let pattern: RegExp;
-    let message = '';
+
+    let message: string = '';
+
     switch (value) {
       case 'USA': {
         pattern = new RegExp(PostalCodePattern.USA);
         message = PostalCodeMessages.USA;
         break;
       }
+
       case 'Russia': {
         pattern = new RegExp(PostalCodePattern.RUSSIA);
         message = PostalCodeMessages.Russia;
         break;
       }
+
       default: {
         pattern = new RegExp(PostalCodePattern.USA);
         message = PostalCodeMessages.USA;

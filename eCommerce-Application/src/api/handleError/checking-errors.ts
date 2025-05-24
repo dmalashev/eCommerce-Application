@@ -1,7 +1,7 @@
 import type { ErrorResponse, ErrorObject } from '@commercetools/platform-sdk';
 
 export function checkingError(error: ErrorResponse): string {
-  let message = 'Undefined error';
+  let message: string = 'Undefined error';
 
   if (error.statusCode === 400 && error.errors) {
     for (const error_ of error.errors as ErrorObject[]) {
@@ -10,10 +10,12 @@ export function checkingError(error: ErrorResponse): string {
           message = error_.message;
           break;
         }
+
         case 'DuplicateField': {
           message = `${error_.message} Please log in or use another email address.`;
           break;
         }
+
         case 'InvalidOperation': {
           if (
             (error_.message.includes('email') && error_.message.includes('empty')) ||
@@ -23,12 +25,14 @@ export function checkingError(error: ErrorResponse): string {
           }
           break;
         }
+
         case 'InvalidJsonInput': {
           if (error_.message.includes('email') || error_.message.includes('password')) {
             message = 'Customer email and password are required.';
           }
           break;
         }
+
         default: {
           message = error_.message || message;
           break;

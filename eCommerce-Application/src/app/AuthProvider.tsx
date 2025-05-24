@@ -1,17 +1,12 @@
-import { createContext, useEffect, useState, ReactNode } from 'react';
-
-export type AuthContextType = {
-  isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
-};
-
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { useEffect, useState, ReactNode } from 'react';
+import { StorageTokenKeys } from '../types/enums';
+import { AuthContext } from './auth-context';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
     if (token) {
       setIsLoggedIn(true);
     }

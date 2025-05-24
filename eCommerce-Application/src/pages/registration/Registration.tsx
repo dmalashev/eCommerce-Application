@@ -1,7 +1,7 @@
 import { RegistrationForm } from '../../components/registration-form/RegistrationForm';
-import { useAuth } from '../../utils/hooks';
+import { useAuth } from '../../hooks/hooks';
 import { Navigate } from 'react-router';
-import { PageRoutes } from '../../utils/page-routes';
+import { PageRoutes } from '../../types/enums';
 
 export default function Registration() {
   const auth = useAuth();

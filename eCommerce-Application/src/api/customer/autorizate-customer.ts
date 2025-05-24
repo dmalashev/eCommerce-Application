@@ -15,17 +15,21 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
+import { StorageTokenKeys } from '../../types/enums';
 
 export async function login(customer: CustomerDraft) {
   const { email, password } = customer;
+
   let token: TokenStore = {
-    token: localStorage.getItem('token') || '',
-    expirationTime: Number(localStorage.getItem('token_expiration') || 0),
-    refreshToken: localStorage.getItem('refresh_token') || '',
+    token: localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN) || '',
+    expirationTime: Number(localStorage.getItem(StorageTokenKeys.TOKEN_EXPIRATION) || 0),
+    refreshToken: localStorage.getItem(StorageTokenKeys.REFRESH_TOKEN) || '',
   };
+
   if (!email || !password) {
     throw new Error('Customer email and password are required.');
   }
+
   const optionsPasswordFlow = (email: string, password: string): PasswordAuthMiddlewareOptions => {
     return {
       host: authUrl,
@@ -46,9 +50,9 @@ export async function login(customer: CustomerDraft) {
         },
         set(tokenObject: TokenStore): void {
           token = tokenObject;
-          localStorage.setItem('access_token', token.token);
-          localStorage.setItem('refresh_token', token.refreshToken!);
-          localStorage.setItem('token_expiration', String(token.expirationTime));
+          localStorage.setItem(StorageTokenKeys.ACCESS_TOKEN, token.token);
+          localStorage.setItem(StorageTokenKeys.REFRESH_TOKEN, token.refreshToken!);
+          localStorage.setItem(StorageTokenKeys.TOKEN_EXPIRATION, String(token.expirationTime));
         },
       },
     };
@@ -57,9 +61,9 @@ export async function login(customer: CustomerDraft) {
   const client: Client = clientBuilder
     .withProjectKey(projectKey)
     .withPasswordFlow(optionsPasswordFlow(email, password!))
-
     .withHttpMiddleware(httpMiddleware)
     .build();
+
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
@@ -71,6 +75,6 @@ export async function login(customer: CustomerDraft) {
 
   return {
     customer: response, //  Customer object
-    token, //  token
+    token, //  Token
   };
 }

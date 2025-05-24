@@ -153,7 +153,7 @@ export const RegistrationForm = () => {
               { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'First name must contain only letters' },
             ]}
           >
-            <Input className="form-item" variant="underlined" placeholder="first name" />
+            <Input className="form-item" variant="underlined" placeholder="first name" data-testid="name-input" />
           </Form.Item>
 
           <Form.Item
@@ -164,7 +164,7 @@ export const RegistrationForm = () => {
               { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'Last name must contain only letters' },
             ]}
           >
-            <Input className="form-item" variant="underlined" placeholder="last name" />
+            <Input className="form-item" variant="underlined" placeholder="last name" data-testid="lastname-input" />
           </Form.Item>
 
           <EmailInput />

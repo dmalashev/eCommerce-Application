@@ -16,12 +16,13 @@ import {
   Select,
   Typography,
 } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FieldType, PostalCodeFormat } from '../../types/types';
 import { isOlderThan13 } from '../../utils/is-older-than-13';
 import { signUp } from '../../api/customer/create-customer';
 import { checkingError } from '../../api/handleError/checking-errors';
 import { useAuth } from '../../hooks/hooks';
+import { EmailInput } from '../inputs/email-input/EmailInput';
+import { PasswordInput } from '../inputs/password-input/PasswordInput';
 
 const { Title } = Typography;
 
@@ -155,7 +156,7 @@ export const RegistrationForm = () => {
               { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'First name must contain only letters' },
             ]}
           >
-            <Input className="form-item" variant="underlined" placeholder="first name" />
+            <Input className="form-item" variant="underlined" placeholder="first name" data-testid="name-input" />
           </Form.Item>
 
           <Form.Item
@@ -166,48 +167,11 @@ export const RegistrationForm = () => {
               { pattern: /^[A-Za-zА-Яа-яЁё\s]+$/, message: 'Last name must contain only letters' },
             ]}
           >
-            <Input className="form-item" variant="underlined" placeholder="last name" />
+            <Input className="form-item" variant="underlined" placeholder="last name" data-testid="lastname-input" />
           </Form.Item>
 
-          <Form.Item
-            name="email"
-            rules={[
-              { required: true, message: 'Please, type your email address' },
-              {
-                pattern: new RegExp(/^(?!\s)(?!.*\s$).+/),
-                message: 'Please, delete leading or trailing spaces',
-              },
-              {
-                pattern: new RegExp(/^\s*([\w.*-]+@([\w-]+\.)+[\w-]{2,4})?\s*$/),
-                message: 'Email must contain an @ symbol and a domain name',
-              },
-            ]}
-          >
-            <Input className="form-item" variant="underlined" placeholder="email" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            rules={[
-              { required: true, message: 'Please, type password' },
-              {
-                pattern: new RegExp(/^(?!\s)(?!.*\s$).+/),
-                message: 'Please, delete leading or trailing spaces',
-              },
-              {
-                pattern: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
-                message:
-                  'Password must contain minimum 8 characters, at least one digit, at least one uppercase and one lowercase letter',
-              },
-            ]}
-          >
-            <Input.Password
-              className="form-item"
-              variant="underlined"
-              placeholder="password"
-              iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-            />
-          </Form.Item>
+          <EmailInput />
+          <PasswordInput />
 
           <Form.Item
             name="date"

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { fireEvent, waitFor, screen, render } from '@testing-library/react';
-import { EmailInput } from './emailInput';
+import { EmailInput } from './EmailInput';
 import { Form } from 'antd';
 
 beforeAll(() => {

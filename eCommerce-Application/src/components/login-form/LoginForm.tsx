@@ -66,7 +66,7 @@ export const LoginForm = () => {
           <PasswordInput />
 
           <Flex className="buttons-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Button className="button-submit" type="primary" htmlType="submit">
+            <Button className="button-submit" type="primary" htmlType="submit" data-testid="button-submit">
               Sign in
             </Button>
 

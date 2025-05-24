@@ -61,9 +61,7 @@ export const RegistrationForm = () => {
         if (auth && auth.setIsLoggedIn) {
           auth.setIsLoggedIn(true);
         }
-        if (auth && auth.setIsLoggedIn) {
-          auth.setIsLoggedIn(true);
-        }
+
         setTimeout(() => {
           navigate(PageRoutes.MAIN);
         }, 1000);

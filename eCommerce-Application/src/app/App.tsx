@@ -10,7 +10,8 @@ import { PageRoutes } from '../types/enums';
 import { Layout } from 'antd';
 import { useState } from 'react';
 import BurgerMenu from '../components/burger-menu/BurgerMenu';
-
+import * as all from '../api/product/getProducts'
+all
 const { Content } = Layout;
 
 export default function App() {

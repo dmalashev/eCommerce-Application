@@ -1,9 +1,9 @@
 import { vi } from 'vitest';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { signUp } from '../../../src/api/customer/create-customer';
-import { login } from '../../../src/api/customer/autorizate-customer';
+import { signUp } from './create-customer';
+import { login } from './autorizate-customer';
 
-vi.mock('../../../src/api/client', () => ({
+vi.mock('../client/client', () => ({
   client: {
     withProjectKey: vi.fn(() => ({
       withClientCredentialsFlow: vi.fn(() => ({

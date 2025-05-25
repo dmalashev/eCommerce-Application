@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createdCustomer } from '../.././../src/api/customer/create-customer';
+import { createdCustomer } from './create-customer';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
 
 describe('createdCustomer', () => {

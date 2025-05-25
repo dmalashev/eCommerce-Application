@@ -1,8 +1,8 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { login } from '../../../src/api/customer/autorizate-customer';
+import { login } from './autorizate-customer';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 
-vi.mock('../../../src/api/customer/autorizate-customer.ts', async (importOriginal) => {
+vi.mock('./autorizate-customer.ts', async (importOriginal) => {
   const actual = (await importOriginal()) as Record<string, unknown>;
 
   return {

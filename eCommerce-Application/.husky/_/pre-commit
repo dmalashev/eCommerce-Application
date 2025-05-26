@@ -1,2 +1,2 @@
-cd eCommerce-Application
-npm run pre-commit
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"

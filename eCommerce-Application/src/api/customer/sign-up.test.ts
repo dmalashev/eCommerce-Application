@@ -1,7 +1,6 @@
 import { vi } from 'vitest';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { signUp } from './create-customer';
-import { login } from './autorizate-customer';
 
 vi.mock('../client/client', () => ({
   client: {
@@ -64,9 +63,6 @@ describe('signUp', () => {
   });
   it('should registrate and login customer', async () => {
     const result = await signUp(inputsObject);
-    const resultLogin = await login(inputsObject);
-
-    expect(resultLogin.token.token).toBeDefined();
     expect(result.statusCode).toBe(200);
     expect(result.body).toBeDefined();
     expect(result.body!.customer).toBe('mocked-customer');

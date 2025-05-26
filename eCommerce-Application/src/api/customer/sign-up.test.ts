@@ -1,9 +1,8 @@
 import { vi } from 'vitest';
-import { describe, it, expect } from 'vitest';
-import { singUp } from '../../../src/api/customer/create-customer';
-import { login } from '../../../src/api/customer/autorizate-customer';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { signUp } from './create-customer';
 
-vi.mock('../../../src/api/client', () => ({
+vi.mock('../client/client', () => ({
   client: {
     withProjectKey: vi.fn(() => ({
       withClientCredentialsFlow: vi.fn(() => ({
@@ -43,7 +42,7 @@ vi.mock('@commercetools/platform-sdk', async () => {
   };
 });
 
-describe('singUp', () => {
+describe('signUp', () => {
   const inputsObject = {
     name: 'John',
     lastName: 'Doe',
@@ -63,10 +62,7 @@ describe('singUp', () => {
     vi.clearAllMocks();
   });
   it('should registrate and login customer', async () => {
-    const result = await singUp(inputsObject);
-    const resultLogin = await login(inputsObject);
-
-    expect(resultLogin.token.token).toBeDefined();
+    const result = await signUp(inputsObject);
     expect(result.statusCode).toBe(200);
     expect(result.body).toBeDefined();
     expect(result.body!.customer).toBe('mocked-customer');

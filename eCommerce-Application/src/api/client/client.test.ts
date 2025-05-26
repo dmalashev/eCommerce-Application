@@ -1,5 +1,6 @@
 import { HttpMiddlewareOptions } from '@commercetools/ts-client';
-import { client } from '../../../src/api/client/client';
+import { client } from './client';
+import { test, expect } from 'vitest';
 
 const httpMiddleware: HttpMiddlewareOptions = {
   host: 'http://localhost:3000',

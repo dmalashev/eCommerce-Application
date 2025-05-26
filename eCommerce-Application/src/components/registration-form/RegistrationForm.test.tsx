@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { fireEvent, waitFor, screen } from '@testing-library/react';
 import { RegistrationForm } from './RegistrationForm';
-import { renderWithRouter } from '../../../tests/test-utilities';
+import { renderWithRouter } from '../../utils/test-utilities';
 
 beforeAll(() => {
   Object.defineProperty(globalThis, 'matchMedia', {

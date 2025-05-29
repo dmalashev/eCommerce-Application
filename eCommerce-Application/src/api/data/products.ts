@@ -67,12 +67,12 @@ const APHEX_TWIN: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Aphex_Twin_Logo.svg',
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFs47L8K90OXh5wKdaWVh4pbN04mFLfsMYlw&s',
         label: 'Aphex Twin Logo',
         dimensions: { w: 300, h: 300 },
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Aphex_Twin_2019.jpg',
+        url: 'https://lannerchronicle.wordpress.com/wp-content/uploads/2022/10/future-music-may-2008.jpg?w=643',
         label: 'Aphex Twin',
         dimensions: { w: 300, h: 300 },
       },
@@ -161,7 +161,7 @@ const DDT_OTTEPEL: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/DDT_ottepel_album_cover.jpg',
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx51MRQjKprBwcVvBWNDZ-dIn9KDoeNcrDtA&s',
         label: 'ДДТ - Оттепель',
         dimensions: { w: 300, h: 300 },
       },
@@ -249,7 +249,7 @@ const BOWIE_LETS_DANCE: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/e/e5/David_Bowie_Let%27s_Dance.png',
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0Xh_LGkdFtH7Gk07TfbiM436JBsiPeerK4Q&s',
         label: "David Bowie - Let's Dance",
         dimensions: { w: 300, h: 300 },
       },
@@ -337,7 +337,7 @@ const BOWIE_STATION_TO_STATION: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/8/84/Station_to_Station_cover.jpg',
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFqXy3cYu6FJolk3TKW7e5-lalTV5KL4qB6A&s',
         label: 'David Bowie - Station to Station',
         dimensions: { w: 300, h: 300 },
       },
@@ -453,7 +453,7 @@ const BEATLES_SGT_PEPPER: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/3/3b/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg',
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTUVEzNQM_PcmuwnI-htkcow5bFAb1lEPE7w&s',
         label: 'Sgt. Pepper Album Cover',
         dimensions: { w: 300, h: 300 },
       },
@@ -567,7 +567,7 @@ const POLICE_ZENYATTA: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Zenyattamondatta.jpg',
+        url: 'https://m.media-amazon.com/images/I/71InwRmyNvL._UF1000,1000_QL80_.jpg',
         label: 'Zenyatta Mondatta Album Cover',
         dimensions: { w: 300, h: 300 },
       },
@@ -682,7 +682,7 @@ const PARALLEL_LINES: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/1/12/ParallelLines.jpg',
+        url: 'https://i.discogs.com/xgABqL7lFN6aZWS6xrgm7KlDLYdvMXyNFSbWgvr8gp0/rs:fit/g:sm/q:90/h:582/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2NzEw/OTMwLTE2MDkzNzY2/NDQtMzUyMS5qcGVn.jpeg',
         label: 'Parallel Lines Album Cover',
         dimensions: { w: 300, h: 300 },
       },
@@ -794,7 +794,7 @@ const VIOLATOR: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/5/55/Depeche_Mode_-_Violator.png',
+        url: 'https://m.media-amazon.com/images/I/714McwlTjNL._UF1000,1000_QL80_.jpg',
         label: 'Violator Album Cover',
         dimensions: { w: 300, h: 300 },
       },
@@ -818,7 +818,7 @@ export const PRODUCTS: ProductDraft[] = [
   { ...BOWIE_LETS_DANCE },
   { ...BOWIE_STATION_TO_STATION },
   { ...BEATLES_SGT_PEPPER },
-  { ...POLICE_ZENYATTA},
+  { ...POLICE_ZENYATTA },
   { ...PARALLEL_LINES },
   { ...VIOLATOR },
 ];

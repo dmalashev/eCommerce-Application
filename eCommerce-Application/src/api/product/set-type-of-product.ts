@@ -1,4 +1,4 @@
-import { createApiBuilderFromCtpClient, Product, ProductDraft } from '@commercetools/platform-sdk';
+import { createApiBuilderFromCtpClient,  ProductDraft } from '@commercetools/platform-sdk';
 import { authMiddleware, client as clientBuilder, httpMiddleware, projectKey } from '../client/client';
 import {PRODUCTS} from '../data/products';
 

@@ -45,4 +45,3 @@ export const dataProducts = async (): Promise<DataProduct[]> => {
   console.log(data);
   return data;
 };
-dataProducts();

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { DataProduct, dataProducts } from '../../api/product/getProduct';
+import {  dataProducts } from '../../api/product/getProduct';
 import ProductCard from '../../components/product-card/ProductCard';
+import { DataProduct } from '../../api/types-api';
 // import coverImg1 from '../../assets/temporary/David-bowie-lets-dance.jpg';
 // import coverImg2 from '../../assets/temporary/m1000x1000.jfif';
 // import { ContentObject } from '../../assets/temporary/temporary';

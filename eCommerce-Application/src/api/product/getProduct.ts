@@ -6,12 +6,9 @@ import {
   createApiBuilderFromCtpClient,
   ProductPagedQueryResponse,
   Product,
-  ProductData,
 } from '@commercetools/platform-sdk';
-export type DataProduct = {
-  id: string;
-  current: ProductData;
-};
+import { DataProduct } from '../types-api';
+
 export async function getProducts(): Promise<ProductPagedQueryResponse['results']> {
   const client: Client = clientBuilder
     .withProjectKey(projectKey)

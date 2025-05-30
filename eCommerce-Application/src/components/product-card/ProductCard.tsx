@@ -1,5 +1,5 @@
 import { Card, Typography, Row, Space } from 'antd';
-import { DataProduct } from '../../api/product/getProduct';
+import { DataProduct } from '../../api/types-api';
 
 const { Title, Text, Link } = Typography;
 

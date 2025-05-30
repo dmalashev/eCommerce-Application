@@ -1,6 +1,5 @@
 import { createApiBuilderFromCtpClient,  ProductDraft } from '@commercetools/platform-sdk';
 import { authMiddleware, client as clientBuilder, httpMiddleware, projectKey } from '../client/client';
-import {PRODUCTS} from '../data/products';
 
 
 export async function setProductType(data:ProductDraft[]) {
@@ -17,4 +16,3 @@ export async function setProductType(data:ProductDraft[]) {
 
   })
 }
-setProductType(PRODUCTS);

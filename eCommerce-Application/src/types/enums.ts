@@ -16,3 +16,9 @@ export const enum StorageTokenKeys {
   REFRESH_TOKEN = 'refresh_token',
   TOKEN_EXPIRATION = 'token_expiration',
 }
+
+export const enum MediaTypes {
+  VINYL = 'Vinyl',
+  CASSETTES = 'Cassettes',
+  CD = 'CD',
+}

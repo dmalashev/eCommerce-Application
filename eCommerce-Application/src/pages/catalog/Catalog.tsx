@@ -44,11 +44,15 @@ export default function Catalog(): JSX.Element {
 
   const cardComponents: JSX.Element[] = cards.map((card) => <ProductCard content={card} />);
 
+  const onChangeTab = (value: MediaTypes): void => {
+    console.log(value); // TODO: replace this instruction with code that gets corresponding collections of cards
+  };
+
   return (
     <Layout>
       <Content style={{ padding: 24 }}>
         <Flex vertical align="stretch" gap="40px">
-          <Segmented block options={tabOptions} />
+          <Segmented block options={tabOptions} onChange={onChangeTab} />
           <Flex gap="large" wrap justify="center">
             {cardComponents}
           </Flex>

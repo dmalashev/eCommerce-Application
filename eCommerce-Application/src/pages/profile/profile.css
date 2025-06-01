@@ -1,0 +1,22 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+
+  margin: 100px;
+}
+
+.profile-info,
+.profile-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.button-submit {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  color: white;
+  background-color: #db4444;
+}

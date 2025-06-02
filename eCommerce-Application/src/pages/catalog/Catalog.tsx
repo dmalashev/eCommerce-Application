@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
-import {  dataProducts } from '../../api/product/getProduct';
 import ProductCard from '../../components/product-card/ProductCard';
 import { Layout, Flex, Segmented } from 'antd';
 import { MediaTypes } from '../../types/enums';
-import { JSX, useEffect, useState } from 'react';
-import { getProductsWithCategories } from '../../api/product/getProductWithCategory';
-import { ProductProjection } from '@commercetools/platform-sdk';
+import { JSX } from 'react';
+import { getProductsWithCategories } from '../../api/product/getProduct';
 
 const { Content } = Layout;
 
@@ -51,7 +48,7 @@ export default function Catalog(): JSX.Element {
   const cardComponents = cards.map((card) => <ProductCard key={card.id} content={card} />);
 
   const onChangeTab = (value: MediaTypes): void => {
-    setActiveTab(value);
+    getProductsWithCategories(value);
   };
 
   return (

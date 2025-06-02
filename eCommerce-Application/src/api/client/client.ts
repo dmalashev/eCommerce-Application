@@ -1,5 +1,4 @@
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions } from '@commercetools/ts-client';
 
 const projectKey: string = import.meta.env.VITE_PROJECT_KEY;
@@ -41,9 +40,15 @@ const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
     .withHttpMiddleware(httpMiddleware)
     .build(),
 );
+const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+  client
+    .withProjectKey(projectKey)
+    .withClientCredentialsFlow(authMiddleware)
+    .withHttpMiddleware(httpMiddleware)
+    .build(),
+);
 
 export {
-  apiRoot,
   apiRoot,
   authMiddleware,
   projectKey,

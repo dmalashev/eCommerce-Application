@@ -3,7 +3,12 @@ import { Layout, Flex, Segmented } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
 import { JSX } from 'react';
+import { changePassword } from '../../api/customer/chanched-password';
 
+changePassword({
+  currentPassword: 'qwerty1234S',
+  newPassword: 'newPassword',
+});
 const { Content } = Layout;
 
 export default function Catalog(): JSX.Element {

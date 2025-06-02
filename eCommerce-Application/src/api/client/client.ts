@@ -41,7 +41,6 @@ const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
     .build(),
 );
 
-
 export {
   apiRoot,
   authMiddleware,

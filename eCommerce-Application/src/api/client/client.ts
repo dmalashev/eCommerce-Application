@@ -40,13 +40,7 @@ const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
     .withHttpMiddleware(httpMiddleware)
     .build(),
 );
-const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-  client
-    .withProjectKey(projectKey)
-    .withClientCredentialsFlow(authMiddleware)
-    .withHttpMiddleware(httpMiddleware)
-    .build(),
-);
+
 
 export {
   apiRoot,

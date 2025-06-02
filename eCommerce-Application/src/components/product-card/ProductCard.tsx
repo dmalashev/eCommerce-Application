@@ -1,16 +1,17 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { Card, Typography, Row, Space } from 'antd';
+import { ContentObject } from '../../assets/temporary/temporary';
 
 const { Title, Text, Link } = Typography;
 
 export default function ProductCard({ content }: { content: ProductProjection }) {
-  const card = {
+  const card:ContentObject = {
     name: content.name.en,
     author: content.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
     year: content.masterVariant.attributes?.find((attribute) => attribute.name === 'year')?.value,
-    cover: content.masterVariant.images?.[0].url,
+    cover: content.masterVariant.images?.[0].url!,
     discount: content.masterVariant.price?.discounted?.value.centAmount,
-    price: content.masterVariant.price?.value.centAmount,
+    price: content.masterVariant.price?.value.centAmount!,
   };
   return (
     <Link href="/">

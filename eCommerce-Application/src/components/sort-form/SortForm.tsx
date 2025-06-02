@@ -18,6 +18,8 @@ const onFinish = (values: FilterForm) => {
 };
 
 export default function SortForm(): JSX.Element {
+  const [form] = Form.useForm();
+
   const genresCheckboxes: JSX.Element[] = Object.values(MusicGenres).map((genre) => (
     <Checkbox value={genre}>{genre}</Checkbox>
   ));
@@ -31,11 +33,7 @@ export default function SortForm(): JSX.Element {
   ));
 
   return (
-    <Form
-      layout="vertical"
-      onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
-    >
+    <Form layout="vertical" onFinish={onFinish} form={form}>
       <Flex vertical gap="small" style={{ padding: '10px 10px' }}>
         <Collapse ghost>
           <Collapse.Panel key="1" header="Genres">
@@ -99,6 +97,10 @@ export default function SortForm(): JSX.Element {
 
         <Button type="primary" htmlType="submit">
           Sort Products
+        </Button>
+
+        <Button danger onClick={() => form.resetFields()}>
+          Reset Filters
         </Button>
       </Flex>
     </Form>

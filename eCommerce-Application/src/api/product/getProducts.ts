@@ -42,6 +42,7 @@ export const dataProducts = async (): Promise<DataProduct[]> => {
       images: item.masterData.current.masterVariant.images,
     };
   });
-  console.log(data);
+
+  console.log(array);
   return data;
 };

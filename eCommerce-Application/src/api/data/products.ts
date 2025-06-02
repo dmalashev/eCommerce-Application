@@ -46,7 +46,7 @@ const APHEX_TWIN: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'digital', ru: 'Цифровой' },
         ],
@@ -137,9 +137,9 @@ const DDT_OTTEPEL: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
-          { en: 'cassette', ru: 'Кассета' },
-          { en: 'cd', ru: 'CD' },
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cassette', ru: 'кассета' },
+          { en: 'cd', ru: 'сд' },
         ],
       },
       {
@@ -225,7 +225,7 @@ const BOWIE_LETS_DANCE: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'digital', ru: 'Цифровой' },
         ],
@@ -313,7 +313,7 @@ const BOWIE_STATION_TO_STATION: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'digital', ru: 'Цифровой' },
         ],
@@ -410,7 +410,7 @@ const BEATLES_SGT_PEPPER: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'cassette', ru: 'Кассета' },
           { en: 'digital', ru: 'Цифровой' },
@@ -526,7 +526,7 @@ const POLICE_ZENYATTA: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'cassette', ru: 'Кассета' },
         ],
@@ -640,7 +640,7 @@ const PARALLEL_LINES: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'cassette', ru: 'Кассета' },
         ],
@@ -755,7 +755,7 @@ const VIOLATOR: ProductDraft = {
       {
         name: 'format',
         value: [
-          { en: 'vinyl', ru: 'Винил' },
+          { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'digital', ru: 'Цифровой' },
         ],

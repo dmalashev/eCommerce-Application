@@ -7,6 +7,7 @@ import {
   ProductDraft,
 } from '@commercetools/platform-sdk';
 import { authMiddleware, client as clientBuilder, httpMiddleware, projectKey } from '../client/client';
+import { PRODUCTS } from '../data/products';
 
 export async function setProductType(data: ProductDraft[]) {
   const client = clientBuilder
@@ -32,17 +33,28 @@ export async function setProductType(data: ProductDraft[]) {
         const cat = catArray.find((category: Category) => category.slug.en === attribute.name);
         product.categories?.push({
           typeId: 'category',
-          id: cat?.id,
+          key: cat?.key,
         });
       }
       if (Array.isArray(attribute.value)) {
         attribute.value.forEach((value) => {
-          if (catname.includes(value)) {
-            const cat = catArray.find((category: Category) => category.slug.en === value);
-            product.categories?.push({
-              typeId: 'category',
-              id: cat?.id,
-            });
+          if (typeof value === 'string') {
+
+              if (catname.includes(value)) {
+                const cat = catArray.find((category: Category) => category.slug.en === value);
+                product.categories?.push({
+                  typeId: 'category',
+                  key: cat?.key,
+                });
+              }
+          } else {
+            if (catname.includes(value.en)) {
+              const cat = catArray.find((category: Category) => category.slug.en.includes(value.en));
+              product.categories?.push({
+                typeId: 'category',
+                key: cat?.key,
+              });
+            }
           }
         });
       }
@@ -54,3 +66,4 @@ export async function setProductType(data: ProductDraft[]) {
     console.log(response.body, 'response');
   });
 }
+setProductType(PRODUCTS);

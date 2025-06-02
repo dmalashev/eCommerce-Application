@@ -2,8 +2,9 @@ import ProductCard from '../../components/product-card/ProductCard';
 import { Layout, Flex, Segmented } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
-import { JSX } from 'react';
-import { getProductsWithCategories } from '../../api/product/getProduct';
+import { JSX, useEffect, useState } from 'react';
+import { getProductsWithCategories } from '../../api/product/getProductWithCategory';
+import { ProductProjection } from '@commercetools/platform-sdk';
 
 const { Content } = Layout;
 
@@ -40,11 +41,16 @@ export default function Catalog(): JSX.Element {
     ),
     value: tab.tabName,
   }));
+  const [cards, setCards] = useState<ProductProjection[]>([]);
+  const [activeTab, setActiveTab] = useState<MediaTypes>(MediaTypes.VINYL);
+  useEffect(() => {
+    getProductsWithCategories(activeTab).then(setCards);
+  }, [activeTab]);
 
-  const cardComponents: JSX.Element[] = cards.map((card) => <ProductCard content={card} />);
+  const cardComponents = cards.map((card) => <ProductCard key={card.id} content={card} />);
 
   const onChangeTab = (value: MediaTypes): void => {
-    getProductsWithCategories(value);
+    setActiveTab(value);
   };
 
   return (

@@ -1,6 +1,12 @@
 import { Client } from '@commercetools/ts-client';
 import { projectKey, client as clientBuilder, httpMiddleware, authMiddleware } from '../client/client';
-import { ApiRoot, ClientResponse, createApiBuilderFromCtpClient, ProductDiscount, ProductDiscountDraft } from '@commercetools/platform-sdk';
+import {
+  ApiRoot,
+  ClientResponse,
+  createApiBuilderFromCtpClient,
+  ProductDiscount,
+  ProductDiscountDraft,
+} from '@commercetools/platform-sdk';
 
 export async function createdDiscount() {
   const client: Client = clientBuilder
@@ -12,7 +18,7 @@ export async function createdDiscount() {
   const categoryCD = await apiRoot
     .withProjectKey({ projectKey })
     .categories()
-    .withKey({ key: "cat-music-media" })
+    .withKey({ key: 'cat-music-media' })
     .get()
     .execute();
   const productDiscount: ProductDiscountDraft = {

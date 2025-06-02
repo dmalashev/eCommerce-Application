@@ -1,5 +1,6 @@
 import { Button, Checkbox, Flex, Form, InputNumber, Divider, Collapse } from 'antd';
 import { JSX } from 'react';
+import { MusicGenres, MusicCountries, MusicLabels } from '../../types/enums';
 
 type FilterForm = {
   genres?: string[];
@@ -17,44 +18,17 @@ const onFinish = (values: FilterForm) => {
 };
 
 export default function SortForm(): JSX.Element {
-  const genres: string[] = [
-    'Rock',
-    'Jazz',
-    'Pop',
-    'Classical',
-    'Russian Rock',
-    'Electronic',
-    'Art Rock',
-    'Psychedelic Rock',
-    'Reggae',
-    'Punk',
-    'Synth-Pop',
-    'New Wave',
-    'Disco',
-    'Dark Wave',
-    'IDM',
-    'Ambient',
-    'Krautrock',
-    'Soul',
-    'Funk',
-  ];
-  const genresCheckboxes: JSX.Element[] = genres.map((genre) => <Checkbox value={genre}>{genre}</Checkbox>);
+  const genresCheckboxes: JSX.Element[] = Object.values(MusicGenres).map((genre) => (
+    <Checkbox value={genre}>{genre}</Checkbox>
+  ));
 
-  const countries: string[] = ['USA', 'Russia', 'United Kingdom'];
-  const countriesCheckboxes: JSX.Element[] = countries.map((country) => <Checkbox value={country}>{country}</Checkbox>);
+  const countriesCheckboxes: JSX.Element[] = Object.values(MusicCountries).map((country) => (
+    <Checkbox value={country}>{country}</Checkbox>
+  ));
 
-  const labels: string[] = [
-    'Soyuz',
-    'Real Records',
-    'A&M Records',
-    'Chrysalis Records',
-    'Parlophone',
-    'EMI America',
-    'RCA Records',
-    'Mute Records',
-    'Warp Records',
-  ];
-  const labelsCheckboxes: JSX.Element[] = labels.map((label) => <Checkbox value={label}>{label}</Checkbox>);
+  const labelsCheckboxes: JSX.Element[] = Object.values(MusicLabels).map((label) => (
+    <Checkbox value={label}>{label}</Checkbox>
+  ));
 
   return (
     <Form

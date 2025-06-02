@@ -1,5 +1,6 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { Card, Typography, Row, Space } from 'antd';
+import { ContentObject } from '../../assets/temporary/temporary';
 
 const { Title, Text, Link } = Typography;
 

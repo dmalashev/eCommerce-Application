@@ -9,8 +9,6 @@ export async function getProductsWithCategories(value: string): Promise<ProductP
     .execute();
   const categoryId = categoryResponse.body.results[0]?.id;
 
-  console.log(categoryId);
-
   const options = {
     queryArgs: {
       filter: [`categories.id:"${categoryId}"`],
@@ -23,6 +21,5 @@ export async function getProductsWithCategories(value: string): Promise<ProductP
 
   const response = await apiRoot.withProjectKey({ projectKey }).productProjections().search().get(options).execute();
 
-  console.log(response.body);
   return response.body.results;
 }

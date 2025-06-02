@@ -6,8 +6,8 @@ const { Title, Text, Link } = Typography;
 export default function ProductCard({ content }: { content: ProductProjection }) {
   const card = {
     name: content.name.en,
-    author: content.masterVariant.attributes?.find((attr) => attr.name === 'artist')?.value,
-    year: content.masterVariant.attributes?.find((attr) => attr.name === 'year')?.value,
+    author: content.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
+    year: content.masterVariant.attributes?.find((attribute) => attribute.name === 'year')?.value,
     cover: content.masterVariant.images?.[0].url,
     discount: content.masterVariant.price?.discounted?.value.centAmount,
     price: content.masterVariant.price?.value.centAmount,

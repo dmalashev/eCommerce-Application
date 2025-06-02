@@ -3,8 +3,9 @@ import { Layout, Flex, Segmented } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
 import { JSX } from 'react';
+import SortForm from '../../components/sort-form/SortForm';
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 export default function Catalog(): JSX.Element {
   const tabsContent: {
@@ -48,6 +49,20 @@ export default function Catalog(): JSX.Element {
 
   return (
     <Layout>
+      <Sider
+        theme="light"
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'sticky',
+          top: 0,
+          bottom: 0,
+          scrollbarWidth: 'thin',
+          scrollbarGutter: 'stable',
+        }}
+      >
+        <SortForm />
+      </Sider>
       <Content style={{ padding: 24 }}>
         <Flex vertical align="stretch" gap="40px">
           <Segmented block options={tabOptions} onChange={onChangeTab} />

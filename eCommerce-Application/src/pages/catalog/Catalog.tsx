@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import {  dataProducts } from '../../api/product/getProduct';
 import ProductCard from '../../components/product-card/ProductCard';
 import { Layout, Flex, Segmented } from 'antd';
 import { MediaTypes } from '../../types/enums';

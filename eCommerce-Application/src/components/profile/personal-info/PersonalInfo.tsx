@@ -1,7 +1,9 @@
 import UserOutlined from '@ant-design/icons/lib/icons/UserOutlined';
 import { Flex, Typography } from 'antd';
+import { useUserSession } from '../../../store/userSession.store';
 
 export const PersonalInfo = () => {
+  const { user } = useUserSession();
   return (
     <>
       <Flex vertical>
@@ -11,10 +13,10 @@ export const PersonalInfo = () => {
           </Typography.Title>
           <UserOutlined style={{ width: '30px', height: '20px', fontSize: '20px', color: '#DB4444' }} />
         </Flex>
-        <Typography.Text style={{ fontSize: '16px' }}>Shakhri Ramaldanova</Typography.Text>
-        <Typography.Text type="secondary">ramaldanova_sh@mail.ru</Typography.Text>
+        <Typography.Text style={{ fontSize: '16px' }}>{`${user?.firstName} ${user?.lastName}`}</Typography.Text>
+        <Typography.Text type="secondary">{user?.email}</Typography.Text>
         <Typography.Text type="secondary" style={{ fontSize: '12px' }}>
-          07.10.1992
+          {user?.dateOfBirth}
         </Typography.Text>
       </Flex>
     </>

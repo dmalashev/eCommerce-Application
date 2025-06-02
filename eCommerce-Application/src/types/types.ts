@@ -24,24 +24,33 @@ export type PostalCodeFormat = {
   message: string;
 };
 
-export type Addresses = {
-  id: string;
-  street: string;
-  postalcode: string;
-  city: string;
-  country: string;
+export type Address = {
+  id: string | undefined;
+  streetName: string | undefined;
+  postalCode: string | undefined;
+  city: string | undefined;
+  country: string | undefined;
 };
 
-export type UserField = {
-  firstName: string;
-  lastName: string;
+export type User = {
+  firstName: string | undefined;
+  lastName: string | undefined;
   email: string;
-  dateOfBirth: Date;
-  addresses: Addresses[];
-  defaultShippingAddressId: string;
-  deffaultBillingAddressId: string;
-  billingAddressIds: string[];
-  shippingAddressIds: string[];
+  dateOfBirth: string | undefined;
+  addresses: Address[];
+  defaultShippingAddressId: string | undefined;
+  deffaultBillingAddressId: string | undefined;
+  billingAddressIds: string[] | undefined;
+  shippingAddressIds: string[] | undefined;
+};
+
+export type SessionState = {
+  user: User | undefined;
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
+  setUser: (user: User) => void;
+  setTokens: (accessToken: string, refreshToken: string) => void;
+  logout: () => void;
 };
 
 export interface MyCustomerDraftExtended extends MyCustomerDraft {

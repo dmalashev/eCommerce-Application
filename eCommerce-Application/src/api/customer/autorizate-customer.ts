@@ -1,3 +1,4 @@
+import { useUserSession } from '../../store/userSession.store';
 import {
   ApiRoot,
   ClientResponse,
@@ -16,6 +17,7 @@ import {
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
 import { StorageTokenKeys } from '../../types/enums';
+const { setUser } = useUserSession.getState();
 
 export async function login(customer: CustomerDraft) {
   const { email, password } = customer;
@@ -72,6 +74,27 @@ export async function login(customer: CustomerDraft) {
     .login()
     .post({ body: { email, password } })
     .execute();
+
+  const addresses =
+    response.body.customer.addresses?.map((address) => ({
+      id: address.id,
+      streetName: address.streetName,
+      city: address.city,
+      country: address.country,
+      postalCode: address.postalCode,
+    })) || [];
+
+  setUser({
+    firstName: response.body.customer.firstName,
+    lastName: response.body.customer.lastName,
+    email: response.body.customer.email,
+    dateOfBirth: response.body.customer.dateOfBirth,
+    addresses,
+    shippingAddressIds: response.body.customer.shippingAddressIds,
+    billingAddressIds: response.body.customer.billingAddressIds,
+    defaultShippingAddressId: response.body.customer.defaultShippingAddressId,
+    deffaultBillingAddressId: response.body.customer.defaultBillingAddressId,
+  });
 
   return {
     customer: response, //  Customer object

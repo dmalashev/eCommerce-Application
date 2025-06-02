@@ -19,6 +19,6 @@ export const enum StorageTokenKeys {
 
 export const enum MediaTypes {
   VINYL = 'Vinyl',
-  CASSETTES = 'Cassettes',
+  CASSETTES = 'Cassette',
   CD = 'CD',
 }

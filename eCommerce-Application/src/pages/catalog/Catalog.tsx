@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import {  dataProducts } from '../../api/product/getProduct';
 import ProductCard from '../../components/product-card/ProductCard';
 import { Layout, Flex, Segmented } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
 import { JSX } from 'react';
+import { getProductsWithCategories } from '../../api/product/getProduct';
 
 const { Content } = Layout;
 
@@ -45,7 +44,7 @@ export default function Catalog(): JSX.Element {
   const cardComponents: JSX.Element[] = cards.map((card) => <ProductCard content={card} />);
 
   const onChangeTab = (value: MediaTypes): void => {
-    console.log(value); // TODO: replace this instruction with code that gets corresponding collections of cards
+    getProductsWithCategories(value);
   };
 
   return (

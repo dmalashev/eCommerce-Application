@@ -4,7 +4,6 @@ import App from './app/App';
 import { AuthProvider } from './app/AuthProvider';
 
 
-
 createRoot(document.querySelector('body')!).render(
   <AuthProvider>
     <App />

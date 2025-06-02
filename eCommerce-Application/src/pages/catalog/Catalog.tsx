@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import { dataProducts } from '../../api/product/getProduct';
 import ProductCard from '../../components/product-card/ProductCard';
 import { Layout, Flex, Segmented } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API

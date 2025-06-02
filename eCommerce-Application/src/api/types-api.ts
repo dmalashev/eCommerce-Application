@@ -1,4 +1,4 @@
-import { ProductData } from "@commercetools/platform-sdk";
+import { ProductData } from '@commercetools/platform-sdk';
 
 export type DataProduct = {
   id: string;

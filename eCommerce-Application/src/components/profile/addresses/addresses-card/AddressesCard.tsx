@@ -1,10 +1,10 @@
 import { List, Typography } from 'antd';
 
-interface Properties {
+type Properties = {
   title: string;
   addresses: string[];
   defaultAddressIndex: number;
-}
+};
 
 export const AddressesCard = ({ title, addresses, defaultAddressIndex }: Properties) => {
   return (

@@ -24,6 +24,26 @@ export type PostalCodeFormat = {
   message: string;
 };
 
+export type Addresses = {
+  id: string;
+  street: string;
+  postalcode: string;
+  city: string;
+  country: string;
+};
+
+export type UserField = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: Date;
+  addresses: Addresses[];
+  defaultShippingAddressId: string;
+  deffaultBillingAddressId: string;
+  billingAddressIds: string[];
+  shippingAddressIds: string[];
+};
+
 export interface MyCustomerDraftExtended extends MyCustomerDraft {
   shippingAddresses?: Array<number>;
   billingAddresses?: Array<number>;

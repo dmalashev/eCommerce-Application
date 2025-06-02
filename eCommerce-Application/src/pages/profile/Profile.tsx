@@ -4,6 +4,11 @@ import { Addresses } from '../../components/profile/addresses/Addresses';
 import './profile.css';
 
 export default function Profile() {
+  const addresses = [
+    'Russia, Moscow, Marata Street, 192000',
+    'USA, Vashington, Palm Street, 12234',
+    'Russia, Saint-Petersburg, Nevskiy Prospect, 191000',
+  ];
   return (
     <div className="profile">
       <div className="profile-info">
@@ -19,7 +24,7 @@ export default function Profile() {
         </Flex>
       </div>
       <div className="profile-addresses">
-        <Addresses />
+        <Addresses addresses={addresses} />
         <Button className="button-submit" type="primary" style={{ backgroundColor: '#DB4444' }}>
           Edit addresses
         </Button>

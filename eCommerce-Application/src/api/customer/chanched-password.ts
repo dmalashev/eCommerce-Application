@@ -1,4 +1,6 @@
 import { apiRootCustomer, projectKey } from '../client/client';
+import { login } from './autorizate-customer';
+import { logout } from './logout';
 
 export async function changePassword(parameters: { currentPassword: string; newPassword: string }): Promise<void> {
   const { currentPassword, newPassword } = parameters;
@@ -11,4 +13,6 @@ export async function changePassword(parameters: { currentPassword: string; newP
     .password()
     .post({ body: { version: customer.body.version, currentPassword, newPassword } })
     .execute();
+  logout();
+  login({ email: customer.body.email, password: newPassword });
 }

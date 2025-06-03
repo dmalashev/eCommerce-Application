@@ -1,0 +1,13 @@
+.filters-button {
+  display: none;
+}
+
+@media (width <= 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .filters-button {
+    display: inline-flex;
+  }
+}

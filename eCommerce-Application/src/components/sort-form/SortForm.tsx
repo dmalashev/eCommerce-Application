@@ -1,6 +1,7 @@
 import { Button, Checkbox, Flex, Form, InputNumber, Divider, Collapse } from 'antd';
 import { JSX } from 'react';
 import { MusicGenres, MusicCountries, MusicLabels } from '../../types/enums';
+import type { FormInstance } from 'antd';
 
 type FilterForm = {
   genres?: string[];
@@ -17,9 +18,7 @@ const onFinish = (values: FilterForm) => {
   console.log('Success:', values);
 };
 
-export default function SortForm(): JSX.Element {
-  const [form] = Form.useForm();
-
+export default function SortForm({ form, closeModal }: { form: FormInstance; closeModal?: () => void }): JSX.Element {
   const genresCheckboxes: JSX.Element[] = Object.values(MusicGenres).map((genre) => (
     <Checkbox value={genre}>{genre}</Checkbox>
   ));
@@ -31,6 +30,10 @@ export default function SortForm(): JSX.Element {
   const labelsCheckboxes: JSX.Element[] = Object.values(MusicLabels).map((label) => (
     <Checkbox value={label}>{label}</Checkbox>
   ));
+
+  const loadProducts = (): void => {
+    if (closeModal) closeModal();
+  };
 
   return (
     <Form layout="vertical" onFinish={onFinish} form={form}>
@@ -95,7 +98,7 @@ export default function SortForm(): JSX.Element {
           </Collapse.Panel>
         </Collapse>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" onClick={loadProducts}>
           Sort Products
         </Button>
 

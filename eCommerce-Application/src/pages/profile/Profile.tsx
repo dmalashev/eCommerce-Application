@@ -1,4 +1,4 @@
-import { Button, Divider, Flex } from 'antd';
+import { Button, Flex } from 'antd';
 import { PersonalInfo } from '../../components/profile/personal-info/PersonalInfo';
 import { Addresses } from '../../components/profile/addresses/Addresses';
 import './profile.css';

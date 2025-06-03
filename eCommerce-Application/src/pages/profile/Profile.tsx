@@ -3,10 +3,14 @@ import { PersonalInfo } from '../../components/profile/personal-info/PersonalInf
 import { Addresses } from '../../components/profile/addresses/Addresses';
 import './profile.css';
 import { useUserSession } from '../../store/userSession.store';
+import { Navigate } from 'react-router';
+import { PageRoutes } from '../../types/enums';
+import { useAuth } from '../../hooks/hooks';
 
 export default function Profile() {
+  const auth = useAuth();
   const { user } = useUserSession();
-  return (
+  return auth.isLoggedIn ? (
     <div className="profile">
       <div className="profile-info">
         <PersonalInfo user={user} />
@@ -27,5 +31,7 @@ export default function Profile() {
         </Button>
       </div>
     </div>
+  ) : (
+    <Navigate to={PageRoutes.MAIN} replace={true} />
   );
 }

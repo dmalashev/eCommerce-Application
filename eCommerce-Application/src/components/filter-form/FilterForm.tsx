@@ -18,7 +18,7 @@ const onFinish = (values: FilterForm) => {
   console.log('Success:', values);
 };
 
-export default function SortForm({ form, closeModal }: { form: FormInstance; closeModal?: () => void }): JSX.Element {
+export default function FilterForm({ form, closeModal }: { form: FormInstance; closeModal?: () => void }): JSX.Element {
   const genresCheckboxes: JSX.Element[] = Object.values(MusicGenres).map((genre) => (
     <Checkbox value={genre}>{genre}</Checkbox>
   ));
@@ -99,7 +99,7 @@ export default function SortForm({ form, closeModal }: { form: FormInstance; clo
         </Collapse>
 
         <Button type="primary" htmlType="submit" onClick={loadProducts}>
-          Sort Products
+          Filter Products
         </Button>
 
         <Button danger onClick={() => form.resetFields()}>

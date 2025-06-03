@@ -3,7 +3,7 @@ import { Layout, Flex, Segmented, Button, Modal, Form } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
 import { JSX } from 'react';
-import SortForm from '../../components/sort-form/SortForm';
+import FilterForm from '../../components/filter-form/FilterForm';
 import { BarsOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import './catalog.css';
@@ -76,7 +76,7 @@ export default function Catalog(): JSX.Element {
         }}
         className="sidebar"
       >
-        <SortForm form={form} />
+        <FilterForm form={form} />
       </Sider>
       <Content style={{ padding: 24 }}>
         <Flex vertical align="stretch" gap="40px">
@@ -87,7 +87,7 @@ export default function Catalog(): JSX.Element {
           {/* eslint-disable-next-line unicorn/no-null */}
           <Modal open={isModalOpen} onCancel={closeModal} footer={null}>
             {/* There must be the "null" value for the "footer" property, not "undefined" */}
-            <SortForm form={form} closeModal={closeModal} />
+            <FilterForm form={form} closeModal={closeModal} />
           </Modal>
           <Flex gap="large" wrap justify="center">
             {cardComponents}

@@ -1,12 +1,19 @@
 import ProductCard from '../../components/product-card/ProductCard';
-import { Layout, Flex, Segmented } from 'antd';
+import { Layout, Flex, Segmented, Button, Modal, Form } from 'antd';
 import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
 import { JSX } from 'react';
+import FilterForm from '../../components/filter-form/FilterForm';
+import { BarsOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import './catalog.css';
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 export default function Catalog(): JSX.Element {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form] = Form.useForm();
+
   const tabsContent: {
     imagePath: string;
     tabName: MediaTypes;
@@ -46,11 +53,42 @@ export default function Catalog(): JSX.Element {
     console.log(value); // TODO: replace this instruction with code that gets corresponding collections of cards
   };
 
+  const showModal = (): void => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = (): void => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Layout>
+      <Sider
+        theme="light"
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'sticky',
+          top: 0,
+          bottom: 0,
+          scrollbarWidth: 'thin',
+          scrollbarGutter: 'stable',
+        }}
+        className="sidebar"
+      >
+        <FilterForm form={form} />
+      </Sider>
       <Content style={{ padding: 24 }}>
         <Flex vertical align="stretch" gap="40px">
           <Segmented block options={tabOptions} onChange={onChangeTab} />
+          <Button type="primary" icon={<BarsOutlined />} onClick={showModal} className="filters-button">
+            Filters
+          </Button>
+          {/* eslint-disable-next-line unicorn/no-null */}
+          <Modal open={isModalOpen} onCancel={closeModal} footer={null}>
+            {/* There must be the "null" value for the "footer" property, not "undefined" */}
+            <FilterForm form={form} closeModal={closeModal} />
+          </Modal>
           <Flex gap="large" wrap justify="center">
             {cardComponents}
           </Flex>

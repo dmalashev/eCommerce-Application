@@ -58,6 +58,13 @@ export async function setProductType(data: ProductDraft[]) {
           }
         });
       }
+      if (attribute.name === 'country') {
+        const cat = catArray.find((category: Category) => category.slug.en === attribute.value.en.toLowerCase());
+        product.categories?.push({
+          typeId: 'category',
+          key: cat?.key,
+        });
+      }
     });
   });
 
@@ -67,3 +74,5 @@ export async function setProductType(data: ProductDraft[]) {
   });
 }
 setProductType(PRODUCTS);
+
+console.log('good');

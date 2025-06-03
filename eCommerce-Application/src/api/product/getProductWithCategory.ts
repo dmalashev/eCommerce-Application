@@ -2,6 +2,26 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import { projectKey, apiRoot } from '../client/client';
 
 export async function getProductsWithCategories(value: string): Promise<ProductProjection[]> {
+
+
+  switch (value) {
+    case 'Russia':
+      value = 'RU';
+      break;
+
+    case 'USA':
+      value = 'US';
+      break;
+
+    case 'United Kingdom':
+      value = 'UK';
+      break;
+
+    default:
+      break;
+  }
+
+
   const categoryResponse = await apiRoot
     .withProjectKey({ projectKey })
     .categories()

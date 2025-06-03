@@ -4,6 +4,7 @@ export const enum PageRoutes {
   REGISTRATION = '/registration',
   CATALOG = '/catalog',
   NOT_FOUND = '*',
+  PROFILE = '/profile',
 }
 
 export enum Countries {

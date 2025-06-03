@@ -1,11 +1,14 @@
 import ProfileOutlined from '@ant-design/icons/lib/icons/ProfileOutlined';
 import { Flex, Typography } from 'antd';
 import { AddressesCard } from './addresses-card/AddressesCard';
-type Properties = {
-  addresses: string[];
-};
+import { parseAddressesToArray } from '../../../utils/parse-addresses-to-array';
+import { AddressesProfile, AddressProperties } from '../../../types/types';
 
-export const Addresses = ({ addresses }: Properties) => {
+export const Addresses = ({ user }: AddressProperties) => {
+  let [shippingAddressesProfile, billingAddressesProfile] = new Array<AddressesProfile>();
+  if (user) {
+    [shippingAddressesProfile, billingAddressesProfile] = parseAddressesToArray(user);
+  }
   return (
     <div className="addresses">
       <Flex vertical>
@@ -17,9 +20,17 @@ export const Addresses = ({ addresses }: Properties) => {
             style={{ width: '30px', height: '20px', fontSize: '20px', color: '#DB4444', marginRight: 100 }}
           />
         </Flex>
-        <AddressesCard title={'shipping addresses'} addresses={addresses} defaultAddressIndex={0} />
+        <AddressesCard
+          title={'shipping addresses'}
+          addresses={shippingAddressesProfile.addresses}
+          defaultAddressIndex={shippingAddressesProfile.defaultId}
+        />
 
-        <AddressesCard title={'billing addresses'} addresses={addresses} defaultAddressIndex={0} />
+        <AddressesCard
+          title={'billing addresses'}
+          addresses={billingAddressesProfile.addresses}
+          defaultAddressIndex={billingAddressesProfile.defaultId}
+        />
       </Flex>
     </div>
   );

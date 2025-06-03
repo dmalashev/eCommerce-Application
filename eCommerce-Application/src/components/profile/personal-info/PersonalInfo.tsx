@@ -1,9 +1,10 @@
 import UserOutlined from '@ant-design/icons/lib/icons/UserOutlined';
 import { Flex, Typography } from 'antd';
-import { useUserSession } from '../../../store/userSession.store';
-
-export const PersonalInfo = () => {
-  const { user } = useUserSession();
+import { User } from '../../../types/types';
+type Properties = {
+  user: User | undefined;
+};
+export const PersonalInfo = ({ user }: Properties) => {
   return (
     <>
       <Flex vertical>

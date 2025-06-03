@@ -39,7 +39,7 @@ export type User = {
   dateOfBirth: string | undefined;
   addresses: Address[];
   defaultShippingAddressId: string | undefined;
-  deffaultBillingAddressId: string | undefined;
+  defaultBillingAddressId: string | undefined;
   billingAddressIds: string[] | undefined;
   shippingAddressIds: string[] | undefined;
 };
@@ -57,3 +57,18 @@ export interface MyCustomerDraftExtended extends MyCustomerDraft {
   shippingAddresses?: Array<number>;
   billingAddresses?: Array<number>;
 }
+
+export type AddressesProfile = {
+  addresses: string[];
+  defaultId: number;
+};
+
+export type AddressProperties = {
+  user: User | undefined;
+};
+
+export type AddressesCardProperties = {
+  title: string;
+  addresses: string[];
+  defaultAddressIndex: number;
+};

@@ -1,12 +1,7 @@
 import { List, Typography } from 'antd';
+import { AddressesCardProperties } from '../../../../types/types';
 
-type Properties = {
-  title: string;
-  addresses: string[];
-  defaultAddressIndex: number;
-};
-
-export const AddressesCard = ({ title, addresses, defaultAddressIndex }: Properties) => {
+export const AddressesCard = ({ title, addresses, defaultAddressIndex }: AddressesCardProperties) => {
   return (
     <>
       <Typography.Text strong style={{ fontSize: '16px' }}>
@@ -15,9 +10,10 @@ export const AddressesCard = ({ title, addresses, defaultAddressIndex }: Propert
       <List
         itemLayout="horizontal"
         dataSource={addresses}
-        renderItem={(item) => (
+        renderItem={(item, index) => (
           <List.Item>
             <List.Item.Meta description={item} />
+            {defaultAddressIndex === index && <p>default</p>}
           </List.Item>
         )}
       />

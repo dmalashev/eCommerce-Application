@@ -1,18 +1,15 @@
-import { Button, Flex } from 'antd';
+import { Button, Divider, Flex } from 'antd';
 import { PersonalInfo } from '../../components/profile/personal-info/PersonalInfo';
 import { Addresses } from '../../components/profile/addresses/Addresses';
 import './profile.css';
+import { useUserSession } from '../../store/userSession.store';
 
 export default function Profile() {
-  const addresses = [
-    'Russia, Moscow, Marata Street, 192000',
-    'USA, Vashington, Palm Street, 12234',
-    'Russia, Saint-Petersburg, Nevskiy Prospect, 191000',
-  ];
+  const { user } = useUserSession();
   return (
     <div className="profile">
       <div className="profile-info">
-        <PersonalInfo />
+        <PersonalInfo user={user} />
         <Flex vertical style={{ alignItems: 'start', justifyContent: 'space-between' }} gap={15}>
           <Button className="button-submit" style={{ backgroundColor: '#DB4444' }} type="primary" htmlType="submit">
             Edit personal info
@@ -24,8 +21,8 @@ export default function Profile() {
         </Flex>
       </div>
       <div className="profile-addresses">
-        <Addresses addresses={addresses} />
-        <Button className="button-submit" type="primary" style={{ backgroundColor: '#DB4444' }}>
+        <Addresses user={user} />
+        <Button className="button-submit" type="primary" style={{ backgroundColor: '#DB4444', alignSelf: 'start' }}>
           Edit addresses
         </Button>
       </div>

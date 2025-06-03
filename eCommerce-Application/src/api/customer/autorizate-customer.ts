@@ -93,7 +93,7 @@ export async function login(customer: CustomerDraft) {
     shippingAddressIds: response.body.customer.shippingAddressIds,
     billingAddressIds: response.body.customer.billingAddressIds,
     defaultShippingAddressId: response.body.customer.defaultShippingAddressId,
-    deffaultBillingAddressId: response.body.customer.defaultBillingAddressId,
+    defaultBillingAddressId: response.body.customer.defaultBillingAddressId,
   });
 
   return {

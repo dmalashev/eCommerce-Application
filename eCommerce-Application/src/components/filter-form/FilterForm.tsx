@@ -2,8 +2,9 @@ import { Button, Checkbox, Flex, Form, InputNumber, Divider, Collapse } from 'an
 import { JSX } from 'react';
 import { MusicGenres, MusicCountries, MusicLabels } from '../../types/enums';
 import type { FormInstance } from 'antd';
+import { sortProducts } from '../../api/product/sort';
 
-type FilterForm = {
+export type FilterForm = {
   genres?: string[];
   priceFrom?: number;
   priceTo?: number;
@@ -16,6 +17,7 @@ type FilterForm = {
 
 const onFinish = (values: FilterForm) => {
   console.log('Success:', values);
+  sortProducts(values)
 };
 
 export default function FilterForm({ form, closeModal }: { form: FormInstance; closeModal?: () => void }): JSX.Element {

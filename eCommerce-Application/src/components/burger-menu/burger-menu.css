@@ -1,5 +1,0 @@
-@media (width <= 575px) {
-  .ant-drawer-content-wrapper {
-    width: 100vw !important;
-  }
-}

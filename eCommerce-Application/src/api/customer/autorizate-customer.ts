@@ -88,6 +88,7 @@ export async function login(customer: CustomerDraft) {
     firstName: response.body.customer.firstName,
     lastName: response.body.customer.lastName,
     email: response.body.customer.email,
+    password: password,
     dateOfBirth: response.body.customer.dateOfBirth,
     addresses,
     shippingAddressIds: response.body.customer.shippingAddressIds,

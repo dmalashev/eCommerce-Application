@@ -36,6 +36,7 @@ export type User = {
   firstName: string | undefined;
   lastName: string | undefined;
   email: string;
+  password: string;
   dateOfBirth: string | undefined;
   addresses: Address[];
   defaultShippingAddressId: string | undefined;

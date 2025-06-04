@@ -9,6 +9,8 @@ import { useAuth } from '../../hooks/hooks';
 import { useEffect, useState } from 'react';
 import { PersonalInfoEditForm } from '../../components/profile/personal-info-edit/PersonalInfoEditForm';
 import { ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { PasswordEditForm } from '../../components/profile/password-edit/PasswordEditForm';
+import { ModalView } from '../../components/modal/ModalView';
 
 export default function Profile() {
   const auth = useAuth();
@@ -37,6 +39,14 @@ export default function Profile() {
     setShowSuccessMessage(true);
   };
 
+  const savePassword = (values: Record<string, string>) => {
+    setChangePassword(false);
+  };
+
+  const cancelPassword = () => {
+    setChangePassword(false);
+  };
+
   return auth.isLoggedIn ? (
     <div className="profile">
       {contextHolder}
@@ -52,7 +62,17 @@ export default function Profile() {
         ) : (
           <PersonalInfo user={user} onEdit={() => setEditablePersonalInfo(true)} />
         )}
-        <Button className="button-submit" type="primary" style={{ backgroundColor: '#DB4444', alignSelf: 'start' }}>
+
+        <ModalView title="Change password" ok={savePassword} cancel={cancelPassword} isModalOpen={isChangePassword}>
+          <PasswordEditForm user={user} onSave={savePassword} />
+        </ModalView>
+
+        <Button
+          className="button-submit"
+          type="primary"
+          style={{ backgroundColor: '#DB4444', alignSelf: 'start' }}
+          onClick={() => setChangePassword(true)}
+        >
           Change password
         </Button>
       </div>

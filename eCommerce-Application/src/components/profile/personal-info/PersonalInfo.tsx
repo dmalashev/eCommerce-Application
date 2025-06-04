@@ -1,24 +1,30 @@
-import UserOutlined from '@ant-design/icons/lib/icons/UserOutlined';
-import { Flex, Typography } from 'antd';
+import { Button, Flex, Typography } from 'antd';
 import { User } from '../../../types/types';
 type Properties = {
   user: User | undefined;
+  onEdit: () => void;
 };
-export const PersonalInfo = ({ user }: Properties) => {
+export const PersonalInfo = ({ user, onEdit }: Properties) => {
   return (
     <>
       <Flex vertical>
-        <Flex justify="start" align="center" gap={10} style={{ marginBottom: '10px' }}>
-          <Typography.Title level={4} style={{ margin: 0, color: '#DB4444' }}>
-            personal information
-          </Typography.Title>
-          <UserOutlined style={{ width: '30px', height: '20px', fontSize: '20px', color: '#DB4444' }} />
-        </Flex>
-        <Typography.Text style={{ fontSize: '16px' }}>{`${user?.firstName} ${user?.lastName}`}</Typography.Text>
+        <Typography.Text id="firstName" style={{ fontSize: '16px' }}>{`${user?.firstName}`}</Typography.Text>
+        <Typography.Text style={{ fontSize: '16px' }}>{`${user?.lastName}`}</Typography.Text>
         <Typography.Text type="secondary">{user?.email}</Typography.Text>
         <Typography.Text type="secondary" style={{ fontSize: '12px' }}>
           {user?.dateOfBirth}
         </Typography.Text>
+      </Flex>
+      <Flex vertical style={{ alignItems: 'start', justifyContent: 'space-between' }} gap={15}>
+        <Button
+          className="button-submit"
+          style={{ backgroundColor: '#DB4444' }}
+          type="primary"
+          htmlType="submit"
+          onClick={onEdit}
+        >
+          Edit personal info
+        </Button>
       </Flex>
     </>
   );

@@ -19,10 +19,11 @@ export default function Profile() {
   const [isChangePassword, setChangePassword] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [textMessage, setTextMessage] = useState('');
 
   useEffect(() => {
     if (showSuccessMessage) {
-      success('Personal information is updated');
+      success(textMessage);
       setShowSuccessMessage(false);
     }
   }, [showSuccessMessage]);
@@ -36,11 +37,14 @@ export default function Profile() {
 
   const savePersonalInfo = () => {
     setEditablePersonalInfo(false);
+    setTextMessage('Your personal information have been updated');
     setShowSuccessMessage(true);
   };
 
   const savePassword = (values: Record<string, string>) => {
     setChangePassword(false);
+    setTextMessage('Your password has been updated');
+    setShowSuccessMessage(true);
   };
 
   const cancelPassword = () => {

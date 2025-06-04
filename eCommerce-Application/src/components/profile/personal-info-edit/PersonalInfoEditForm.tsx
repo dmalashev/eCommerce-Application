@@ -6,12 +6,19 @@ import dayjs from 'dayjs';
 
 type PersonalInfoEditFormValues = {
   user: User | undefined;
-  onSave: () => void;
+  onSave: (values: Record<string, string>) => void;
+  onCancel: () => void;
 };
 
-export const PersonalInfoEditForm = ({ user, onSave }: PersonalInfoEditFormValues) => {
+export const PersonalInfoEditForm = ({ user, onSave, onCancel }: PersonalInfoEditFormValues) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
+
+  const onFinish: FormProps<FieldType>['onFinish'] = () => {
+    const valuesObject: Record<string, string> = form.getFieldsValue();
+    form.resetFields();
+    onSave(valuesObject);
+  };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = () => {
     error();
@@ -38,7 +45,7 @@ export const PersonalInfoEditForm = ({ user, onSave }: PersonalInfoEditFormValue
             email: user?.email,
             date: dayjs('1992-10-07'),
           }}
-          onFinish={onSave}
+          onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
@@ -94,6 +101,9 @@ export const PersonalInfoEditForm = ({ user, onSave }: PersonalInfoEditFormValue
           <Flex className="buttons-container" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
             <Button className="button-submit" type="primary" htmlType="submit">
               Save personal info
+            </Button>
+            <Button className="button-submit" type="default" onClick={onCancel}>
+              Cancel
             </Button>
           </Flex>
         </Form>

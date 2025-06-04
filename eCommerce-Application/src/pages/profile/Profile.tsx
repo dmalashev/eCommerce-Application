@@ -35,10 +35,14 @@ export default function Profile() {
     });
   };
 
-  const savePersonalInfo = () => {
+  const savePersonalInfo = (values: Record<string, string>) => {
     setEditablePersonalInfo(false);
     setTextMessage('Your personal information have been updated');
     setShowSuccessMessage(true);
+  };
+
+  const cancelPersonalInfo = () => {
+    setEditablePersonalInfo(false);
   };
 
   const savePassword = (values: Record<string, string>) => {
@@ -62,12 +66,12 @@ export default function Profile() {
           <UserOutlined style={{ width: '30px', height: '20px', fontSize: '20px', color: '#DB4444' }} />
         </Flex>
         {isEditablePersonalInfo ? (
-          <PersonalInfoEditForm user={user} onSave={savePersonalInfo} />
+          <PersonalInfoEditForm user={user} onSave={savePersonalInfo} onCancel={cancelPersonalInfo} />
         ) : (
           <PersonalInfo user={user} onEdit={() => setEditablePersonalInfo(true)} />
         )}
 
-        <ModalView title="Change password" ok={savePassword} cancel={cancelPassword} isModalOpen={isChangePassword}>
+        <ModalView title="Change password" cancel={cancelPassword} isModalOpen={isChangePassword}>
           <PasswordEditForm user={user} onSave={savePassword} />
         </ModalView>
 

@@ -1,41 +1,56 @@
-import {  ProductProjection } from "@commercetools/platform-sdk";
 import { FilterForm } from "../../components/filter-form/FilterForm";
+import { apiRoot, projectKey } from "../client/client";
 import { getProductsWithCategories } from "./getProductWithCategory";
 
-export async function sortProducts(params: FilterForm) {
-
-  // const categoryIds = params.genres!
 
 
-  const productsArrays = await Promise.all(
 
 
-      [ params.genres?.map(item => getProductsWithCategories(item)) || [],
-      params.countries?.map(item => getProductsWithCategories(item)) || [],
-      params.labels?.map(item => getProductsWithCategories(item)) || [],
+export const sortProducts = async (params: FilterForm) => {
+  let allProducts = (await apiRoot.withProjectKey({ projectKey }).productProjections().get().execute()).body.results;
 
-    ].flat()
-     );
-  let allProducts: ProductProjection[] = productsArrays.flat();
+
+  if(params.genres) {
+    const productsArray = params.genres.map(genre =>
+       getProductsWithCategories(genre)
+    )
+    const products = await Promise.all(productsArray);
+    allProducts = products.flat();
+  }
+  if (params.countries) {
+    const productsArray = params.countries.map(country =>
+      getProductsWithCategories(country)
+   )
+   const products = await Promise.all(productsArray);
+   allProducts = allProducts.concat(products.flat());
+  }
+  if (params.yearsFrom) {
+
+    allProducts = allProducts.filter(product => new Date(product.masterVariant.attributes?.find(attribute => attribute.name === 'release_year')?.value).getFullYear() >= params.yearsFrom!);
+  }
+  if (params.yearsTo) {
+   allProducts = allProducts.filter(product => new Date(product.masterVariant.attributes?.find(attribute => attribute.name === 'release_year')?.value).getFullYear() <= params.yearsTo!);
+
+  }
+  if (params.labels?.length) {
+    params.labels.forEach(lable => allProducts =allProducts.filter(product => product.masterVariant.attributes?.find(attr => attr.name === "record_label")?.value.includes(lable)))
+  }
+
+
+
+
   console.log(allProducts)
-  if (params.priceFrom) {
-    allProducts = allProducts.filter(item => item.masterVariant.price?.value.centAmount! >= params.priceFrom!);
-  }
-  else if (params.priceTo) {
-    allProducts = allProducts.filter(item => item.masterVariant.price?.value.centAmount! <= params.priceTo!);
-  }
-  if(params.yearsFrom || params.yearsTo){
-    allProducts = allProducts.filter(item => item.masterVariant.attributes?.find((attribute) => attribute.name === "release_year")?.value >= params.yearsFrom!);
-    allProducts = allProducts.filter(item => item.masterVariant.attributes?.find((attribute) => attribute.name === "release_year")?.value <= params.yearsTo!);
-  }
-
-  if (params.discounted) {
-    allProducts = allProducts.filter(item => item.masterVariant.price?.discounted);
-  }
-  console.log(allProducts)
 
 
 
-}
+
+
+
+
+
+
+
+
+};
 
 

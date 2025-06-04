@@ -20,8 +20,8 @@ export async function getProductsWithCategories(value: string): Promise<ProductP
     default:
       break;
   }
-
-
+  // (await apiRoot.withProjectKey({ projectKey }).categories().get().execute()).body.results.forEach(cat => console.log(cat.slug.en));
+  value = value.replace(' ', '-');
   const categoryResponse = await apiRoot
     .withProjectKey({ projectKey })
     .categories()

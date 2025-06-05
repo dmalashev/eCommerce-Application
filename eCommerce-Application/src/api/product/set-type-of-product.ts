@@ -7,7 +7,7 @@ import {
   ProductDraft,
 } from '@commercetools/platform-sdk';
 import { authMiddleware, client as clientBuilder, httpMiddleware, projectKey } from '../client/client';
-import { PRODUCTS } from '../data/products';
+import { productDrafts, PRODUCTS } from '../data/products';
 
 export async function setProductType(data: ProductDraft[]) {
   const client = clientBuilder
@@ -70,9 +70,11 @@ export async function setProductType(data: ProductDraft[]) {
 
   data.forEach(async (product) => {
     const response = await apiRoot.withProjectKey({ projectKey }).products().post({ body: product }).execute();
-    console.log(response.body, 'response');
+    ;
   });
+  console.log((await apiRoot.withProjectKey({ projectKey }).products().get().execute()).body.results.length);
 }
-setProductType(PRODUCTS);
+console.log(productDrafts.length + PRODUCTS.length);
 
-console.log('good');
+setProductType(productDrafts);
+setProductType(PRODUCTS);

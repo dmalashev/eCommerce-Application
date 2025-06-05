@@ -1,4 +1,4 @@
-import { Button, Flex } from 'antd';
+import { Button, Flex, message, Typography } from 'antd';
 import { PersonalInfo } from '../../components/profile/personal-info/PersonalInfo';
 import { Addresses } from '../../components/profile/addresses/Addresses';
 import './profile.css';
@@ -6,25 +6,93 @@ import { useUserSession } from '../../store/userSession.store';
 import { Navigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { useAuth } from '../../hooks/hooks';
+import { useEffect, useState } from 'react';
+import { PersonalInfoEditForm } from '../../components/profile/personal-info-edit/PersonalInfoEditForm';
+import { ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { PasswordEditForm } from '../../components/profile/password-edit/PasswordEditForm';
+import { ModalView } from '../../components/modal/ModalView';
 
 export default function Profile() {
   const auth = useAuth();
   const { user } = useUserSession();
+  const [isEditablePersonalInfo, setEditablePersonalInfo] = useState(false);
+  const [isChangePassword, setChangePassword] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [textMessage, setTextMessage] = useState('');
+
+  useEffect(() => {
+    if (showSuccessMessage) {
+      success(textMessage);
+      setShowSuccessMessage(false);
+    }
+  }, [showSuccessMessage]);
+
+  const success = (message: string) => {
+    messageApi.open({
+      type: 'success',
+      content: message,
+    });
+  };
+
+  const savePersonalInfo = (values: Record<string, string>) => {
+    setEditablePersonalInfo(false);
+    setTextMessage('Your personal information have been updated');
+    setShowSuccessMessage(true);
+  };
+
+  const cancelPersonalInfo = () => {
+    setEditablePersonalInfo(false);
+  };
+
+  const savePassword = (values: Record<string, string>) => {
+    setChangePassword(false);
+    setTextMessage('Your password has been updated');
+    setShowSuccessMessage(true);
+  };
+
+  const cancelPassword = () => {
+    setChangePassword(false);
+  };
+
   return auth.isLoggedIn ? (
     <div className="profile">
+      {contextHolder}
       <div className="profile-info">
-        <PersonalInfo user={user} />
-        <Flex vertical style={{ alignItems: 'start', justifyContent: 'space-between' }} gap={15}>
-          <Button className="button-submit" style={{ backgroundColor: '#DB4444' }} type="primary" htmlType="submit">
-            Edit personal info
-          </Button>
-
-          <Button className="button-submit" type="primary" style={{ backgroundColor: '#DB4444' }}>
-            Change password
-          </Button>
+        <Flex justify="start" align="center" gap={10} style={{ marginBottom: '10px' }}>
+          <Typography.Title level={4} style={{ margin: 0, color: '#DB4444' }}>
+            personal information
+          </Typography.Title>
+          <UserOutlined style={{ width: '30px', height: '20px', fontSize: '20px', color: '#DB4444' }} />
         </Flex>
+        {isEditablePersonalInfo ? (
+          <PersonalInfoEditForm user={user} onSave={savePersonalInfo} onCancel={cancelPersonalInfo} />
+        ) : (
+          <PersonalInfo user={user} onEdit={() => setEditablePersonalInfo(true)} />
+        )}
+
+        <ModalView title="Change password" cancel={cancelPassword} isModalOpen={isChangePassword}>
+          <PasswordEditForm user={user} onSave={savePassword} />
+        </ModalView>
+
+        <Button
+          className="button-submit"
+          type="primary"
+          style={{ backgroundColor: '#DB4444', alignSelf: 'start' }}
+          onClick={() => setChangePassword(true)}
+        >
+          Change password
+        </Button>
       </div>
       <div className="profile-addresses">
+        <Flex justify="start" align="center" gap={10} style={{ marginBottom: '10px' }}>
+          <Typography.Title level={4} style={{ margin: 0, color: '#DB4444' }}>
+            addresses
+          </Typography.Title>
+          <ProfileOutlined
+            style={{ width: '30px', height: '20px', fontSize: '20px', color: '#DB4444', marginRight: 100 }}
+          />
+        </Flex>
         <Addresses user={user} />
         <Button className="button-submit" type="primary" style={{ backgroundColor: '#DB4444', alignSelf: 'start' }}>
           Edit addresses

@@ -1,11 +1,14 @@
 import { Form, Input } from 'antd';
 import './password-input.css';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+type PasswordInputProperties = {
+  name?: string;
+};
 
-export const PasswordInput = () => {
+export const PasswordInput = ({ name = 'password' }: PasswordInputProperties) => {
   return (
     <Form.Item
-      name="password"
+      name={name}
       rules={[
         { required: true, message: 'Please, type password' },
         {
@@ -22,7 +25,7 @@ export const PasswordInput = () => {
       <Input.Password
         className="form-item"
         variant="underlined"
-        placeholder="password"
+        placeholder={name}
         data-testid="password-input"
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
       />

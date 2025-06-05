@@ -48,7 +48,7 @@ const APHEX_TWIN: ProductDraft = {
         value: [
           { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
-          { en: 'digital', ru: 'Цифровой' },
+          { en: 'cassette', ru: 'кассета' },
         ],
       },
 
@@ -227,7 +227,7 @@ const BOWIE_LETS_DANCE: ProductDraft = {
         value: [
           { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
-          { en: 'digital', ru: 'Цифровой' },
+          { en: 'cassette', ru: 'кассета' },
         ],
       },
       {
@@ -315,7 +315,7 @@ const BOWIE_STATION_TO_STATION: ProductDraft = {
         value: [
           { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
-          { en: 'digital', ru: 'Цифровой' },
+          { en: 'cassette', ru: 'кассета' },
         ],
       },
       {
@@ -413,7 +413,7 @@ const BEATLES_SGT_PEPPER: ProductDraft = {
           { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
           { en: 'cassette', ru: 'Кассета' },
-          { en: 'digital', ru: 'Цифровой' },
+          { en: 'cassette', ru: 'кассета' },
         ],
       },
       {
@@ -757,7 +757,7 @@ const VIOLATOR: ProductDraft = {
         value: [
           { en: 'vinyl', ru: 'винил' },
           { en: 'cd', ru: 'CD' },
-          { en: 'digital', ru: 'Цифровой' },
+          { en: 'cassette', ru: 'кассета' },
         ],
       },
       {
@@ -839,7 +839,7 @@ export const productDrafts: ProductDraft[] = [
           value: [
             { en: 'vinyl', ru: 'винил' },
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['1/1', '1/2', '2/1', '2/2'] },
@@ -884,7 +884,7 @@ export const productDrafts: ProductDraft[] = [
           value: [
             { en: 'vinyl', ru: 'винил' },
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['The Things I Tell You', 'Hyperborea', 'Antennaria'] },
@@ -929,7 +929,7 @@ export const productDrafts: ProductDraft[] = [
           value: [
             { en: 'vinyl', ru: 'винил' },
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['Clipper', 'Leterel', 'Stud'] },
@@ -973,7 +973,7 @@ export const productDrafts: ProductDraft[] = [
           value: [
             { en: 'vinyl', ru: 'винил' },
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['Discreet Music'] },
@@ -1017,7 +1017,7 @@ export const productDrafts: ProductDraft[] = [
           name: 'format',
           value: [
             { en: 'vinyl', ru: 'винил' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['Musik Vom Bauch'] },
@@ -1105,7 +1105,7 @@ export const productDrafts: ProductDraft[] = [
           name: 'format',
           value: [
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['Track 1', 'Track 2', 'Track 3'] },
@@ -1150,7 +1150,7 @@ export const productDrafts: ProductDraft[] = [
           value: [
             { en: 'vinyl', ru: 'винил' },
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['Building Steam With A Grain Of Salt', 'Midnight In A Perfect World'] },
@@ -1194,7 +1194,7 @@ export const productDrafts: ProductDraft[] = [
           name: 'format',
           value: [
             { en: 'cd', ru: 'CD' },
-            { en: 'digital', ru: 'Цифровой' },
+            { en: 'cassette', ru: 'кассета' },
           ],
         },
         { name: 'tracklist', value: ['Silent Moon'] },

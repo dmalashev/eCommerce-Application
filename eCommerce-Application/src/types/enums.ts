@@ -6,10 +6,20 @@ export const enum PageRoutes {
   NOT_FOUND = '*',
   PROFILE = '/profile',
 }
-
+export enum CountriesCodes {
+  RU = 'RU',
+  US = 'US',
+  UK = 'UK',
+}
+export enum CountryNames {
+  RU = 'Russia',
+  US = 'USA',
+  UK = 'United Kingdom',
+}
 export enum Countries {
   RUSSIA = 'Russia',
   USA = 'USA',
+  UK = 'United Kingdom',
 }
 
 export const enum StorageTokenKeys {

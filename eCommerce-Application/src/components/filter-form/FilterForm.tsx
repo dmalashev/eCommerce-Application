@@ -17,7 +17,7 @@ export type FilterForm = {
 
 const onFinish = (values: FilterForm) => {
   console.log('Success:', values);
-  sortProducts(values)
+  sortProducts(values);
 };
 
 export default function FilterForm({ form, closeModal }: { form: FormInstance; closeModal?: () => void }): JSX.Element {

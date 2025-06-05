@@ -1,6 +1,5 @@
 import ProductCard from '../../components/product-card/ProductCard';
 import { Layout, Flex, Segmented, Button, Modal, Form } from 'antd';
-import { cards } from '../../assets/temporary/cards'; // TODO: replace card objects with corresponding obj from API
 import { MediaTypes } from '../../types/enums';
 import { JSX, useEffect } from 'react';
 import FilterForm from '../../components/filter-form/FilterForm';

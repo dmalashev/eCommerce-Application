@@ -2,23 +2,25 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import { projectKey, apiRoot } from '../client/client';
 
 export async function getProductsWithCategories(value: string): Promise<ProductProjection[]> {
-
-
   switch (value) {
-    case 'Russia':
+    case 'Russia': {
       value = 'RU';
       break;
+    }
 
-    case 'USA':
+    case 'USA': {
       value = 'US';
       break;
+    }
 
-    case 'United Kingdom':
+    case 'United Kingdom': {
       value = 'UK';
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
   // (await apiRoot.withProjectKey({ projectKey }).categories().get().execute()).body.results.forEach(cat => console.log(cat.slug.en));
   value = value.replace(' ', '-');

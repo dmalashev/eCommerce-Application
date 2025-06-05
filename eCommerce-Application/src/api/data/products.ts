@@ -812,6 +812,409 @@ const VIOLATOR: ProductDraft = {
   },
   publish: true,
 };
+
+export const productDrafts: ProductDraft[] = [
+  {
+    key: 'ambient-1-music-for-airports-brian-eno',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Ambient 1: Music for Airports', ru: 'Ambient 1: Музыка для аэропортов' },
+    slug: { en: 'ambient-1-music-for-airports', ru: 'ambient-1-music-for-airports' },
+    description: {
+      en: 'Pioneering ambient album by Brian Eno.',
+      ru: 'Пионерский альбом амбиентной музыки от Брайана Ино.',
+    },
+    masterVariant: {
+      sku: 'brian-eno-ambient-1-' + crypto.randomUUID(),
+      key: 'ambient-1-music-for-airports-brian-eno',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 15000 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 13000 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Brian Eno' },
+        { name: 'genre', value: ['ambient', 'art rock'] },
+        { name: 'release_year', value: '1978-01-01' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['1/1', '1/2', '2/1', '2/2'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['Island Records'] },
+      ],
+      images: [
+        {
+          url: 'https://pitchblackplayback.com/cdn/shop/products/brianenopbpb_2ece74db-feda-40d7-ab19-3c827acd14ba.jpg?v=1635956849',
+          label: 'Ambient 1 Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Brian Eno - Ambient 1', ru: 'Brian Eno - Ambient 1' },
+    publish: true,
+  },
+
+  {
+    key: 'substrata-biosphere',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Substrata', ru: 'Substrata' },
+    slug: { en: 'substrata', ru: 'substrata' },
+    description: {
+      en: 'Chilling ambient soundscapes from Norway.',
+      ru: 'Холодные амбиентные пейзажи из Норвегии.',
+    },
+    masterVariant: {
+      sku: 'biosphere-substrata-' + crypto.randomUUID(),
+      key: 'substrata-biosphere',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 14000 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 12000 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Biosphere' },
+        { name: 'genre', value: ['ambient'] },
+        { name: 'release_year', value: '1997-06-01' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['The Things I Tell You', 'Hyperborea', 'Antennaria'] },
+        { name: 'country', value: { en: 'USA', ru: 'США' } },
+        { name: 'record_label', value: ['Touch'] },
+      ],
+      images: [
+        {
+          url: 'https://i.scdn.co/image/ab67616d0000b273ff62d9a27c00cbc97cdc9983',
+          label: 'Substrata Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Biosphere - Substrata', ru: 'Biosphere - Substrata' },
+    publish: true,
+  },
+
+  {
+    key: 'tri-repetae-autechre',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Tri Repetae', ru: 'Tri Repetae' },
+    slug: { en: 'tri-repetae', ru: 'tri-repetae' },
+    description: {
+      en: 'Abstract and experimental electronic textures.',
+      ru: 'Абстрактная и экспериментальная электронная музыка.',
+    },
+    masterVariant: {
+      sku: 'autechre-tri-repetae-' + crypto.randomUUID(),
+      key: 'tri-repetae-autechre',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 16000 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 12500 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Autechre' },
+        { name: 'genre', value: ['idm', 'ambient'] },
+        { name: 'release_year', value: '1995-11-06' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['Clipper', 'Leterel', 'Stud'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['Warp Records'] },
+      ],
+      images: [
+        {
+          url: 'https://images.genius.com/89151c62dd4fd02e5eeea842d309b161.1000x1000x1.jpg',
+          label: 'Tri Repetae Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Autechre - Tri Repetae', ru: 'Autechre - Tri Repetae' },
+    publish: true,
+  },
+  {
+    key: 'discreet-music-brian-eno',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Discreet Music', ru: 'Discreet Music' },
+    slug: { en: 'discreet-music', ru: 'discreet-music' },
+    description: {
+      en: 'Influential ambient album by Brian Eno.',
+      ru: 'Влиятельный амбиентный альбом Брайана Ино.',
+    },
+    masterVariant: {
+      sku: 'brian-eno-discreet-music-' + crypto.randomUUID(),
+      key: 'discreet-music-brian-eno',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 13500 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 11500 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Brian Eno' },
+        { name: 'genre', value: ['ambient'] },
+        { name: 'release_year', value: '1975-06-01' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['Discreet Music'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['Obscure Records'] },
+      ],
+      images: [
+        {
+          url: 'https://upload.wikimedia.org/wikipedia/en/5/5e/Discreet_Music_Virgin.jpg',
+          label: 'Discreet Music Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Brian Eno - Discreet Music', ru: 'Brian Eno - Discreet Music' },
+    publish: true,
+  },
+
+  {
+    key: 'musik-vom-bauch-stern-1981',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Musik Vom Bauch', ru: 'Musik Vom Bauch' },
+    slug: { en: 'musik-vom-bauch', ru: 'musik-vom-bauch' },
+    description: {
+      en: 'German electronic band album.',
+      ru: 'Альбом немецкой электронной группы.',
+    },
+    masterVariant: {
+      sku: 'stern-musik-vom-bauch-' + crypto.randomUUID(),
+      key: 'musik-vom-bauch-stern',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 11000 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 9500 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Stern' },
+        { name: 'genre', value: ['electronic'] },
+        { name: 'release_year', value: '1981-05-15' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['Musik Vom Bauch'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['Stern Records'] },
+      ],
+      images: [
+        {
+          url: 'https://dummyimage.com/300x300/000/fff&text=Musik+Vom+Bauch',
+          label: 'Musik Vom Bauch Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Stern - Musik Vom Bauch', ru: 'Stern - Musik Vom Bauch' },
+    publish: true,
+  },
+
+  {
+    key: 'radio-activity-kraftwerk',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Radio-Activity', ru: 'Radio-Activity' },
+    slug: { en: 'radio-activity', ru: 'radio-activity' },
+    description: {
+      en: 'Classic Kraftwerk electronic album.',
+      ru: 'Классический электронный альбом Kraftwerk.',
+    },
+    masterVariant: {
+      sku: 'kraftwerk-radio-activity-' + crypto.randomUUID(),
+      key: 'radio-activity-kraftwerk',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 15500 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 13500 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Kraftwerk' },
+        { name: 'genre', value: ['electronic'] },
+        { name: 'release_year', value: '1975-10-01' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'cd', ru: 'CD' },
+          ],
+        },
+        { name: 'tracklist', value: ['Radioactivity', 'Antenna', 'Radioland'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['Kling Klang'] },
+      ],
+      images: [
+        {
+          url: 'https://e.snmc.io/i/1200/s/0d16961146e9910e4c23a0e1b8488e25/1893297',
+          label: 'Radio-Activity Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Kraftwerk - Radio-Activity', ru: 'Kraftwerk - Radio-Activity' },
+    publish: true,
+  },
+
+  {
+    key: 'chill-out-future-music-may-2008',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Chill Out', ru: 'Chill Out' },
+    slug: { en: 'chill-out-future-music-may-2008', ru: 'chill-out-future-music-may-2008' },
+    description: {
+      en: 'Compilation of chill-out electronic tracks.',
+      ru: 'Сборник чилл-аут электронной музыки.',
+    },
+    masterVariant: {
+      sku: 'future-music-chill-out-' + crypto.randomUUID(),
+      key: 'chill-out-future-music-may-2008',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 10000 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 9000 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Various Artists' },
+        { name: 'genre', value: [ 'electronic'] },
+        { name: 'release_year', value: '2008-05-01' },
+        {
+          name: 'format',
+          value: [
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['Track 1', 'Track 2', 'Track 3'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['Future Music'] },
+      ],
+      images: [
+        {
+          url: 'https://lannerchronicle.wordpress.com/wp-content/uploads/2022/10/future-music-may-2008.jpg?w=643',
+          label: 'Future Music Chill Out Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Chill Out Compilation', ru: 'Сборник Chill Out' },
+    publish: true,
+  },
+
+  {
+    key: 'sheet-one-dj-shadow',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Endtroducing.....', ru: 'Endtroducing.....' },
+    slug: { en: 'endtroducing-dj-shadow', ru: 'endtroducing-dj-shadow' },
+    description: {
+      en: 'Groundbreaking instrumental hip hop album.',
+      ru: 'Новаторский инструментальный хип-хоп альбом.',
+    },
+    masterVariant: {
+      sku: 'dj-shadow-endtroducing-' + crypto.randomUUID(),
+      key: 'endtroducing-dj-shadow',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 17000 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 15000 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'DJ Shadow' },
+        { name: 'genre', value: ['electronic'] },
+        { name: 'release_year', value: '1996-09-16' },
+        {
+          name: 'format',
+          value: [
+            { en: 'vinyl', ru: 'винил' },
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['Building Steam With A Grain Of Salt', 'Midnight In A Perfect World'] },
+        { name: 'country', value: { en: 'US', ru: 'США' } },
+        { name: 'record_label', value: ['Mo’ Wax'] },
+      ],
+      images: [
+        {
+          url: 'https://www.abcdrduson.com/wp-content/uploads/2022/02/NFTDJ-DJ-Shadow1-1024x990.jpg',
+          label: 'Endtroducing Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'DJ Shadow - Endtroducing.....', ru: 'DJ Shadow - Endtroducing.....' },
+    publish: true,
+  },
+
+  {
+    key: 'silent-moon-paul-mccartney',
+    productType: { typeId: 'product-type', key: 'music-media' },
+    name: { en: 'Silent Moon', ru: 'Silent Moon' },
+    slug: { en: 'silent-moon', ru: 'silent-moon' },
+    description: {
+      en: 'Smooth electronic ambient music.',
+      ru: 'Спокойная электронная амбиент музыка.',
+    },
+    masterVariant: {
+      sku: 'paul-mccartney-silent-moon-' + crypto.randomUUID(),
+      key: 'silent-moon-paul-mccartney',
+      prices: [
+        { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 12500 } },
+        { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 11000 } },
+      ],
+      attributes: [
+        { name: 'artist', value: 'Paul McCartney' },
+        { name: 'genre', value: ['ambient', 'electronic'] },
+        { name: 'release_year', value: '2005-04-20' },
+        {
+          name: 'format',
+          value: [
+            { en: 'cd', ru: 'CD' },
+            { en: 'digital', ru: 'Цифровой' },
+          ],
+        },
+        { name: 'tracklist', value: ['Silent Moon'] },
+        { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+        { name: 'record_label', value: ['EMI'] },
+      ],
+      images: [
+        {
+          url: 'https://i.ytimg.com/vi/hwbGh204HWE/maxresdefault.jpg',
+          label: 'Silent Moon Album Cover',
+          dimensions: { w: 300, h: 300 },
+        },
+      ],
+    },
+    categories: [{ typeId: 'category', key: 'cat-music-media' }],
+    metaTitle: { en: 'Paul McCartney - Silent Moon', ru: 'Пол Маккартни - Silent Moon' },
+    publish: true,
+  },
+];
+
 export const PRODUCTS: ProductDraft[] = [
   { ...APHEX_TWIN },
   { ...DDT_OTTEPEL },
@@ -822,3 +1225,4 @@ export const PRODUCTS: ProductDraft[] = [
   { ...PARALLEL_LINES },
   { ...VIOLATOR },
 ];
+

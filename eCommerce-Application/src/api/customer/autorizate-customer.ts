@@ -17,6 +17,7 @@ import {
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
 import { StorageTokenKeys } from '../../types/enums';
+import { createCart } from '../Cart/create';
 const { setUser } = useUserSession.getState();
 
 export async function login(customer: CustomerDraft) {
@@ -74,6 +75,13 @@ export async function login(customer: CustomerDraft) {
     .login()
     .post({ body: { email, password } })
     .execute();
+
+  const carts = await apiRoot.withProjectKey({ projectKey }).me().carts().get().execute();
+  if (!carts.body.results.length) {
+    console.log(carts.body.results)
+   await createCart(apiRoot);
+  }
+  console.log(response)
 
   const addresses =
     response.body.customer.addresses?.map((address) => ({

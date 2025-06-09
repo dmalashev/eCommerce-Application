@@ -1,13 +1,20 @@
-import { ApiRoot } from "@commercetools/platform-sdk";
-import { projectKey } from "../client/client";
+import { ApiRoot } from '@commercetools/platform-sdk';
+import { projectKey } from '../client/client';
+import { createAnonymousCustomer } from '../customer/anonymous-customer';
 
+export async function createCart(api?: ApiRoot): Promise<void> {
+  console.log(api);
 
-export async function createCart(api: ApiRoot) : Promise<void> {
+  if (!localStorage.getItem('anonymousId')) {
+    await createAnonymousCustomer();
+  }
 
-  const resp = await api.withProjectKey({ projectKey }).me().carts().post(
-    { body: { currency: 'USD' } }
-  ).execute();
+  const resp = await api
+    ?.withProjectKey({ projectKey })
+    .me()
+    .carts()
+    .post({ body: { currency: 'USD' } })
+    .execute();
 
-  console.log(resp.body, 'cart create-cart');
-
+  console.log(resp?.body, 'cart create-cart');
 }

@@ -74,8 +74,7 @@ export async function login(customer: CustomerDraft) {
     console.log(carts.body.results);
     await createCart(apiRoot);
   }
-  if (localStorage.getItem('anonymousId')) {
-  }
+
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
     .withProjectKey({ projectKey })
     .me()
@@ -88,7 +87,10 @@ export async function login(customer: CustomerDraft) {
       },
     })
     .execute();
-
+    if (localStorage.getItem('anonymousId')) {
+      localStorage.removeItem('anonymousId');
+      console.log('removed anonymousId from localStorage');
+    }
   console.log(response);
 
   const addresses =

@@ -67,7 +67,6 @@ export const sortProducts = async (parameters: FilterForm): Promise<ProductProje
         product.masterVariant.attributes?.find((attribute) => attribute.name === 'record_label')?.value.includes(lable),
       );
   }
-  console.log(allProducts);
   if (parameters.priceFrom) {
     allProducts = allProducts.filter((product) => {
       const priceCents = product.masterVariant.price?.value?.centAmount;
@@ -84,6 +83,5 @@ export const sortProducts = async (parameters: FilterForm): Promise<ProductProje
     allProducts = allProducts.filter((product) => product.masterVariant.price?.discounted);
   }
 
-  console.log(allProducts);
   return allProducts;
 };

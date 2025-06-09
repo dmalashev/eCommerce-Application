@@ -1,10 +1,5 @@
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import {
-  AuthMiddlewareOptions,
-  ClientBuilder,
-  HttpMiddlewareOptions,
-  Middleware,
-} from '@commercetools/ts-client';
+import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions, Middleware, TokenCache, TokenCacheOptions, TokenStore } from '@commercetools/ts-client';
 
 const projectKey: string = import.meta.env.VITE_PROJECT_KEY;
 const clientId: string = import.meta.env.VITE_CLIENT_ID;
@@ -16,8 +11,6 @@ const accessToken: string = localStorage.getItem('access_token') || '';
 const userScopesClientId: string = import.meta.env.VITE_USER_API_CLIENT_ID;
 const userScopesClientSecret: string = import.meta.env.VITE_USER_API_CLIENT_SECRET;
 const userScopes: string = import.meta.env.VITE_USER_API_SCOPES;
-
-
 
 // Authorization of the server application to create a user
 const authMiddleware: AuthMiddlewareOptions = {
@@ -58,9 +51,6 @@ function createAuthMiddleware(accessToken: string): Middleware {
   };
 }
 
-
-
-
 const clientCustomer = new ClientBuilder()
   .withProjectKey(projectKey)
   .withHttpMiddleware(httpMiddleware)
@@ -68,8 +58,18 @@ const clientCustomer = new ClientBuilder()
   .build();
 const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(clientCustomer);
 
+
+
+
+
+
+
+
+
+
+
+
 export {
-  
   apiRootCustomer,
   apiRoot,
   authMiddleware,

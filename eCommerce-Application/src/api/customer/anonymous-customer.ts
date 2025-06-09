@@ -1,6 +1,11 @@
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { authUrl, client, clientId, clientSecret, httpMiddleware, projectKey, scopes } from '../client/client';
-import { AuthMiddlewareOptions } from '@commercetools/ts-client';
+import {
+  AuthMiddlewareOptions,
+  ClientBuilder,
+  createAuthMiddlewareForAnonymousSessionFlow,
+} from '@commercetools/ts-client';
+import { build } from 'vite';
 
 export async function createAnonymousCustomer() {
   const getOrCreatedAnonymousId = () => {
@@ -9,10 +14,11 @@ export async function createAnonymousCustomer() {
       id = crypto.randomUUID();
       localStorage.setItem('anonymousId', id);
     }
+    console.log('anonymousId', localStorage.getItem('anonymousId'));
     return id;
   };
 
-  //Anonymous middleware
+  const anonymousId = getOrCreatedAnonymousId();
 
   const anonymousMiddleware: AuthMiddlewareOptions = {
     host: authUrl,
@@ -20,22 +26,36 @@ export async function createAnonymousCustomer() {
     credentials: {
       clientId: clientId,
       clientSecret: clientSecret,
-      anonymousId: localStorage.getItem('anonymousId') || getOrCreatedAnonymousId(),
+      anonymousId,
     },
 
     scopes: scopes.split(','),
     httpClient: fetch,
   };
-
-  const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
+  const apiRootAnonymous = createApiBuilderFromCtpClient(
     client
       .withProjectKey(projectKey)
       .withAnonymousSessionFlow(anonymousMiddleware)
       .withHttpMiddleware(httpMiddleware)
-      .build(),
+      .build()
   );
-  apiRootAnonymous
-    .withProjectKey({ projectKey })
-    .carts()
-    .post({ body: { currency: 'USD', anonymousId: localStorage.getItem('anonymousId') || getOrCreatedAnonymousId() } });
+
+  try {
+    const cart = await apiRootAnonymous
+      .withProjectKey({ projectKey })
+      .carts()
+      .post({
+        body: { currency: 'USD', anonymousId },
+      })
+      .execute();
+    console.log(cart, 'cart createAnonymousCustomer');
+    localStorage.setItem('cartId', cart.body.id);
+    localStorage.setItem('cartVersion', cart.body.version.toString());
+  } catch (error: any) {
+    if (error.message?.includes('anonymousId is already in use')) {
+      localStorage.removeItem('anonymousId');
+      return await createAnonymousCustomer();
+    }
+    throw error;
+  }
 }

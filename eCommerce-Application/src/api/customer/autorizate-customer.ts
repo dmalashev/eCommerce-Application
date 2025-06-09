@@ -69,19 +69,27 @@ export async function login(customer: CustomerDraft) {
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
+  const carts = await apiRoot.withProjectKey({ projectKey }).me().carts().get().execute();
+  if (!carts.body.results.length) {
+    console.log(carts.body.results);
+    await createCart(apiRoot);
+  }
+  if (localStorage.getItem('anonymousId')) {
+  }
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .login()
-    .post({ body: { email, password } })
+    .post({
+      body: {
+        email,
+        password,
+        ...(localStorage.getItem('anonymousId') && { anonymousId: localStorage.getItem('anonymousId') }),
+      },
+    })
     .execute();
 
-  const carts = await apiRoot.withProjectKey({ projectKey }).me().carts().get().execute();
-  if (!carts.body.results.length) {
-    console.log(carts.body.results)
-   await createCart(apiRoot);
-  }
-  console.log(response)
+  console.log(response);
 
   const addresses =
     response.body.customer.addresses?.map((address) => ({

@@ -1,11 +1,8 @@
-import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { authUrl, client, clientId, clientSecret, httpMiddleware, projectKey, scopes } from '../client/client';
 import {
   AuthMiddlewareOptions,
-  ClientBuilder,
-  createAuthMiddlewareForAnonymousSessionFlow,
 } from '@commercetools/ts-client';
-import { build } from 'vite';
 
 export async function createAnonymousCustomer() {
   const getOrCreatedAnonymousId = () => {
@@ -37,11 +34,11 @@ export async function createAnonymousCustomer() {
       .withProjectKey(projectKey)
       .withAnonymousSessionFlow(anonymousMiddleware)
       .withHttpMiddleware(httpMiddleware)
-      .build()
+      .build(),
   );
 
   try {
-    const cart = await apiRootAnonymous
+    const cart:Cart = await apiRootAnonymous
       .withProjectKey({ projectKey })
       .carts()
       .post({

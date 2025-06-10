@@ -1,5 +1,10 @@
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions, Middleware, TokenCache, TokenCacheOptions, TokenStore } from '@commercetools/ts-client';
+import {
+  AuthMiddlewareOptions,
+  ClientBuilder,
+  HttpMiddlewareOptions,
+  Middleware,
+} from '@commercetools/ts-client';
 
 const projectKey: string = import.meta.env.VITE_PROJECT_KEY;
 const clientId: string = import.meta.env.VITE_CLIENT_ID;
@@ -57,17 +62,6 @@ const clientCustomer = new ClientBuilder()
   .withMiddleware(createAuthMiddleware(accessToken))
   .build();
 const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(clientCustomer);
-
-
-
-
-
-
-
-
-
-
-
 
 export {
   apiRootCustomer,

@@ -70,7 +70,7 @@ export async function login(customer: CustomerDraft) {
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
   const carts = await apiRoot.withProjectKey({ projectKey }).me().carts().get().execute();
-  if (!carts.body.results.length) {
+  if (carts.body.results.length === 0) {
     console.log(carts.body.results);
     await createCart(apiRoot);
   }
@@ -87,10 +87,10 @@ export async function login(customer: CustomerDraft) {
       },
     })
     .execute();
-    if (localStorage.getItem('anonymousId')) {
-      localStorage.removeItem('anonymousId');
-      console.log('removed anonymousId from localStorage');
-    }
+  if (localStorage.getItem('anonymousId')) {
+    localStorage.removeItem('anonymousId');
+    console.log('removed anonymousId from localStorage');
+  }
   console.log(response);
 
   const addresses =

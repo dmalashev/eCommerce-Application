@@ -1,6 +1,5 @@
 import { expectTypeOf, vi } from "vitest";
 import { getProducts } from "./getProduct";
-import { Product } from "@commercetools/platform-sdk";
 
 
 

@@ -48,12 +48,12 @@ describe('getProducts', () => {
     expect(result).toHaveLength(1)
     expectTypeOf(getProducts).returns.resolves.toBeArray()
   })
-  it('should return array products', async () => {
+  it('should return not undefined', async () => {
 
 
     const result = await getProducts()
     expect(result[0]).toBeDefined()
   })
-  
+
 
 })

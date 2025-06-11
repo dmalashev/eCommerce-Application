@@ -1,5 +1,6 @@
 import { expectTypeOf, vi } from "vitest";
 import { getProducts } from "./getProduct";
+import { Product } from "@commercetools/platform-sdk";
 
 
 
@@ -21,6 +22,28 @@ vi.mock('../client/client', () => ({
 }));
 
 vi.mock('@commercetools/platform-sdk', async () => {
+  const product = {
+    id: 'mockProduct-id',
+    version: 1,
+    createdAt: 'mockCreatedAt',
+    lastModifiedAt: 'mockLastModifiedAt',
+    productType: {
+      id: 'mockProductType-id',
+      typeId:  'product-type'
+    },
+    masterData: {
+      current: {
+        slug: { en: 'mockSlug' },
+        name: { en: 'mockName' },
+        categories: [
+          {
+            id: 'mockCategory-id',
+            typeId:  'category'
+          }
+        ]
+      },
+    }
+  }
   const actual = await vi.importActual<typeof import('@commercetools/platform-sdk')>('@commercetools/platform-sdk');
   return {
     ...actual,
@@ -28,7 +51,7 @@ vi.mock('@commercetools/platform-sdk', async () => {
       withProjectKey: () => ({
         products: () => ({
           get: () => ({
-            execute:vi.fn().mockResolvedValue({body:{results:[{id:'123344', version:1}]}})
+            execute:vi.fn().mockResolvedValue({body:{results:[product]}})
           })
         }),
       }),
@@ -56,4 +79,23 @@ describe('getProducts', () => {
   })
 
 
+})
+describe('dataProducts', () => {
+  it('should return dataProducts', async () => {
+    const arrayProduct = await getProducts()
+    const result = arrayProduct.map(product => ({
+      id: product.id,
+      current: {
+        slug: product.masterData.current.slug,
+        name: product.masterData.current.name
+      }
+    }))
+    expect(result[0]).toEqual({
+      id: 'mockProduct-id',
+      current: {
+        slug: { en: 'mockSlug' },
+        name: { en: 'mockName' }
+      }
+    })
+  })
 })

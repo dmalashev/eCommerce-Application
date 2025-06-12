@@ -8,6 +8,7 @@ import {
 } from '@commercetools/platform-sdk';
 import { authMiddleware, client as clientBuilder, httpMiddleware, projectKey } from '../client/client';
 import { productDrafts, PRODUCTS } from '../data/products';
+import { updateProductData } from './update';
 
 export async function setProductType(data: ProductDraft[]) {
   const client = clientBuilder
@@ -78,3 +79,4 @@ console.log(productDrafts.length + PRODUCTS.length);
 
 setProductType(productDrafts);
 setProductType(PRODUCTS);
+updateProductData()

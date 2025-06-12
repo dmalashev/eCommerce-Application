@@ -14,5 +14,5 @@ export async function changePassword(parameters: { currentPassword: string; newP
     .post({ body: { version: customer.body.version, currentPassword, newPassword } })
     .execute();
   logout();
-  login({ email: customer.body.email, password: newPassword });
+  await login({ email: customer.body.email, password: newPassword });
 }

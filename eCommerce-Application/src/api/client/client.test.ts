@@ -9,8 +9,29 @@ const httpMiddleware: HttpMiddlewareOptions = {
   httpClient: fetch,
 };
 
-test('should build client with no errors', () => {
-  expect(() => {
-    client.withHttpMiddleware(httpMiddleware).build();
-  }).not.toThrow();
+
+describe('client', () => {
+
+  const projectKey: string = 'mockProjectKey';
+  const clientId: string = 'mockClientId';
+  const clientSecret: string = 'mockClientSecret';
+  const authUrl: string = 'mockAuthUrl';
+  const apiUrl: string = 'mockApiUrl';
+  const scopes: string = 'mockScopes';
+  const accessToken: string = localStorage.getItem('access_token') || '';
+  const userScopesClientId: string = 'mockUserScopesClientId';
+  const userScopesClientSecret: string = 'mockUserScopesClientSecret';
+  const userScopes: string = 'mockUserScopes';
+
+
+  test('should build client with no errors', () => {
+    expect(() => {
+      client.withHttpMiddleware(httpMiddleware).build();
+    }).not.toThrow();
+  });
+  test('should return a client instance', () => {
+    const result = client.withHttpMiddleware(httpMiddleware).build();
+    expect(result).toBeDefined();
+  });
+
 });

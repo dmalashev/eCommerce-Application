@@ -42,11 +42,12 @@ export async function createAnonymousCustomer() {
       .withProjectKey({ projectKey })
       .carts()
       .post({
-        body: { currency: 'USD', anonymousId },
+        body: { currency: 'USD', country: 'US', anonymousId },
       })
       .execute();
     console.log(cart, 'cart createAnonymousCustomer');
     localStorage.setItem('cartId', cart.body.id);
+    console.log('set cartId');
     localStorage.setItem('cartVersion', cart.body.version.toString());
   } catch (error: any) {
     if (error.message?.includes('anonymousId is already in use')) {

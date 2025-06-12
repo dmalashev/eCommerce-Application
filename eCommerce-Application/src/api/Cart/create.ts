@@ -13,7 +13,10 @@ export async function createCart(api?: ApiRoot): Promise<void> {
     ?.withProjectKey({ projectKey })
     .me()
     .carts()
-    .post({ body: { currency: 'USD', country: 'US' } })
+    .post({ body: {
+      currency: 'USD',
+      country: 'US',
+    } })
     .execute();
 
   console.log(resp?.body, 'cart create-cart');

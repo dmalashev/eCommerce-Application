@@ -2,6 +2,7 @@ import { Cart, ClientResponse, createApiBuilderFromCtpClient, LineItemDraft, Pro
 import {  apiRootCustomer, client, httpMiddleware, projectKey } from "../client/client";
 import { createAnonymousCustomer } from "../customer/anonymous-customer";
 import { getCart } from "./get";
+import { createdCustomer } from "../customer/create-customer";
 
 export async function addItemToCart(product: ProductProjection ,quantity:number =1 ) {
   const item: LineItemDraft = {
@@ -30,9 +31,12 @@ export async function addItemToCart(product: ProductProjection ,quantity:number 
       }
     }).execute();
 
-  } else if(localStorage.getItem('cartId')) {
-
+  } else if (!localStorage.getItem('cartId')) {
+    console.log("createdCustomer")
     await createAnonymousCustomer();
+  }
+  if (localStorage.getItem('cartId')) {
+
     const apiRootAnonymous = createApiBuilderFromCtpClient(
       client
         .withProjectKey(projectKey)
@@ -50,10 +54,11 @@ export async function addItemToCart(product: ProductProjection ,quantity:number 
         ]
       }
     }).execute()
-
+      console.log(response.body)
     localStorage.setItem('cartVersion', response.body.version.toString() );
+    }
+    await getCart()
   }
-  await getCart()
 
 
 
@@ -61,4 +66,4 @@ export async function addItemToCart(product: ProductProjection ,quantity:number 
 
 
 
-}
+

@@ -24,7 +24,7 @@ export async function getCart() {
     );
 
     const response = await apiRootAnonymous.withProjectKey({ projectKey }).carts().get().execute();
-    console.log('anonymous customer cart', response.body)
+    console.log('anonymous customer cart', response.body.results)
     return response.body;
   }
 

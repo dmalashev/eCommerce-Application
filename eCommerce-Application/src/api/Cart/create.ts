@@ -1,9 +1,10 @@
 import { ApiRoot } from '@commercetools/platform-sdk';
 import { projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
+import { CountriesCodes, CurrencyCodes, StorageKeys } from '../../types/enums';
 
 export async function createCart(api?: ApiRoot): Promise<void> {
-  if (!localStorage.getItem('anonymousId')) {
+  if (!localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {
     await createAnonymousCustomer();
   }
 
@@ -13,8 +14,8 @@ export async function createCart(api?: ApiRoot): Promise<void> {
     .carts()
     .post({
       body: {
-        currency: 'USD',
-        country: 'US',
+        currency: CurrencyCodes.USD,
+        country: CountriesCodes.US,
       },
     })
     .execute();

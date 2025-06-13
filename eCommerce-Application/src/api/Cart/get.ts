@@ -8,9 +8,10 @@ import {
   ProductProjectionPagedSearchResponse,
 } from '@commercetools/platform-sdk';
 import { client, httpMiddleware, projectKey } from '../client/client';
+import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 
 export async function getCart(): Promise<Cart> {
-  const isLogin: boolean = !!localStorage.getItem('access_token');
+  const isLogin: boolean = !!localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
   if (isLogin) {
     const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
@@ -31,7 +32,7 @@ export async function getCart(): Promise<Cart> {
     const response: ClientResponse<Cart> = await apiRootAnonymous
       .withProjectKey({ projectKey })
       .carts()
-      .withId({ ID: localStorage.getItem('cartId')! })
+      .withId({ ID: localStorage.getItem(StorageKeys.CART_ID)! })
       .get()
       .execute();
     return response.body;

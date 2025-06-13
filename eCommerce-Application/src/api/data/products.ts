@@ -812,7 +812,86 @@ const VIOLATOR: ProductDraft = {
   },
   publish: true,
 };
-
+const PINK_FLOYD: ProductDraft = {
+  key: 'the-dark-side-of-the-moon-pink-floyd',
+  productType: {
+    typeId: 'product-type',
+    key: 'music-media',
+  },
+  name: { en: 'The Dark Side of the Moon', ru: 'Тёмная сторона Луны' },
+  slug: { en: 'the-dark-side-of-the-moon', ru: 'tyomnaya-storona-luny' },
+  description: { en: 'Legendary progressive rock album', ru: 'Легендарный альбом прогрессивного рока' },
+  masterVariant: {
+    sku: 'pink-floyd-' + crypto.randomUUID(),
+    key: 'the-dark-side-of-the-moon-pink-floyd',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 2500,
+        },
+      },
+      {
+        country: 'RU',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'RUB',
+          centAmount: 18000,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Pink Floyd',
+      },
+      {
+        name: 'genre',
+        value: ['rock', 'art-rock'],
+      },
+      {
+        name: 'release_year',
+        value: '1973-03-01',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'tracklist',
+        value: ['Speak to Me', 'Breathe', 'Time', 'Money'],
+      },
+      {
+        name: 'country',
+        value: { en: 'UK', ru: 'Великобритания' },
+      },
+      {
+        name: 'record_label',
+        value: ['Harvest Records'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png',
+        label: 'Dark Side of the Moon Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Pink Floyd', ru: 'Пинк Флойд' },
+  publish: true,
+};
 export const productDrafts: ProductDraft[] = [
   {
     key: 'ambient-1-music-for-airports-brian-eno',
@@ -1099,7 +1178,7 @@ export const productDrafts: ProductDraft[] = [
       ],
       attributes: [
         { name: 'artist', value: 'Various Artists' },
-        { name: 'genre', value: [ 'electronic'] },
+        { name: 'genre', value: ['electronic'] },
         { name: 'release_year', value: '2008-05-01' },
         {
           name: 'format',
@@ -1214,8 +1293,1023 @@ export const productDrafts: ProductDraft[] = [
     publish: true,
   },
 ];
-
+const THE_BEATLES: ProductDraft = {
+  key: 'abbey-road-the-beatles',
+  productType: {
+    typeId: 'product-type',
+    key: 'music-media',
+  },
+  name: { en: 'Abbey Road', ru: 'Эбби Роуд' },
+  slug: { en: 'abbey-road', ru: 'ebbi-road' },
+  description: { en: 'Iconic Beatles album', ru: 'Культовый альбом The Beatles' },
+  masterVariant: {
+    sku: 'the-beatles-' + crypto.randomUUID(),
+    key: 'abbey-road-the-beatles',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 3000,
+        },
+      },
+      {
+        country: 'RU',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'RUB',
+          centAmount: 22000,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'The Beatles',
+      },
+      {
+        name: 'genre',
+        value: ['rock', 'pop'],
+      },
+      {
+        name: 'release_year',
+        value: '1969-09-26',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'tracklist',
+        value: ['Come Together', 'Something', 'Here Comes the Sun'],
+      },
+      {
+        name: 'country',
+        value: { en: 'UK', ru: 'Великобритания' },
+      },
+      {
+        name: 'record_label',
+        value: ['Apple Records'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg',
+        label: 'Abbey Road Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'The Beatles', ru: 'Битлз' },
+  publish: true,
+};
+const RADIOHEAD: ProductDraft = {
+  key: 'ok-computer-radiohead',
+  productType: {
+    typeId: 'product-type',
+    key: 'music-media',
+  },
+  name: { en: 'OK Computer', ru: 'OK Computer' },
+  slug: { en: 'ok-computer', ru: 'ok-computer' },
+  description: { en: 'Experimental rock masterpiece', ru: 'Экспериментальный рок-шедевр' },
+  masterVariant: {
+    sku: 'radiohead-' + crypto.randomUUID(),
+    key: 'ok-computer-radiohead',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 2800,
+        },
+      },
+      {
+        country: 'RU',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'RUB',
+          centAmount: 20000,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Radiohead',
+      },
+      {
+        name: 'genre',
+        value: ['rock'],
+      },
+      {
+        name: 'release_year',
+        value: '1997-05-21',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'tracklist',
+        value: ['Paranoid Android', 'Karma Police', 'No Surprises'],
+      },
+      {
+        name: 'country',
+        value: { en: 'UK', ru: 'Великобритания' },
+      },
+      {
+        name: 'record_label',
+        value: ['Parlophone', 'Capitol Records'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/a/a1/Radiohead.okcomputer.albumart.jpg',
+        label: 'OK Computer Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Radiohead', ru: 'Рэдиохэд' },
+  publish: true,
+};
+const DAFT_PUNK: ProductDraft = {
+  key: 'random-access-memories-daft-punk',
+  productType: {
+    typeId: 'product-type',
+    key: 'music-media',
+  },
+  name: { en: 'Random Access Memories', ru: 'Random Access Memories' },
+  slug: { en: 'random-access-memories', ru: 'random-access-memories' },
+  description: { en: 'Electronic music revolution', ru: 'Электронная музыкальная революция' },
+  masterVariant: {
+    sku: 'daft-punk-' + crypto.randomUUID(),
+    key: 'random-access-memories-daft-punk',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 3500,
+        },
+      },
+      {
+        country: 'RU',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'RUB',
+          centAmount: 25000,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Daft Punk',
+      },
+      {
+        name: 'genre',
+        value: ['disco', 'funk'],
+      },
+      {
+        name: 'release_year',
+        value: '2013-05-17',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'tracklist',
+        value: ['Get Lucky', 'Instant Crush', 'Lose Yourself to Dance'],
+      },
+      {
+        name: 'country',
+        value: { en: 'France', ru: 'Франция' },
+      },
+      {
+        name: 'record_label',
+        value: ['Columbia Records'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/a/a7/Random_Access_Memories.jpg',
+        label: 'Random Access Memories Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Daft Punk', ru: 'Daft Punk' },
+  publish: true,
+};
+const MASSIVE_ATTACK: ProductDraft = {
+  key: 'mezzanine-massive-attack',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Mezzanine', ru: 'Mezzanine' },
+  slug: { en: 'mezzanine', ru: 'mezzanine' },
+  description: { en: 'Trip-hop classic', ru: 'Классика трип-хопа' },
+  masterVariant: {
+    sku: 'massive-attack-' + crypto.randomUUID(),
+    key: 'mezzanine-massive-attack',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3200 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 24000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Massive Attack' },
+      { name: 'genre', value: ['disco', 'funk', 'art-rock'] },
+      { name: 'release_year', value: '1998-04-20' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Teardrop', 'Angel', 'Inertia Creeps'] },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'record_label', value: ['Virgin Records'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/4/4c/Massive_Attack_-_Mezzanine.png',
+        label: 'Mezzanine Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Massive Attack', ru: 'Massive Attack' },
+  publish: true,
+};
+const NIRVANA: ProductDraft = {
+  key: 'nevermind-nirvana',
+  productType: {
+    typeId: 'product-type',
+    key: 'music-media',
+  },
+  name: { en: 'Nevermind', ru: 'Nevermind' },
+  slug: { en: 'nevermind', ru: 'nevermind' },
+  description: { en: 'Grunge revolution', ru: 'Гранжевая революция' },
+  masterVariant: {
+    sku: 'nirvana-' + crypto.randomUUID(),
+    key: 'nevermind-nirvana',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 2200,
+        },
+      },
+      {
+        country: 'RU',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'RUB',
+          centAmount: 15000,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Nirvana',
+      },
+      {
+        name: 'genre',
+        value: ['rock'],
+      },
+      {
+        name: 'release_year',
+        value: '1991-09-24',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'tracklist',
+        value: ['Smells Like Teen Spirit', 'Come as You Are', 'Lithium'],
+      },
+      {
+        name: 'country',
+        value: { en: 'USA', ru: 'США' },
+      },
+      {
+        name: 'record_label',
+        value: ['DGC Records'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/NirvanaNevermindalbumcover.jpg',
+        label: 'Nevermind Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Nirvana', ru: 'Нирвана' },
+  publish: true,
+};
+const DAVID_BOWIE: ProductDraft = {
+  key: 'ziggy-stardust-david-bowie',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'The Rise and Fall of Ziggy Stardust', ru: 'Взлёт и падение Зигги Стардаста' },
+  slug: { en: 'ziggy-stardust', ru: 'ziggy-stardust' },
+  description: { en: 'Glam rock masterpiece', ru: 'Шедевр глэм-рока' },
+  masterVariant: {
+    sku: 'david-bowie-' + crypto.randomUUID(),
+    key: 'ziggy-stardust-david-bowie',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 2800 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 20000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'David Bowie' },
+      { name: 'genre', value: ['rock', 'art-rock'] },
+      { name: 'release_year', value: '1972-06-16' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Starman', 'Suffragette City', 'Ziggy Stardust'] },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'record_label', value: ['RCA Records'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/0/01/ZiggyStardust.jpg',
+        label: 'Ziggy Stardust Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'David Bowie', ru: 'Дэвид Боуи' },
+  publish: true,
+};
+const KENDRICK_LAMAR: ProductDraft = {
+  key: 'to-pimp-a-butterfly-kendrick-lamar',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'To Pimp a Butterfly', ru: 'To Pimp a Butterfly' },
+  slug: { en: 'to-pimp-a-butterfly', ru: 'to-pimp-a-butterfly' },
+  description: { en: 'Jazz-infused hip-hop classic', ru: 'Классика хип-хопа с элементами джаза' },
+  masterVariant: {
+    sku: 'kendrick-lamar-' + crypto.randomUUID(),
+    key: 'to-pimp-a-butterfly-kendrick-lamar',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 25000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Kendrick Lamar' },
+      { name: 'genre', value: ['hip-hop', 'jazz', 'conscious rap'] },
+      { name: 'release_year', value: '2015-03-15' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['King Kunta', 'Alright', 'The Blacker the Berry'] },
+      { name: 'country', value: { en: 'USA', ru: 'США' } },
+      { name: 'record_label', value: ['Top Dawg Entertainment', 'Aftermath'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Kendrick_Lamar_-_To_Pimp_a_Butterfly.png',
+        label: 'To Pimp a Butterfly Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Kendrick Lamar', ru: 'Кендрик Ламар' },
+  publish: true,
+};
+const QUEEN: ProductDraft = {
+  key: 'a-night-at-the-opera-queen',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'A Night at the Opera', ru: 'Ночь в опере' },
+  slug: { en: 'a-night-at-the-opera', ru: 'noch-v-opere' },
+  description: { en: 'Epic rock opera with Bohemian Rhapsody', ru: 'Эпичная рок-опера с "Богемской Рапсодией"' },
+  masterVariant: {
+    sku: 'queen-' + crypto.randomUUID(),
+    key: 'a-night-at-the-opera-queen',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3200 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 22000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Queen' },
+      { name: 'genre', value: ['rock', 'progressive rock', 'hard rock'] },
+      { name: 'release_year', value: '1975-11-21' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Bohemian Rhapsody', "You're My Best Friend", 'Love of My Life'] },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'record_label', value: ['EMI', 'Elektra'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/4/4d/Queen_A_Night_At_The_Opera.png',
+        label: 'A Night at the Opera Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Queen', ru: 'Квин' },
+  publish: true,
+};
+const KRAFTWERK_TRANS: ProductDraft = {
+  key: 'trans-europe-express-kraftwerk',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Trans-Europe Express', ru: 'Транс-Европа Экспресс' },
+  slug: { en: 'trans-europe-express', ru: 'trans-evropa-express' },
+  description: { en: 'Seminal electronic album', ru: 'Знаковый электронный альбом' },
+  masterVariant: {
+    sku: 'kraftwerk-' + crypto.randomUUID(),
+    attributes: [
+      { name: 'artist', value: 'Kraftwerk' },
+      { name: 'genre', value: ['krautrock', 'electronic'] },
+      { name: 'release_year', value: '1977-03-01' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'album',
+        value: [{ en: 'Trans-Europe Express', ru: 'Транс-Европа Экспресс' }],
+      },
+      { name: 'tracklist', value: ['Trans-Europe Express', 'Metal on Metal', 'Franz Schubert'] },
+      { name: 'country', value: { en: 'Germany', ru: 'Германия' } },
+      { name: 'record_label', value: ['Kling Klang'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/0/02/Trans-Europe_Express.jpg',
+        label: 'Album cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+    prices: [{ country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } }],
+  },
+  publish: true,
+};
+const ROLLING_STONES: ProductDraft = {
+  key: 'exile-on-main-st-rolling-stones',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Exile on Main St.', ru: 'Изгнанник на Мэйн-стрит' },
+  slug: { en: 'exile-on-main-st', ru: 'izgnannik-na-main-street' },
+  description: { en: 'Double album blues rock masterpiece', ru: 'Двойной альбом — шедевр блюз-рока' },
+  masterVariant: {
+    sku: 'rolling-stones-' + crypto.randomUUID(),
+    key: 'exile-on-main-st-rolling-stones',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 4000 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 28000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'The Rolling Stones' },
+      { name: 'genre', value: ['rock', 'blues rock'] },
+      { name: 'release_year', value: '1972-05-12' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Tumbling Dice', 'Happy', 'Rocks Off'] },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'record_label', value: ['Rolling Stones Records'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/2/2e/ExileOnMainSt.jpg',
+        label: 'Exile on Main St. Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'The Rolling Stones', ru: 'Роллинг Стоунз' },
+  publish: true,
+};
+const BJORK: ProductDraft = {
+  key: 'homogenic-bjork',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Homogenic', ru: 'Homogenic' },
+  slug: { en: 'homogenic', ru: 'homogenic' },
+  description: { en: 'Experimental electronic avant-garde', ru: 'Экспериментальный электронный авангард' },
+  masterVariant: {
+    sku: 'bjork-' + crypto.randomUUID(),
+    key: 'homogenic-bjork',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 2900 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 20000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Björk' },
+      { name: 'genre', value: ['electronic', 'avant-garde', 'art pop'] },
+      { name: 'release_year', value: '1997-09-22' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Jóga', 'Bachelorette', 'Hunter'] },
+      { name: 'country', value: { en: 'Iceland', ru: 'Исландия' } },
+      { name: 'record_label', value: ['One Little Indian'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Homogenic.jpg',
+        label: 'Homogenic Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Björk', ru: 'Бьорк' },
+  publish: true,
+};
+const METALLICA: ProductDraft = {
+  key: 'master-of-puppets-metallica',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Master of Puppets', ru: 'Повелитель кукол' },
+  slug: { en: 'master-of-puppets', ru: 'povelitel-kukol' },
+  description: { en: 'Thrash metal landmark album', ru: 'Культовый альбом трэш-метала' },
+  masterVariant: {
+    sku: 'metallica-' + crypto.randomUUID(),
+    key: 'master-of-puppets-metallica',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 25000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Metallica' },
+      { name: 'genre', value: ['soul'] },
+      { name: 'release_year', value: '1986-03-03' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Master of Puppets', 'Battery', 'Welcome Home (Sanitarium)'] },
+      { name: 'country', value: { en: 'USA', ru: 'США' } },
+      { name: 'record_label', value: ['Elektra'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/b/b2/Metallica_-_Master_of_Puppets_cover.jpg',
+        label: 'Master of Puppets Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Metallica', ru: 'Металлика' },
+  publish: true,
+};
+const JOY_DIVISION: ProductDraft = {
+  key: 'unknown-pleasures-joy-division',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Unknown Pleasures', ru: 'Неизвестные наслаждения' },
+  slug: { en: 'unknown-pleasures', ru: 'neizvestnye-naslazhdeniya' },
+  description: { en: 'Post-punk and darkwave classic', ru: 'Классика пост-панка и дарквейва' },
+  masterVariant: {
+    sku: 'joy-division-' + crypto.randomUUID(),
+    key: 'unknown-pleasures-joy-division',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 2700 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 19000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Joy Division' },
+      { name: 'genre', value: ['funk', 'alternative'] },
+      { name: 'release_year', value: '1979-06-15' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Disorder', "She's Lost Control", 'Shadowplay'] },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'record_label', value: ['Factory Records'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Joy_Division_-_Unknown_Pleasures.png',
+        label: 'Unknown Pleasures Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Joy Division', ru: 'Джой Дивижн' },
+  publish: true,
+};
+const THE_DOORS: ProductDraft = {
+  key: 'the-doors-the-doors',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'The Doors', ru: 'The Doors' },
+  slug: { en: 'the-doors', ru: 'the-doors' },
+  description: { en: 'Psychedelic rock debut album', ru: 'Дебютный альбом психоделического рока' },
+  masterVariant: {
+    sku: 'the-doors-' + crypto.randomUUID(),
+    key: 'the-doors-the-doors',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3000 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 21000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'The Doors' },
+      { name: 'genre', value: ['rock', 'psychedelic-rock'] },
+      { name: 'release_year', value: '1967-01-04' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Break on Through', 'Light My Fire', 'The End'] },
+      { name: 'country', value: { en: 'USA', ru: 'США' } },
+      { name: 'record_label', value: ['Elektra'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/4/4c/The_Doors_-_The_Doors_%281967_album%29_cover.jpg',
+        label: 'The Doors Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'The Doors', ru: 'The Doors' },
+  publish: true,
+};
+const LED_ZEPPELIN: ProductDraft = {
+  key: 'led-zeppelin-iv-led-zeppelin',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Led Zeppelin IV', ru: 'Led Zeppelin IV' },
+  slug: { en: 'led-zeppelin-iv', ru: 'led-zeppelin-iv' },
+  description: { en: 'Classic rock with Stairway to Heaven', ru: 'Классический рок с "Лестницей в небо"' },
+  masterVariant: {
+    sku: 'led-zeppelin-' + crypto.randomUUID(),
+    key: 'led-zeppelin-iv-led-zeppelin',
+    prices: [
+      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } },
+      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 25000 } },
+    ],
+    attributes: [
+      { name: 'artist', value: 'Led Zeppelin' },
+      { name: 'genre', value: ['rock', 'funk'] },
+      { name: 'release_year', value: '1971-11-08' },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      { name: 'tracklist', value: ['Stairway to Heaven', 'Black Dog', 'Rock and Roll'] },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'record_label', value: ['Atlantic'] },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/2/26/Led_Zeppelin_-_Led_Zeppelin_IV.jpg',
+        label: 'Led Zeppelin IV Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [{ typeId: 'category', key: 'cat-music-media' }],
+  metaTitle: { en: 'Led Zeppelin', ru: 'Лед Зеппелин' },
+  publish: true,
+};
+const KING_CRIMSON: ProductDraft = {
+  key: 'court-crimson-king-king-crimson',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'In the Court of the Crimson King', ru: 'При дворе малинового короля' },
+  slug: { en: 'court-crimson-king', ru: 'pri-dvore-malinovogo-korolya' },
+  description: { en: 'Progressive art-rock landmark', ru: 'Эталон арт-рока' },
+  masterVariant: {
+    sku: 'king-crimson-' + crypto.randomUUID(),
+    attributes: [
+      { name: 'artist', value: 'King Crimson' },
+      { name: 'genre', value: ['art-rock', 'psychedelic-rock', 'progressive'] },
+      { name: 'release_year', value: '1969-10-10' },
+      { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
+      { name: 'tracklist', value: ['21st Century Schizoid Man', 'Epitaph', 'Moonchild'] },
+    ],
+    prices: [{ country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } }],
+  },
+  publish: true,
+};
+const AUTECHRE_LP5: ProductDraft = {
+  key: 'lp5-autechre',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'LP5', ru: 'LP5' },
+  slug: { en: 'lp5', ru: 'lp5' },
+  description: { en: 'Experimental IDM album', ru: 'Экспериментальный IDM альбом' },
+  masterVariant: {
+    sku: 'autechre-' + crypto.randomUUID(),
+    key: 'lp5-autechre',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 2800,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Autechre',
+      },
+      {
+        name: 'genre',
+        value: ['idm', 'electronic'],
+      },
+      {
+        name: 'release_year',
+        value: '1998-07-13',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'cd', ru: 'CD' },
+          { en: 'vinyl', ru: 'винил' },
+        ],
+      },
+      {
+        name: 'album',
+        value: [{ en: 'LP5', ru: 'LP5' }],
+      },
+      {
+        name: 'tracklist',
+        value: ['Acroyear2', 'Rae', 'Fold4,Wrap5'],
+      },
+      {
+        name: 'country',
+        value: { en: 'UK', ru: 'Великобритания' },
+      },
+      {
+        name: 'record_label',
+        value: ['Warp Records'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Autechre_-_LP5.png',
+        label: 'LP5 Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Autechre LP5', ru: 'Autechre LP5' },
+  publish: true,
+};
+const BRIAN_ENO_AIRPORTS: ProductDraft = {
+  key: 'music-for-airports-brian-eno',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Ambient 1: Music for Airports', ru: 'Эмбиент 1: Музыка для аэропортов' },
+  slug: { en: 'music-for-airports', ru: 'muzyka-dlya-aeroportov' },
+  description: { en: 'Ambient music classic', ru: 'Классика эмбиент-музыки' },
+  masterVariant: {
+    sku: 'eno-' + crypto.randomUUID(),
+    key: 'music-for-airports-brian-eno',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 3200,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Brian Eno',
+      },
+      {
+        name: 'genre',
+        value: ['ambient'],
+      },
+      {
+        name: 'release_year',
+        value: '1978-01-01',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'album',
+        value: [{ en: 'Ambient 1: Music for Airports', ru: 'Эмбиент 1: Музыка для аэропортов' }],
+      },
+      {
+        name: 'tracklist',
+        value: ['1/1', '2/1', '2/2'],
+      },
+      {
+        name: 'country',
+        value: { en: 'UK', ru: 'Великобритания' },
+      },
+      {
+        name: 'record_label',
+        value: ['Polydor'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/4/4d/Music_for_Airports.jpg',
+        label: 'Album Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Brian Eno', ru: 'Брайан Ино' },
+  publish: true,
+};
+const MILES_DAVIS_BLUE: ProductDraft = {
+  key: 'kind-of-blue-miles-davis',
+  productType: { typeId: 'product-type', key: 'music-media' },
+  name: { en: 'Kind of Blue', ru: 'Kind of Blue' },
+  slug: { en: 'kind-of-blue', ru: 'kind-of-blue' },
+  description: { en: 'Jazz masterpiece', ru: 'Шедевр джаза' },
+  masterVariant: {
+    sku: 'miles-' + crypto.randomUUID(),
+    key: 'kind-of-blue-miles-davis',
+    prices: [
+      {
+        country: 'US',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 3500,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'artist',
+        value: 'Miles Davis',
+      },
+      {
+        name: 'genre',
+        value: ['jazz'],
+      },
+      {
+        name: 'release_year',
+        value: '1959-08-17',
+      },
+      {
+        name: 'format',
+        value: [
+          { en: 'vinyl', ru: 'винил' },
+          { en: 'cd', ru: 'CD' },
+        ],
+      },
+      {
+        name: 'album',
+        value: [{ en: 'Kind of Blue', ru: 'Kind of Blue' }],
+      },
+      {
+        name: 'tracklist',
+        value: ['So What', 'Freddie Freeloader', 'Blue in Green'],
+      },
+      {
+        name: 'country',
+        value: { en: 'USA', ru: 'США' },
+      },
+      {
+        name: 'record_label',
+        value: ['Columbia'],
+      },
+    ],
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/en/9/9c/MilesDavisKindofBlue.jpg',
+        label: 'Album Cover',
+        dimensions: { w: 500, h: 500 },
+      },
+    ],
+  },
+  categories: [
+    {
+      typeId: 'category',
+      key: 'cat-music-media',
+    },
+  ],
+  metaTitle: { en: 'Miles Davis', ru: 'Майлз Дэвис' },
+  publish: true,
+};
 export const PRODUCTS: ProductDraft[] = [
+  MILES_DAVIS_BLUE,
+  BRIAN_ENO_AIRPORTS,
+  PINK_FLOYD,
+  THE_BEATLES,
+  RADIOHEAD,
+  DAFT_PUNK,
+  NIRVANA,
+  DAVID_BOWIE,
+  KENDRICK_LAMAR,
+  MASSIVE_ATTACK,
+  QUEEN,
+  KING_CRIMSON,
+  KRAFTWERK_TRANS,
+  ROLLING_STONES,
+  AUTECHRE_LP5,
+  BJORK,
+  METALLICA,
+  JOY_DIVISION,
+  THE_DOORS,
+  LED_ZEPPELIN,
   { ...APHEX_TWIN },
   { ...DDT_OTTEPEL },
   { ...BOWIE_LETS_DANCE },
@@ -1225,4 +2319,3 @@ export const PRODUCTS: ProductDraft[] = [
   { ...PARALLEL_LINES },
   { ...VIOLATOR },
 ];
-

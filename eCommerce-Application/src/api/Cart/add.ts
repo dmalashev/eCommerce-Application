@@ -9,34 +9,39 @@ export async function addItemToCart(product: ProductProjection ,quantity:number 
     productId: product.id,
     quantity: quantity,
   }
-  let cartId = localStorage.getItem('cartId') || ''
-  let version: number = Number(localStorage.getItem('cartVersion') || 1)
+
 
 
 
   if (localStorage.getItem('access_token')) {
     const response = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute()
-    cartId = response.body.id
-    version = response.body.version
+    response.body.version
 
-     await apiRootCustomer.withProjectKey({ projectKey }).me().carts().withId({ ID: cartId }).post({
-      body: {
-        version: version,
-        actions: [
-          {
-            action: 'addLineItem',
-            ...item
-          }
-        ]
-      }
-    }).execute();
+     await apiRootCustomer
+       .withProjectKey({ projectKey })
+       .me()
+       .carts()
+       .withId({ ID: response.body.id })
+       .post({
+         body: {
+           version: response.body.version,
+           actions: [
+             {
+               action: 'addLineItem',
+               ...item,
+             },
+           ],
+         },
+       })
+       .execute();
 
   } else if (!localStorage.getItem('cartId')) {
     console.log("createdCustomer")
     await createAnonymousCustomer();
   }
-  if (localStorage.getItem('cartId')) {
-
+  if (localStorage.getItem('anonymousId')) {
+    const cartId = localStorage.getItem('cartId')!;
+    const version = Number(localStorage.getItem('cartVersion'));
     const apiRootAnonymous = createApiBuilderFromCtpClient(
       client
         .withProjectKey(projectKey)
@@ -45,7 +50,7 @@ export async function addItemToCart(product: ProductProjection ,quantity:number 
     );
     const response : ClientResponse<Cart> = await apiRootAnonymous.withProjectKey({ projectKey }).carts().withId({ ID: cartId }).post({
       body: {
-        version: version,
+        version,
         actions: [
           {
               action: 'addLineItem',

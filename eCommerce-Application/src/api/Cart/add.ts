@@ -30,7 +30,6 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       .get()
       .execute();
 
-    console.log(product);
     await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()

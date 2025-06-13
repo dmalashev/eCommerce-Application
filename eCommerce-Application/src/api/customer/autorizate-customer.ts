@@ -67,31 +67,9 @@ export async function login(customer: CustomerDraft) {
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
-  const carts = await apiRoot.withProjectKey({ projectKey }).me().carts().get().execute();
-  if (carts.body.results.length > 0 && localStorage.getItem('cartId')) {
-    const anonymousCartId = localStorage.getItem('cartId');
-    const userCartResponse = await apiRoot
-        .withProjectKey({ projectKey })
-        .me()
-        .activeCart()
-        .get()
-        .execute();
-    const userCart = userCartResponse.body;
 
-    const anonymousCartResponse = await apiRoot
-  .withProjectKey({ projectKey })
-  .carts()
-  .withId({ ID: anonymousCartId! })
-  .get()
-  .execute();
-
-const anonymousCart = anonymousCartResponse.body;
-
-
-
-
-  }
-  // await createCart(apiRoot);
+ 
+  await createCart(apiRoot);
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
   .withProjectKey({ projectKey })
   .me()

@@ -1,5 +1,5 @@
 import { Cart, ClientResponse, createApiBuilderFromCtpClient, LineItemDraft, ProductProjection } from "@commercetools/platform-sdk";
-import {  apiRootCustomer, client, httpMiddleware, projectKey } from "../client/client";
+import {   client, httpMiddleware, projectKey } from "../client/client";
 import { createAnonymousCustomer } from "../customer/anonymous-customer";
 import { getCart } from "./get";
 import { createdCustomer } from "../customer/create-customer";
@@ -10,13 +10,17 @@ export async function addItemToCart(product: ProductProjection ,quantity:number 
     quantity: quantity,
   }
 
+  const isLogined = localStorage.getItem('access_token')|| false;
 
 
+  if (isLogined) {
+    const apiRootCustomer = createApiBuilderFromCtpClient(
+      client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+    );
 
-  if (localStorage.getItem('access_token')) {
     const response = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute()
-    response.body.version
 
+    console.log(product)
      await apiRootCustomer
        .withProjectKey({ projectKey })
        .me()

@@ -1,7 +1,7 @@
-import {  CartDiscountDraft } from "@commercetools/platform-sdk";
-import { apiRoot, projectKey } from "../client/client";
+import { CartDiscount, CartDiscountDraft, ClientResponse } from '@commercetools/platform-sdk';
+import { apiRoot, projectKey } from '../client/client';
 
-export async function createCartDiscount() {
+export async function createCartDiscount(): Promise<CartDiscount> {
   const cartDiscountDraft: CartDiscountDraft = {
     name: {
       en: '10% off discount',
@@ -19,6 +19,10 @@ export async function createCartDiscount() {
       predicate: '1= 1',
     },
   };
-  const response = await apiRoot.withProjectKey({ projectKey }).cartDiscounts().post({ body: cartDiscountDraft }).execute();
+  const response: ClientResponse<CartDiscount> = await apiRoot
+    .withProjectKey({ projectKey })
+    .cartDiscounts()
+    .post({ body: cartDiscountDraft })
+    .execute();
   return response.body;
 }

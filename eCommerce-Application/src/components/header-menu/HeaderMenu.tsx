@@ -24,9 +24,11 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
   const navItems: {
     home: PageRoutes;
     catalog: PageRoutes;
+    profile?: PageRoutes;
   } = {
     home: PageRoutes.MAIN,
     catalog: PageRoutes.CATALOG,
+    ...(isLoggedIn && { profile: PageRoutes.PROFILE }),
   };
 
   const currentPath: string = location.pathname;

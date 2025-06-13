@@ -2,7 +2,7 @@ import { Cart, ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/pla
 import { client, projectKey, httpMiddleware } from '../client/client';
 import { getCart } from './get';
 
-export async function modifyQuantity(productId: string, quantity: number) {
+export async function modifyQuantity(productId: string, quantity: number): Promise<void> {
   const cart: Cart = await getCart();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(

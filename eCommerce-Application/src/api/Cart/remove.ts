@@ -3,7 +3,7 @@ import { client, httpMiddleware, projectKey } from '../client/client';
 import { getCart } from './get';
 import { createCart } from './create';
 
-export async function removedProduct(productId: string) {
+export async function removedProduct(productId: string): Promise<void> {
   const cart: Cart = await getCart();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
@@ -28,8 +28,8 @@ export async function removedProduct(productId: string) {
     })
     .execute();
 }
-export async function removedCart() {
-  const cart = await getCart();
+export async function removedCart(): Promise<void> {
+  const cart: Cart = await getCart();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
@@ -43,5 +43,4 @@ export async function removedCart() {
     .delete({ queryArgs: { version: cart.version } })
     .execute();
   await createCart();
-  return cart;
 }

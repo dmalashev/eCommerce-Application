@@ -16,7 +16,7 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
-import { StorageTokenKeys } from '../../types/enums';
+import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 import { createCart } from '../Cart/create';
 const { setUser } = useUserSession.getState();
 
@@ -67,8 +67,6 @@ export async function login(customer: CustomerDraft) {
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
-
-
   await createCart(apiRoot);
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
     .withProjectKey({ projectKey })
@@ -78,14 +76,15 @@ export async function login(customer: CustomerDraft) {
       body: {
         email,
         password,
-        ...(localStorage.getItem('anonymousId') && { anonymousId: localStorage.getItem('anonymousId') }),
+        ...(localStorage.getItem(StorageKeys.ANONYMOUS_ID) && {
+          anonymousId: localStorage.getItem(StorageKeys.ANONYMOUS_ID),
+        }),
       },
     })
     .execute();
 
-  if (localStorage.getItem('anonymousId')) {
-    localStorage.removeItem('anonymousId');
-    console.log('removed anonymousId from localStorage');
+  if (localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {
+    localStorage.removeItem(StorageKeys.ANONYMOUS_ID);
   }
 
   const addresses =

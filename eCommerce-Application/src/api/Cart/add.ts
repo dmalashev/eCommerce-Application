@@ -1,4 +1,5 @@
 import {
+  ApiRoot,
   Cart,
   ClientResponse,
   createApiBuilderFromCtpClient,
@@ -8,24 +9,27 @@ import {
 import { apiRoot, client, httpMiddleware, projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
 import { getCart } from './get';
-import { createdCustomer } from '../customer/create-customer';
 
-export async function addItemToCart(product: ProductProjection, quantity: number = 1) {
+export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<void> {
   const item: LineItemDraft = {
     productId: product.id,
     quantity: quantity,
   };
 
-  const isLogined = localStorage.getItem('access_token') || false;
+  const isLogined: boolean = !!localStorage.getItem('access_token');
 
   if (isLogined) {
-    const apiRootCustomer = createApiBuilderFromCtpClient(
+    const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
 
-    const response = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute();
+    const response: ClientResponse<Cart> = await apiRootCustomer
+      .withProjectKey({ projectKey })
+      .me()
+      .activeCart()
+      .get()
+      .execute();
 
-    console.log(product);
     await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()
@@ -44,13 +48,12 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       })
       .execute();
   } else if (!localStorage.getItem('cartId')) {
-    console.log('createdCustomer');
     await createAnonymousCustomer();
   }
   if (localStorage.getItem('anonymousId')) {
-    const cartId = localStorage.getItem('cartId')!;
-    const version = Number(localStorage.getItem('cartVersion'));
-    const apiRootAnonymous = createApiBuilderFromCtpClient(
+    const cartId: string = localStorage.getItem('cartId')!;
+    const version: number = Number(localStorage.getItem('cartVersion'));
+    const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
     const response: ClientResponse<Cart> = await apiRootAnonymous
@@ -69,16 +72,16 @@ export async function addItemToCart(product: ProductProjection, quantity: number
         },
       })
       .execute();
-    console.log(response.body);
     localStorage.setItem('cartVersion', response.body.version.toString());
   }
-  await getCart();
 }
 
 // Apply Promo Code and Display Updated Prices
 
 export async function applyPromoCode(code: string): Promise<boolean> {
-  const isCode: boolean = !!(await apiRoot.withProjectKey({ projectKey }).discountCodes().withKey({ key: code }).get()).execute();
+  const response = await apiRoot.withProjectKey({ projectKey }).discountCodes().withKey({ key: code }).get().execute();
+
+  const isCode: boolean = !!response.body.id;
 
   if (isCode) {
     const cart = await getCart();

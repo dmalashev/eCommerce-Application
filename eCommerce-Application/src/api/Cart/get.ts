@@ -1,28 +1,26 @@
-import { ApiRequest, Cart, ClientResponse, createApiBuilderFromCtpClient, LineItem, ProductProjection, ProductProjectionPagedSearchResponse } from '@commercetools/platform-sdk';
+import { ApiRoot, Cart, ClientResponse, createApiBuilderFromCtpClient, LineItem, ProductProjection, ProductProjectionPagedSearchResponse } from '@commercetools/platform-sdk';
 import { client, httpMiddleware, projectKey } from '../client/client';
 
 export async function getCart(): Promise<Cart> {
   const isLogin: boolean = !!localStorage.getItem('access_token');
   if (isLogin) {
-    const apiRootCustomer = createApiBuilderFromCtpClient(
+    const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
 
-    const response = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute();
-    console.log('logined customer cart', response.body);
+    const response: ClientResponse<Cart> = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute();
     return response.body;
   } else {
-    const apiRootAnonymous = createApiBuilderFromCtpClient(
+    const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
 
-    const response = await apiRootAnonymous
+    const response: ClientResponse<Cart> = await apiRootAnonymous
       .withProjectKey({ projectKey })
       .carts()
       .withId({ ID: localStorage.getItem('cartId')! })
       .get()
       .execute();
-    console.log('anonymous customer cart', response.body);
     return response.body;
   }
 }
@@ -30,7 +28,7 @@ export async function getCart(): Promise<Cart> {
 
 export async function getCartProducts(): Promise<ProductProjection[]> {
   const items: LineItem[] = (await getCart()).lineItems;
-  const apiRootCustomer = createApiBuilderFromCtpClient(
+  const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
 
@@ -48,7 +46,7 @@ export async function getCartProducts(): Promise<ProductProjection[]> {
   return responseProducts.body.results;
 }
 
-export async function getTotalCost() {
-  const cart = await getCart();
+export async function getTotalCost(): Promise<number> {
+  const cart: Cart = await getCart();
   return cart.totalPrice.centAmount / 100;
 }

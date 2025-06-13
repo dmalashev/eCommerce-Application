@@ -1,15 +1,15 @@
-import { Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { authUrl, client, clientId, clientSecret, httpMiddleware, projectKey, scopes } from '../client/client';
 import { AuthMiddlewareOptions } from '@commercetools/ts-client';
+import { CountriesCodes, CurrencyCodes, StorageKeys } from '../../types/enums';
 
 export async function createAnonymousCustomer() {
   const getOrCreatedAnonymousId = () => {
-    let id = localStorage.getItem('anonymousId');
+    let id = localStorage.getItem(StorageKeys.ANONYMOUS_ID);
     if (!id) {
       id = crypto.randomUUID();
-      localStorage.setItem('anonymousId', id);
+      localStorage.setItem(StorageKeys.ANONYMOUS_ID, id);
     }
-    console.log('anonymousId', localStorage.getItem('anonymousId'));
     return id;
   };
 
@@ -40,16 +40,14 @@ export async function createAnonymousCustomer() {
       .withProjectKey({ projectKey })
       .carts()
       .post({
-        body: { currency: 'USD', country: 'US', anonymousId },
+        body: { currency: CurrencyCodes.USD, country: CountriesCodes.US, anonymousId },
       })
       .execute();
-    console.log(cart, 'cart createAnonymousCustomer');
-    localStorage.setItem('cartId', cart.body.id);
-    console.log('set cartId');
-    localStorage.setItem('cartVersion', cart.body.version.toString());
+    localStorage.setItem(StorageKeys.CART_ID, cart.body.id);
+    localStorage.setItem(StorageKeys.CART_VERSION, cart.body.version.toString());
   } catch (error: any) {
     if (error.message?.includes('anonymousId is already in use')) {
-      localStorage.removeItem('anonymousId');
+      localStorage.removeItem(StorageKeys.ANONYMOUS_ID);
       return await createAnonymousCustomer();
     }
     throw error;

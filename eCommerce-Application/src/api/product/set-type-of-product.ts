@@ -40,14 +40,13 @@ export async function setProductType(data: ProductDraft[]) {
       if (Array.isArray(attribute.value)) {
         attribute.value.forEach((value) => {
           if (typeof value === 'string') {
-
-              if (catname.includes(value)) {
-                const cat = catArray.find((category: Category) => category.slug.en === value);
-                product.categories?.push({
-                  typeId: 'category',
-                  key: cat?.key,
-                });
-              }
+            if (catname.includes(value)) {
+              const cat = catArray.find((category: Category) => category.slug.en === value);
+              product.categories?.push({
+                typeId: 'category',
+                key: cat?.key,
+              });
+            }
           } else {
             if (catname.includes(value.en)) {
               const cat = catArray.find((category: Category) => category.slug.en.includes(value.en));
@@ -71,7 +70,6 @@ export async function setProductType(data: ProductDraft[]) {
 
   data.forEach(async (product) => {
     const response = await apiRoot.withProjectKey({ projectKey }).products().post({ body: product }).execute();
-    ;
   });
   console.log((await apiRoot.withProjectKey({ projectKey }).products().get().execute()).body.results.length);
 }
@@ -79,4 +77,4 @@ console.log(productDrafts.length + PRODUCTS.length);
 
 setProductType(productDrafts);
 setProductType(PRODUCTS);
-updateProductData()
+updateProductData();

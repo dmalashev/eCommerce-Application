@@ -1,7 +1,1 @@
-
-export const DiscountCodes = [
-  'BLACKFRIDAY',
-  'SUMMER2025',
-  'DEADLINE',
-  'DISCOUNTCART'
-];
+export const DiscountCodes = ['BLACKFRIDAY', 'SUMMER2025', 'DEADLINE', 'DISCOUNTCART'];

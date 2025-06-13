@@ -3,16 +3,15 @@ import { authUrl, client, clientId, clientSecret, httpMiddleware, projectKey, sc
 import { AuthMiddlewareOptions } from '@commercetools/ts-client';
 import { CountriesCodes, CurrencyCodes, StorageKeys } from '../../types/enums';
 
+const getOrCreatedAnonymousId = (): string => {
+  let id = localStorage.getItem(StorageKeys.ANONYMOUS_ID);
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem(StorageKeys.ANONYMOUS_ID, id);
+  }
+  return id;
+};
 export async function createAnonymousCustomer() {
-  const getOrCreatedAnonymousId = () => {
-    let id = localStorage.getItem(StorageKeys.ANONYMOUS_ID);
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem(StorageKeys.ANONYMOUS_ID, id);
-    }
-    return id;
-  };
-
   const anonymousId = getOrCreatedAnonymousId();
 
   const anonymousMiddleware: AuthMiddlewareOptions = {
@@ -45,8 +44,8 @@ export async function createAnonymousCustomer() {
       .execute();
     localStorage.setItem(StorageKeys.CART_ID, cart.body.id);
     localStorage.setItem(StorageKeys.CART_VERSION, cart.body.version.toString());
-  } catch (error: any) {
-    if (error.message?.includes('anonymousId is already in use')) {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message?.includes('anonymousId is already in use')) {
       localStorage.removeItem(StorageKeys.ANONYMOUS_ID);
       return await createAnonymousCustomer();
     }

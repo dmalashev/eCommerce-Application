@@ -5,7 +5,7 @@ import {
   LineItemDraft,
   ProductProjection,
 } from '@commercetools/platform-sdk';
-import { apiRootCustomer, client, httpMiddleware, projectKey } from '../client/client';
+import { apiRoot, client, httpMiddleware, projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
 import { getCart } from './get';
 import { createdCustomer } from '../customer/create-customer';
@@ -15,22 +15,25 @@ export async function addItemToCart(product: ProductProjection, quantity: number
     productId: product.id,
     quantity: quantity,
   };
-  let cartId = localStorage.getItem('cartId') || '';
-  let version: number = Number(localStorage.getItem('cartVersion') || 1);
 
-  if (localStorage.getItem('access_token')) {
+  const isLogined = localStorage.getItem('access_token') || false;
+
+  if (isLogined) {
+    const apiRootCustomer = createApiBuilderFromCtpClient(
+      client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+    );
+
     const response = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute();
-    cartId = response.body.id;
-    version = response.body.version;
 
+    console.log(product);
     await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()
       .carts()
-      .withId({ ID: cartId })
+      .withId({ ID: response.body.id })
       .post({
         body: {
-          version: version,
+          version: response.body.version,
           actions: [
             {
               action: 'addLineItem',
@@ -44,7 +47,9 @@ export async function addItemToCart(product: ProductProjection, quantity: number
     console.log('createdCustomer');
     await createAnonymousCustomer();
   }
-  if (localStorage.getItem('cartId')) {
+  if (localStorage.getItem('anonymousId')) {
+    const cartId = localStorage.getItem('cartId')!;
+    const version = Number(localStorage.getItem('cartVersion'));
     const apiRootAnonymous = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
@@ -54,7 +59,7 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       .withId({ ID: cartId })
       .post({
         body: {
-          version: version,
+          version,
           actions: [
             {
               action: 'addLineItem',
@@ -68,4 +73,33 @@ export async function addItemToCart(product: ProductProjection, quantity: number
     localStorage.setItem('cartVersion', response.body.version.toString());
   }
   await getCart();
+}
+
+// Apply Promo Code and Display Updated Prices
+
+export async function applyPromoCode(code: string): Promise<boolean> {
+  const isCode: boolean = !!(await apiRoot.withProjectKey({ projectKey }).discountCodes().withKey({ key: code }).get()).execute();
+
+  if (isCode) {
+    const cart = await getCart();
+    await apiRoot
+      .withProjectKey({ projectKey })
+      .me()
+      .carts()
+      .withId({ ID: cart.id })
+      .post({
+        body: {
+          version: cart.version,
+          actions: [
+            {
+              action: 'addDiscountCode',
+              code: code,
+            },
+          ],
+        },
+      })
+      .execute();
+  }
+
+  return isCode;
 }

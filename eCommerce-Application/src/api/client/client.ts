@@ -42,6 +42,7 @@ const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
 );
 
 function createAuthMiddleware(accessToken: string): Middleware {
+  console.log(accessToken, 'token')
   return (next) => async (request) => {
     request.headers = {
       ...request.headers,

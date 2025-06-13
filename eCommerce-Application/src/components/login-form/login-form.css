@@ -1,0 +1,33 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ant-form-item-has-error {
+  align-self: center;
+}
+
+.ant-form-item-explain-error {
+  width: 400px !important;
+}
+
+@media (width <= 450px) {
+  .ant-form-item-explain-error {
+    width: 300px !important;
+  }
+
+  .buttons-container {
+    flex-direction: column !important;
+  }
+}
+
+.button-submit {
+  padding: 25px;
+  color: white;
+  background-color: #db4444;
+}
+
+.button-signup:hover {
+  text-decoration: underline;
+}

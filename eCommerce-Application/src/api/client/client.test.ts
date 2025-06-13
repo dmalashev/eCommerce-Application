@@ -1,6 +1,6 @@
 import { HttpMiddlewareOptions } from '@commercetools/ts-client';
 import { client } from './client';
-import { test, expect } from 'vitest';
+import { test, expect, describe } from 'vitest';
 
 const httpMiddleware: HttpMiddlewareOptions = {
   host: 'http://localhost:3000',
@@ -9,21 +9,7 @@ const httpMiddleware: HttpMiddlewareOptions = {
   httpClient: fetch,
 };
 
-
 describe('client', () => {
-
-  const projectKey: string = 'mockProjectKey';
-  const clientId: string = 'mockClientId';
-  const clientSecret: string = 'mockClientSecret';
-  const authUrl: string = 'mockAuthUrl';
-  const apiUrl: string = 'mockApiUrl';
-  const scopes: string = 'mockScopes';
-  const accessToken: string = localStorage.getItem('access_token') || '';
-  const userScopesClientId: string = 'mockUserScopesClientId';
-  const userScopesClientSecret: string = 'mockUserScopesClientSecret';
-  const userScopes: string = 'mockUserScopes';
-
-
   test('should build client with no errors', () => {
     expect(() => {
       client.withHttpMiddleware(httpMiddleware).build();
@@ -33,5 +19,4 @@ describe('client', () => {
     const result = client.withHttpMiddleware(httpMiddleware).build();
     expect(result).toBeDefined();
   });
-
 });

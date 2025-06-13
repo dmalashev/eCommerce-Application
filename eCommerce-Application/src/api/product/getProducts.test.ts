@@ -1,9 +1,5 @@
-import { expectTypeOf, vi } from "vitest";
-import { getProducts } from "./getProduct";
-
-
-
-
+import { expectTypeOf, vi } from 'vitest';
+import { getProducts } from './getProduct';
 
 vi.mock('../client/client', () => ({
   client: {
@@ -28,7 +24,7 @@ vi.mock('@commercetools/platform-sdk', async () => {
     lastModifiedAt: 'mockLastModifiedAt',
     productType: {
       id: 'mockProductType-id',
-      typeId:  'product-type'
+      typeId: 'product-type',
     },
     masterData: {
       current: {
@@ -37,12 +33,12 @@ vi.mock('@commercetools/platform-sdk', async () => {
         categories: [
           {
             id: 'mockCategory-id',
-            typeId:  'category'
-          }
-        ]
+            typeId: 'category',
+          },
+        ],
       },
-    }
-  }
+    },
+  };
   const actual = await vi.importActual<typeof import('@commercetools/platform-sdk')>('@commercetools/platform-sdk');
   return {
     ...actual,
@@ -50,51 +46,43 @@ vi.mock('@commercetools/platform-sdk', async () => {
       withProjectKey: () => ({
         products: () => ({
           get: () => ({
-            execute:vi.fn().mockResolvedValue({body:{results:[product]}})
-          })
+            execute: vi.fn().mockResolvedValue({ body: { results: [product] } }),
+          }),
         }),
       }),
     })),
   };
 });
 describe('getProducts', () => {
-
-
   beforeEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
   it('should return array products', async () => {
-
-
-    const result = await getProducts()
-    expect(result).toHaveLength(1)
-    expectTypeOf(getProducts).returns.resolves.toBeArray()
-  })
+    const result = await getProducts();
+    expect(result).toHaveLength(1);
+    expectTypeOf(getProducts).returns.resolves.toBeArray();
+  });
   it('should return not undefined', async () => {
-
-
-    const result = await getProducts()
-    expect(result[0]).toBeDefined()
-  })
-
-
-})
+    const result = await getProducts();
+    expect(result[0]).toBeDefined();
+  });
+});
 describe('dataProducts', () => {
   it('should return dataProducts', async () => {
-    const arrayProduct = await getProducts()
-    const result = arrayProduct.map(product => ({
+    const arrayProduct = await getProducts();
+    const result = arrayProduct.map((product) => ({
       id: product.id,
       current: {
         slug: product.masterData.current.slug,
-        name: product.masterData.current.name
-      }
-    }))
+        name: product.masterData.current.name,
+      },
+    }));
     expect(result[0]).toEqual({
       id: 'mockProduct-id',
       current: {
         slug: { en: 'mockSlug' },
-        name: { en: 'mockName' }
-      }
-    })
-  })
-})
+        name: { en: 'mockName' },
+      },
+    });
+  });
+});

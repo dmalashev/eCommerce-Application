@@ -1,4 +1,12 @@
-import { ApiRoot, Cart, ClientResponse, createApiBuilderFromCtpClient, LineItem, ProductProjection, ProductProjectionPagedSearchResponse } from '@commercetools/platform-sdk';
+import {
+  ApiRoot,
+  Cart,
+  ClientResponse,
+  createApiBuilderFromCtpClient,
+  LineItem,
+  ProductProjection,
+  ProductProjectionPagedSearchResponse,
+} from '@commercetools/platform-sdk';
 import { client, httpMiddleware, projectKey } from '../client/client';
 
 export async function getCart(): Promise<Cart> {
@@ -8,7 +16,12 @@ export async function getCart(): Promise<Cart> {
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
 
-    const response: ClientResponse<Cart> = await apiRootCustomer.withProjectKey({ projectKey }).me().activeCart().get().execute();
+    const response: ClientResponse<Cart> = await apiRootCustomer
+      .withProjectKey({ projectKey })
+      .me()
+      .activeCart()
+      .get()
+      .execute();
     return response.body;
   } else {
     const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
@@ -24,7 +37,6 @@ export async function getCart(): Promise<Cart> {
     return response.body;
   }
 }
-
 
 export async function getCartProducts(): Promise<ProductProjection[]> {
   const items: LineItem[] = (await getCart()).lineItems;

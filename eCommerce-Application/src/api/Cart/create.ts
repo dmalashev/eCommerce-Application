@@ -3,12 +3,11 @@ import { projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
 
 export async function createCart(api?: ApiRoot): Promise<void> {
-
   if (!localStorage.getItem('anonymousId')) {
     await createAnonymousCustomer();
   }
 
-   await api
+  await api
     ?.withProjectKey({ projectKey })
     .me()
     .carts()
@@ -19,5 +18,4 @@ export async function createCart(api?: ApiRoot): Promise<void> {
       },
     })
     .execute();
-
 }

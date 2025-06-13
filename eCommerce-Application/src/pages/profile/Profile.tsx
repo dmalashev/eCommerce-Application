@@ -35,7 +35,7 @@ export default function Profile() {
     });
   };
 
-  const savePersonalInfo = (values: Record<string, string>) => {
+  const savePersonalInfo = () => {
     setEditablePersonalInfo(false);
     setTextMessage('Your personal information have been updated');
     setShowSuccessMessage(true);
@@ -45,7 +45,7 @@ export default function Profile() {
     setEditablePersonalInfo(false);
   };
 
-  const savePassword = (values: Record<string, string>) => {
+  const savePassword = () => {
     setChangePassword(false);
     setTextMessage('Your password has been updated');
     setShowSuccessMessage(true);

@@ -1,8 +1,6 @@
 import { ApiRoot, Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { client, httpMiddleware, projectKey } from '../client/client';
 import { getCart } from './get';
-import { a } from 'vitest/dist/chunks/suite.d.FvehnV49.js';
-import create from '@ant-design/icons/lib/components/IconFont';
 import { createCart } from './create';
 
 export async function removedProduct(productId: string) {

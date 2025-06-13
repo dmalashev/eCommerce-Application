@@ -1,6 +1,6 @@
-import { Cart, ApiRoot, createApiBuilderFromCtpClient } from "@commercetools/platform-sdk";
-import { client, projectKey, httpMiddleware } from "../client/client";
-import { getCart } from "./get";
+import { Cart, ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { client, projectKey, httpMiddleware } from '../client/client';
+import { getCart } from './get';
 
 export async function modifyQuantity(productId: string, quantity: number) {
   const cart: Cart = await getCart();

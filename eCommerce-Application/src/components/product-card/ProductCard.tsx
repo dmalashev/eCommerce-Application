@@ -13,8 +13,9 @@ export default function ProductCard({ content }: { content: ProductProjection })
     discount: content.masterVariant.price?.discounted?.value.centAmount,
     price: content.masterVariant.price?.value?.centAmount || 0,
   };
+
   return (
-    <Link href="/">
+    <Link href={'/product/' + content.key}>
       <Card hoverable style={{ width: 300 }} cover={<img src={card.cover} alt="cover" />}>
         <Row>
           <Title level={4} ellipsis style={{ marginTop: 0 }} title={card.name}>

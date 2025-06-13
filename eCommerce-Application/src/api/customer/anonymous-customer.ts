@@ -1,8 +1,6 @@
 import { Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { authUrl, client, clientId, clientSecret, httpMiddleware, projectKey, scopes } from '../client/client';
-import {
-  AuthMiddlewareOptions,
-} from '@commercetools/ts-client';
+import { AuthMiddlewareOptions } from '@commercetools/ts-client';
 
 export async function createAnonymousCustomer() {
   const getOrCreatedAnonymousId = () => {

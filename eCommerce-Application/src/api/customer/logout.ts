@@ -1,4 +1,3 @@
-
 export function logout(): void {
- localStorage.clear()
+  localStorage.clear();
 }

@@ -9,9 +9,7 @@ const httpMiddleware: HttpMiddlewareOptions = {
   httpClient: fetch,
 };
 
-
 describe('client', () => {
-
   const projectKey: string = 'mockProjectKey';
   const clientId: string = 'mockClientId';
   const clientSecret: string = 'mockClientSecret';
@@ -23,7 +21,6 @@ describe('client', () => {
   const userScopesClientSecret: string = 'mockUserScopesClientSecret';
   const userScopes: string = 'mockUserScopes';
 
-
   test('should build client with no errors', () => {
     expect(() => {
       client.withHttpMiddleware(httpMiddleware).build();
@@ -33,5 +30,4 @@ describe('client', () => {
     const result = client.withHttpMiddleware(httpMiddleware).build();
     expect(result).toBeDefined();
   });
-
 });

@@ -5,6 +5,7 @@ import { JSX, useEffect, useState } from 'react';
 import { Typography, Image, Descriptions, Table } from 'antd';
 import type { DescriptionsProps, TableProps } from 'antd';
 import { PageRoutes } from '../../types/enums';
+import './product.css';
 
 const { Title, Text } = Typography;
 
@@ -63,7 +64,7 @@ export default function ProductPage() {
       .join(', ') || 'No Formats';
 
   const images: JSX.Element[] | undefined = productObject?.masterData.current.masterVariant.images?.map((imageItem) => (
-    <Image src={imageItem.url} width={500} />
+    <Image src={imageItem.url} />
   ));
 
   const description: string = productObject?.masterData.current.description?.en || 'No Description';
@@ -125,16 +126,18 @@ export default function ProductPage() {
 
   return (
     <div className="product-container">
-      <div>
+      <div className="product-title">
         <Title level={2}>{name}</Title>
         <Title level={3}>{artist}</Title>
       </div>
-      <div>
+      <div className="product-image">
         <Image.PreviewGroup>{images}</Image.PreviewGroup>
       </div>
-      <div>
-        <Descriptions bordered size="small" items={items} />
-        <Text>{description}</Text>
+      <div className="product-description">
+        <div>
+          <Descriptions bordered size="small" items={items} />
+          <Text>{description}</Text>
+        </div>
         <Title level={4}>{price}</Title>
       </div>
       <div>

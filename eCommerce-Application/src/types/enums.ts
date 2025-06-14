@@ -73,3 +73,5 @@ export enum MusicLabels {
   MUTE = 'Mute Records',
   WARP = 'Warp Records',
 }
+
+export const cart_titles_array = ['Product', 'Price', 'Quantity', 'Subtotal'];

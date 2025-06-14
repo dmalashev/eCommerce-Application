@@ -1,0 +1,107 @@
+import { CartItem } from '../../components/cart/cart-item/CartItem';
+import { Button, Typography } from 'antd';
+import { PromocodeForm } from '../../components/cart/promocode-form/PromocodeForm';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { PageRoutes } from '../../types/enums';
+import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
+import './cart.css';
+
+type CartProduct = {
+  id: string;
+  name: string;
+  author: string;
+  cover: string;
+  price: number;
+  discount?: number;
+  quantity: number;
+};
+
+export const Cart = () => {
+  const navigate = useNavigate();
+  const deleteCartItem = (id: string) => {};
+  const changeQuantities = (id: string, quantities: number) => {
+    setCartProducts((previousProducts) =>
+      previousProducts.map((item) => (item.id === id ? { ...item, quantity: quantities } : item)),
+    );
+  };
+  const goShopping = () => {
+    navigate(PageRoutes.CATALOG);
+  };
+  const resetCart = () => {};
+  const applyPromocode = () => {};
+
+  const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
+  const [total, setTotal] = useState(0);
+
+  const getCartProducts = async () => {
+    const cartProduct1 = {
+      id: '123',
+      name: 'Meteora',
+      author: 'Linkin park',
+      cover: 'https://upload.wikimedia.org/wikipedia/ru/b/bf/Meteora.jpg',
+      price: 100,
+      quantity: 1,
+    };
+
+    const cartProduct2 = {
+      id: '124',
+      name: 'Numb',
+      author: 'Linkin park',
+      cover: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Linkin_Park_-_Numb_CD_cover.jpg',
+      price: 250,
+      quantity: 2,
+    };
+    const cartProducts = new Array<CartProduct>();
+    cartProducts.push(cartProduct1, cartProduct2);
+    return cartProducts;
+  };
+
+  const calculateTotal = () => {
+    const totalSum = cartProducts.reduce((sum, item) => {
+      return sum + item.price * item.quantity;
+    }, 0);
+    setTotal(totalSum);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const cartProducts = await getCartProducts();
+      setCartProducts(cartProducts);
+      calculateTotal();
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    calculateTotal();
+  }, [cartProducts]);
+
+  return (
+    <div className="cart">
+      <CartTitles />
+      {cartProducts.map((product) => (
+        <CartItem cartItem={product} changeQuantities={changeQuantities} deleteItem={deleteCartItem} />
+      ))}
+      <div className="buttons">
+        <Button type="default" onClick={goShopping}>
+          Back to shopping
+        </Button>
+        <Button type="default" onClick={resetCart}>
+          Remove all goods
+        </Button>
+      </div>
+      <div className="cart-bottom">
+        <PromocodeForm onClick={applyPromocode} />
+        <div className="checkout">
+          <Typography.Title level={5} style={{ padding: 0, margin: 0 }}>
+            Total: ${total}
+          </Typography.Title>
+          <Button className="button-submit" type="primary">
+            Checkout
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};

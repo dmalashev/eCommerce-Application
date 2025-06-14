@@ -3,8 +3,9 @@ export const enum PageRoutes {
   LOGIN = '/login',
   REGISTRATION = '/registration',
   CATALOG = '/catalog',
-  NOT_FOUND = '*',
   PROFILE = '/profile',
+  CART = '/cart',
+  NOT_FOUND = '*',
 }
 export enum CountriesCodes {
   RU = 'RU',

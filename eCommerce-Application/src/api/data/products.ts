@@ -1748,7 +1748,7 @@ const QUEEN: ProductDraft = {
     ],
     attributes: [
       { name: 'artist', value: 'Queen' },
-      { name: 'genre', value: ['rock', 'progressive rock', 'hard rock'] },
+      { name: 'genre', value: ['rock'] },
       { name: 'release_year', value: '1975-11-21' },
       {
         name: 'format',
@@ -1841,7 +1841,7 @@ const ROLLING_STONES: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/2/2e/ExileOnMainSt.jpg',
+        url: 'https://m.media-amazon.com/images/I/91IcUhRbCiL._UF1000,1000_QL80_.jpg',
         label: 'Exile on Main St. Cover',
         dimensions: { w: 500, h: 500 },
       },
@@ -2001,7 +2001,7 @@ const THE_DOORS: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/4/4c/The_Doors_-_The_Doors_%281967_album%29_cover.jpg',
+        url: 'https://store.thedoors.com/cdn/shop/products/cvr_the-doors-original-album_front_1200_b508d8fd-40ca-404d-8f7c-ce6efb323ae6.jpg?v=1639508929',
         label: 'The Doors Cover',
         dimensions: { w: 500, h: 500 },
       },
@@ -2020,10 +2020,7 @@ const LED_ZEPPELIN: ProductDraft = {
   masterVariant: {
     sku: 'led-zeppelin-' + crypto.randomUUID(),
     key: 'led-zeppelin-iv-led-zeppelin',
-    prices: [
-      { country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } },
-      { country: 'RU', value: { type: 'centPrecision', currencyCode: 'RUB', centAmount: 25000 } },
-    ],
+    prices: [{ country: 'US', value: { type: 'centPrecision', currencyCode: 'USD', centAmount: 3500 } }],
     attributes: [
       { name: 'artist', value: 'Led Zeppelin' },
       { name: 'genre', value: ['rock', 'funk'] },

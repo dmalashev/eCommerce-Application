@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { PageRoutes } from '../../types/enums';
-import { Menu, Button, Flex } from 'antd';
-import { LoginOutlined, LogoutOutlined, UserAddOutlined } from '@ant-design/icons';
+import { Menu, Button, Flex, Badge } from 'antd';
+import { LoginOutlined, LogoutOutlined, ShoppingCartOutlined, UserAddOutlined } from '@ant-design/icons';
 import formatName from '../../utils/format-name';
 import { logout } from '../../api/customer/logout';
 import { useAuth } from '../../hooks/hooks';
@@ -69,6 +69,10 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
     navigate(PageRoutes.REGISTRATION);
   };
 
+  const onClickShoppingCart = (): void => {
+    navigate(PageRoutes.CART);
+  };
+
   return (
     <>
       <Menu
@@ -92,6 +96,13 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
             Sign Up
           </Button>
         )}
+        <Badge count={5}>
+          <Button
+            icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />}
+            shape="circle"
+            onClick={onClickShoppingCart}
+          />
+        </Badge>
       </Flex>
     </>
   );

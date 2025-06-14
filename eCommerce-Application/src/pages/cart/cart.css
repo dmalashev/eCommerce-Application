@@ -56,3 +56,7 @@
   border: 1px solid #888787;
   border-radius: 10px;
 }
+
+.cart-empty {
+   padding: 100px 100px; 
+}

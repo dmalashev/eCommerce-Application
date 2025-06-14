@@ -1,5 +1,5 @@
 import { CartItem } from '../../components/cart/cart-item/CartItem';
-import { Button, Typography } from 'antd';
+import { Button, Empty, Typography } from 'antd';
 import { PromocodeForm } from '../../components/cart/promocode-form/PromocodeForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -19,6 +19,10 @@ type CartProduct = {
 
 export const Cart = () => {
   const navigate = useNavigate();
+  const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
+  const [total, setTotal] = useState(0);
+  const resetCart = () => {};
+  const applyPromocode = () => {};
   const deleteCartItem = (id: string) => {};
   const changeQuantities = (id: string, quantities: number) => {
     setCartProducts((previousProducts) =>
@@ -28,11 +32,6 @@ export const Cart = () => {
   const goShopping = () => {
     navigate(PageRoutes.CATALOG);
   };
-  const resetCart = () => {};
-  const applyPromocode = () => {};
-
-  const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
-  const [total, setTotal] = useState(0);
 
   const getCartProducts = async () => {
     const cartProduct1 = {
@@ -53,7 +52,7 @@ export const Cart = () => {
       quantity: 2,
     };
     const cartProducts = new Array<CartProduct>();
-    cartProducts.push(cartProduct1, cartProduct2);
+    // cartProducts.push(cartProduct1, cartProduct2);
     return cartProducts;
   };
 
@@ -78,30 +77,42 @@ export const Cart = () => {
   }, [cartProducts]);
 
   return (
-    <div className="cart">
-      <CartTitles />
-      {cartProducts.map((product) => (
-        <CartItem cartItem={product} changeQuantities={changeQuantities} deleteItem={deleteCartItem} />
-      ))}
-      <div className="buttons">
-        <Button type="default" onClick={goShopping}>
-          Back to shopping
-        </Button>
-        <Button type="default" onClick={resetCart}>
-          Remove all goods
-        </Button>
-      </div>
-      <div className="cart-bottom">
-        <PromocodeForm onClick={applyPromocode} />
-        <div className="checkout">
-          <Typography.Title level={5} style={{ padding: 0, margin: 0 }}>
-            Total: ${total}
-          </Typography.Title>
-          <Button className="button-submit" type="primary">
-            Checkout
-          </Button>
+    <>
+      {cartProducts.length > 0 ? (
+        <div className="cart">
+          <CartTitles />
+          {cartProducts.map((product) => (
+            <CartItem cartItem={product} changeQuantities={changeQuantities} deleteItem={deleteCartItem} />
+          ))}
+          <div className="buttons">
+            <Button type="default" onClick={goShopping}>
+              Back to shopping
+            </Button>
+            <Button type="default" onClick={resetCart}>
+              Remove all goods
+            </Button>
+          </div>
+          <div className="cart-bottom">
+            <PromocodeForm onClick={applyPromocode} />
+            <div className="checkout">
+              <Typography.Title level={5} style={{ padding: 0, margin: 0 }}>
+                Total: ${total}
+              </Typography.Title>
+              <Button className="button-submit" type="primary">
+                Checkout
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="cart-empty">
+          <Empty description={<Typography.Text>Your cart is empty</Typography.Text>}>
+            <Button type="primary" className="button-submit" onClick={goShopping}>
+              Let's go shopping
+            </Button>
+          </Empty>
+        </div>
+      )}
+    </>
   );
 };

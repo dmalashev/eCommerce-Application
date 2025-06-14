@@ -63,9 +63,9 @@ export default function ProductPage() {
       ?.value.map((item: { en: string; ru: string }) => item.en)
       .join(', ') || 'No Formats';
 
-  const images: JSX.Element[] | undefined = productObject?.masterData.current.masterVariant.images?.map((imageItem) => (
-    <Image src={imageItem.url} />
-  ));
+  const images: JSX.Element[] | undefined = productObject?.masterData.current.masterVariant.images?.map(
+    (imageItem, index) => <Image key={index} src={imageItem.url} />,
+  );
 
   const description: string = productObject?.masterData.current.description?.en || 'No Description';
 

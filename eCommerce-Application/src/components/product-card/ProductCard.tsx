@@ -1,6 +1,8 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { Card, Typography, Row, Space } from 'antd';
 import { ContentObject } from '../../assets/temporary/temporary';
+import { addItemToCart } from '../../api/Cart/add';
+import { createAnonymousCustomer } from '../../api/customer/anonymous-customer';
 
 const { Title, Text, Link } = Typography;
 
@@ -14,8 +16,10 @@ export default function ProductCard({ content }: { content: ProductProjection })
     price: content.masterVariant.price?.value?.centAmount || 0,
   };
 
+  const click = () => addItemToCart(content, 1);
+
   return (
-    <Link href={'/product/' + content.key}>
+    <Link href={'/product/' + content.key} onClick={click}>
       <Card hoverable style={{ width: 300 }} cover={<img src={card.cover} alt="cover" />}>
         <Row>
           <Title level={4} ellipsis style={{ marginTop: 0 }} title={card.name}>

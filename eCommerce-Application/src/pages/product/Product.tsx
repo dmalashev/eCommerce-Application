@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router';
 import { getProductByKey } from '../../api/product/get-product-by-key';
 import { Product } from '@commercetools/platform-sdk';
 import { JSX, useEffect, useState } from 'react';
-import { Typography, Image, Descriptions, Table } from 'antd';
+import { Typography, Image, Descriptions, Table, Space } from 'antd';
 import type { DescriptionsProps, TableProps } from 'antd';
 import { PageRoutes } from '../../types/enums';
 import './product.css';
@@ -76,7 +76,7 @@ export default function ProductPage() {
       count: index + 1,
       track: track,
     }));
-  // const discount = productObject?.masterData.current.masterVariant.price?.discounted?.value.centAmount,
+
   let price: number | string =
     productObject?.masterData.current.masterVariant.prices?.find((price) => price?.country === 'US')?.value
       .centAmount || 'No Price';
@@ -84,6 +84,10 @@ export default function ProductPage() {
   if (typeof price === 'number') {
     price = `$${price / 100}`;
   }
+
+  const discount: number | undefined = productObject?.masterData.current.masterVariant.prices?.find(
+    (price) => price?.country === 'US',
+  )?.discounted?.value.centAmount;
 
   const items: DescriptionsProps['items'] = [
     {
@@ -140,7 +144,14 @@ export default function ProductPage() {
           <Descriptions bordered size="small" items={items} />
           <Text>{description}</Text>
         </div>
-        <Title level={4}>{price}</Title>
+        <Space size="small">
+          <Text strong delete={!!discount} style={{ fontSize: 20 }}>{`${price}`}</Text>
+          {discount ? (
+            <Text strong style={{ fontSize: 20, color: '#db4444' }}>
+              ${discount / 100}
+            </Text>
+          ) : undefined}
+        </Space>
       </div>
       <div>
         <Table<TrackType> columns={columns} dataSource={tracklist} pagination={false} />

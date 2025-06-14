@@ -16,7 +16,8 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
-import { StorageTokenKeys } from '../../types/enums';
+import { StorageKeys, StorageTokenKeys } from '../../types/enums';
+import { createCart } from '../Cart/create';
 const { setUser } = useUserSession.getState();
 
 export async function login(customer: CustomerDraft) {
@@ -53,8 +54,6 @@ export async function login(customer: CustomerDraft) {
         set(tokenObject: TokenStore): void {
           token = tokenObject;
           localStorage.setItem(StorageTokenKeys.ACCESS_TOKEN, token.token);
-          localStorage.setItem(StorageTokenKeys.REFRESH_TOKEN, token.refreshToken!);
-          localStorage.setItem(StorageTokenKeys.TOKEN_EXPIRATION, String(token.expirationTime));
         },
       },
     };
@@ -68,12 +67,25 @@ export async function login(customer: CustomerDraft) {
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
+  await createCart(apiRoot);
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .login()
-    .post({ body: { email, password } })
+    .post({
+      body: {
+        email,
+        password,
+        ...(localStorage.getItem(StorageKeys.ANONYMOUS_ID) && {
+          anonymousId: localStorage.getItem(StorageKeys.ANONYMOUS_ID),
+        }),
+      },
+    })
     .execute();
+
+  if (localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {
+    localStorage.removeItem(StorageKeys.ANONYMOUS_ID);
+  }
 
   const addresses =
     response.body.customer.addresses?.map((address) => ({

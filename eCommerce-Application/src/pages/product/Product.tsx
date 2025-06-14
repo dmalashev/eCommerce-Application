@@ -77,11 +77,13 @@ export default function ProductPage() {
       track: track,
     }));
   // const discount = productObject?.masterData.current.masterVariant.price?.discounted?.value.centAmount,
-  const price: string =
-    '$' +
-      productObject?.masterData?.current?.masterVariant?.prices?.find((price) => price?.country === 'US')?.value
-        ?.centAmount /
-        100 || 'No Price';
+  let price: number | string =
+    productObject?.masterData.current.masterVariant.prices?.find((price) => price?.country === 'US')?.value
+      .centAmount || 'No Price';
+
+  if (typeof price === 'number') {
+    price = `$${price / 100}`;
+  }
 
   const items: DescriptionsProps['items'] = [
     {

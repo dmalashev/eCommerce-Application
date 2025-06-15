@@ -4,8 +4,6 @@ import { createAnonymousCustomer } from '../customer/anonymous-customer';
 import { CountriesCodes, CurrencyCodes, StorageKeys, StorageTokenKeys } from '../../types/enums';
 
 export async function createCart(api?: ApiRoot): Promise<void> {
-  console.log('token = ' + localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN));
-  console.log('anonimId = ' + localStorage.getItem(StorageKeys.ANONYMOUS_ID));
   if (!localStorage.getItem(StorageKeys.ANONYMOUS_ID) && !localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN)) {
     await createAnonymousCustomer();
   }

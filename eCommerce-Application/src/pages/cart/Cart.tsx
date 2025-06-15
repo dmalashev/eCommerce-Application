@@ -7,7 +7,7 @@ import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
 import { getCartProductsPasswordFlow } from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
-import { removedProduct } from '../../api/Cart/remove';
+import { removedCart, removedProduct } from '../../api/Cart/remove';
 import './cart.css';
 import { modifyQuantity } from '../../api/Cart/modify';
 
@@ -42,7 +42,11 @@ export const Cart = () => {
   const { user } = useUserSession();
   const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
   const [total, setTotal] = useState(0);
-  const resetCart = () => {};
+  const resetCart = async () => {
+    const result = await removedCart();
+    console.log('delete cart result = ' + result);
+    fetchData();
+  };
   const applyPromocode = () => {};
   const deleteCartItem = async (id: string) => {
     const result = await removedProduct(id);

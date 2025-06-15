@@ -5,12 +5,13 @@ import {
   createApiBuilderFromCtpClient,
   LineItemDraft,
   ProductProjection,
+  LineItem,
 } from '@commercetools/platform-sdk';
 import { apiRoot, client, httpMiddleware, projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
 import { getCart } from './get';
 
-export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<void> {
+export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<LineItem[] | undefined> {
   const item: LineItemDraft = {
     productId: product.id,
     quantity: quantity,
@@ -30,7 +31,7 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       .get()
       .execute();
 
-    const result = await apiRootCustomer
+    await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()
       .carts()
@@ -47,7 +48,10 @@ export async function addItemToCart(product: ProductProjection, quantity: number
         },
       })
       .execute();
-    console.log('add item to cart = ' + result);
+
+    console.log('logged add', response.body);
+
+    return response.body.lineItems;
   } else if (!localStorage.getItem('cartId')) {
     await createAnonymousCustomer();
   }
@@ -74,6 +78,9 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       })
       .execute();
     localStorage.setItem('cartVersion', response.body.version.toString());
+
+    console.log('NON logged add', response.body);
+    return response.body.lineItems;
   }
 }
 

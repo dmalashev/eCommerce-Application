@@ -69,7 +69,7 @@ export const Cart = () => {
   // useEffect(() => {
   //   const addItem = async () => {
   //     const product = {
-  //       id: '21ab7e7d-37bb-41e1-977d-8ae80ad51452',
+  //       id: '4066e859-8728-4df7-b24a-73cbb7e3f0b4',
   //     };
 
   //     const result = await addItemToCart(product as ProductProjection, 1);

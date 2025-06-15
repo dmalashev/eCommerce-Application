@@ -48,6 +48,9 @@ export async function getCartProducts(): Promise<ProductProjection[]> {
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
 
+  const productIds = items.map((item) => `"${item.productId}"`).join(',');
+  const filterQuery = `id:${productIds}`;
+
   const responseProducts: ClientResponse<ProductProjectionPagedSearchResponse> = await apiRootCustomer
     .withProjectKey({ projectKey })
     .productProjections()
@@ -55,7 +58,7 @@ export async function getCartProducts(): Promise<ProductProjection[]> {
     .get({
       queryArgs: {
         markMatchingVariants: true,
-        filter: items.map((item) => item.id),
+        filter: [filterQuery],
       },
     })
     .execute();

@@ -58,3 +58,11 @@
   color: #02243c; 
 }
 
+.discount {
+  color: #DB4444; 
+}
+
+.price-crossed {
+  text-decoration: line-through;
+}
+

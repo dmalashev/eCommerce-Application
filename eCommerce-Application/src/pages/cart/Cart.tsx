@@ -62,9 +62,11 @@ export const Cart = () => {
   // };
 
   const calculateTotal = () => {
-    const totalSum = cartProducts.reduce((sum, item) => {
-      return sum + item.price * item.quantity;
-    }, 0);
+    let totalSum = 0;
+    for (const item of cartProducts) {
+      const price = item.discount ?? item.price;
+      totalSum += price * item.quantity;
+    }
     setTotal(totalSum);
   };
   //добавление товара
@@ -91,13 +93,21 @@ export const Cart = () => {
           author: product.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
           // year: product.masterVariant.attributes?.find((attribute) => attribute.name === 'year')?.value,
           cover: product.masterVariant.images?.[0].url || '',
-          // discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
+          discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
           price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
           quantity: 1,
         };
+        if (item.price) {
+          item.price = item.price / 100;
+        }
+
+        if (item.discount) {
+          item.discount = item.discount / 100;
+        }
 
         return item;
       });
+
       setCartProducts(cartProducts);
       calculateTotal();
     };

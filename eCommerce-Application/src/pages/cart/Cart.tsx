@@ -1,15 +1,14 @@
 import { CartItem } from '../../components/cart/cart-item/CartItem';
-import { Button, Empty, Typography } from 'antd';
+import { Button, Empty, message, Typography } from 'antd';
 import { PromocodeForm } from '../../components/cart/promocode-form/PromocodeForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
-import './cart.css';
-import { addItemToCart } from '../../api/Cart/add';
-import { ProductProjection } from '@commercetools/platform-sdk';
-import { getCartProducts, getCartProductsPasswordFlow } from '../../api/Cart/get';
+import { getCartProductsPasswordFlow } from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
+import { removedProduct } from '../../api/Cart/remove';
+import './cart.css';
 
 type CartProduct = {
   id: string;
@@ -22,13 +21,37 @@ type CartProduct = {
 };
 
 export const Cart = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = (message: string) => {
+    messageApi.open({
+      type: 'success',
+      content: message,
+    });
+  };
+
+  const error = (message: string) => {
+    messageApi.open({
+      type: 'error',
+      content: message,
+    });
+  };
+
   const navigate = useNavigate();
   const { user } = useUserSession();
   const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
   const [total, setTotal] = useState(0);
   const resetCart = () => {};
   const applyPromocode = () => {};
-  const deleteCartItem = (id: string) => {};
+  const deleteCartItem = async (id: string) => {
+    const result = await removedProduct(id);
+    if (result) {
+      fetchData();
+      success('Product has been removed');
+    } else {
+      error('Product has not been removed');
+    }
+  };
   const changeQuantities = (id: string, quantities: number) => {
     setCartProducts((previousProducts) =>
       previousProducts.map((item) => (item.id === id ? { ...item, quantity: quantities } : item)),
@@ -82,35 +105,35 @@ export const Cart = () => {
   //   addItem();
   // }, []);
 
+  const fetchData = async () => {
+    const results = await getCartProductsPasswordFlow(user?.email, user?.password);
+    console.log(results);
+    const cartProducts = results.map((product) => {
+      const item: CartProduct = {
+        id: product.id,
+        name: product.name.en,
+        author: product.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
+        cover: product.masterVariant.images?.[0].url || '',
+        discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
+        price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
+        quantity: 1,
+      };
+      if (item.price) {
+        item.price = item.price / 100;
+      }
+
+      if (item.discount) {
+        item.discount = item.discount / 100;
+      }
+
+      return item;
+    });
+
+    setCartProducts(cartProducts);
+    calculateTotal();
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const results = await getCartProductsPasswordFlow(user?.email, user?.password);
-      console.log(results);
-      const cartProducts = results.map((product) => {
-        const item: CartProduct = {
-          id: '',
-          name: product.name.en,
-          author: product.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
-          // year: product.masterVariant.attributes?.find((attribute) => attribute.name === 'year')?.value,
-          cover: product.masterVariant.images?.[0].url || '',
-          discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
-          price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
-          quantity: 1,
-        };
-        if (item.price) {
-          item.price = item.price / 100;
-        }
-
-        if (item.discount) {
-          item.discount = item.discount / 100;
-        }
-
-        return item;
-      });
-
-      setCartProducts(cartProducts);
-      calculateTotal();
-    };
     fetchData();
   }, []);
 
@@ -120,6 +143,7 @@ export const Cart = () => {
 
   return (
     <>
+      {contextHolder}
       {cartProducts.length > 0 ? (
         <div className="cart">
           <CartTitles />

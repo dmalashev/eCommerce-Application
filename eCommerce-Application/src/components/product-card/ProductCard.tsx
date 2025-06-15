@@ -19,7 +19,7 @@ export default function ProductCard({ content }: { content: ProductProjection })
   const click = () => addItemToCart(content, 1);
 
   return (
-    <Link href="#" onClick={click}>
+    <Link href={'/product/' + content.key} onClick={click}>
       <Card hoverable style={{ width: 300 }} cover={<img src={card.cover} alt="cover" />}>
         <Row>
           <Title level={4} ellipsis style={{ marginTop: 0 }} title={card.name}>

@@ -59,14 +59,14 @@ export async function removeProductPasswordFlow(email: string, password: string,
     .execute();
 }
 
-export async function removedCart(): Promise<void> {
+export async function removedCart(): Promise<Cart | void> {
   const cart: Cart = await getCart();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
 
-  await apiRoot
+  const response = await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .carts()
@@ -74,4 +74,5 @@ export async function removedCart(): Promise<void> {
     .delete({ queryArgs: { version: cart.version } })
     .execute();
   await createCart();
+  return response.body;
 }

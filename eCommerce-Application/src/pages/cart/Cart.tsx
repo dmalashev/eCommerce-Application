@@ -45,8 +45,10 @@ export const Cart = () => {
   const [total, setTotal] = useState(0);
   const resetCart = async () => {
     const result = await removedCart();
-    console.log('delete cart result = ' + result);
-    fetchData();
+    if (result) {
+      success('Cart has been cleared');
+      fetchData();
+    }
   };
   const applyPromocode = async (promocode: string) => {
     const result = await applyPromoCode(promocode);
@@ -68,36 +70,10 @@ export const Cart = () => {
     } else {
       error('Something went wrong');
     }
-    // setCartProducts((previousProducts) =>
-    //   previousProducts.map((item) => (item.id === id ? { ...item, quantity: quantities } : item)),
-    // );
   };
   const goShopping = () => {
     navigate(PageRoutes.CATALOG);
   };
-
-  // const getCartProducts = async () => {
-  //   // const cartProduct1 = {
-  //   //   id: '123',
-  //   //   name: 'Meteora',
-  //   //   author: 'Linkin park',
-  //   //   cover: 'https://upload.wikimedia.org/wikipedia/ru/b/bf/Meteora.jpg',
-  //   //   price: 100,
-  //   //   quantity: 1,
-  //   // };
-
-  //   // const cartProduct2 = {
-  //   //   id: '124',
-  //   //   name: 'Numb',
-  //   //   author: 'Linkin park',
-  //   //   cover: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Linkin_Park_-_Numb_CD_cover.jpg',
-  //   //   price: 250,
-  //   //   quantity: 2,
-  //   // };
-  //   const cartProducts = new Array<CartProduct>();
-  //   // cartProducts.push(cartProduct1, cartProduct2);
-  //   return cartProducts;
-  // };
 
   const calculateTotal = () => {
     let totalSum = 0;

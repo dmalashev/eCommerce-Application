@@ -1,5 +1,5 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { Card, Typography, Row, Space } from 'antd';
+import { Card, Typography, Row, Space, Button } from 'antd';
 import { ContentObject } from '../../assets/temporary/temporary';
 import { addItemToCart } from '../../api/Cart/add';
 import { createAnonymousCustomer } from '../../api/customer/anonymous-customer';
@@ -19,7 +19,7 @@ export default function ProductCard({ content }: { content: ProductProjection })
   const click = () => addItemToCart(content, 1);
 
   return (
-    <Link href={'/product/' + content.key} onClick={click}>
+    <Link href={'/product/' + content.key}>
       <Card hoverable style={{ width: 300 }} cover={<img src={card.cover} alt="cover" />}>
         <Row>
           <Title level={4} ellipsis style={{ marginTop: 0 }} title={card.name}>
@@ -42,6 +42,16 @@ export default function ProductCard({ content }: { content: ProductProjection })
             ) : undefined}
           </Space>
         </Row>
+        <Button
+          type="primary"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            click();
+          }}
+        >
+          add
+        </Button>
       </Card>
     </Link>
   );

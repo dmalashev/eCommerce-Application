@@ -96,7 +96,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
             Sign Up
           </Button>
         )}
-        <Badge count={5}>
+        <Badge count={0}>
           <Button
             icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />}
             shape="circle"

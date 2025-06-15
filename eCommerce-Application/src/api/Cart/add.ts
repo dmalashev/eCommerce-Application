@@ -30,7 +30,7 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       .get()
       .execute();
 
-    await apiRootCustomer
+    const result = await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()
       .carts()
@@ -47,6 +47,7 @@ export async function addItemToCart(product: ProductProjection, quantity: number
         },
       })
       .execute();
+    console.log('add item to cart = ' + result);
   } else if (!localStorage.getItem('cartId')) {
     await createAnonymousCustomer();
   }

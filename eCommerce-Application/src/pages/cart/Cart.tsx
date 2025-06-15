@@ -10,6 +10,7 @@ import { useUserSession } from '../../store/userSession.store';
 import { removedCart, removedProduct } from '../../api/Cart/remove';
 import './cart.css';
 import { modifyQuantity } from '../../api/Cart/modify';
+import { applyPromoCode } from '../../api/Cart/add';
 
 type CartProduct = {
   id: string;
@@ -47,7 +48,10 @@ export const Cart = () => {
     console.log('delete cart result = ' + result);
     fetchData();
   };
-  const applyPromocode = () => {};
+  const applyPromocode = async (promocode: string) => {
+    const result = await applyPromoCode(promocode);
+    console.log(result);
+  };
   const deleteCartItem = async (id: string) => {
     const result = await removedProduct(id);
     if (result) {

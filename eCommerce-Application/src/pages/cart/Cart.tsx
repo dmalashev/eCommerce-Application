@@ -9,6 +9,7 @@ import { getCartProductsPasswordFlow } from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
 import { removedProduct } from '../../api/Cart/remove';
 import './cart.css';
+import { modifyQuantity } from '../../api/Cart/modify';
 
 type CartProduct = {
   id: string;
@@ -52,10 +53,16 @@ export const Cart = () => {
       error('Product has not been removed');
     }
   };
-  const changeQuantities = (id: string, quantities: number) => {
-    setCartProducts((previousProducts) =>
-      previousProducts.map((item) => (item.id === id ? { ...item, quantity: quantities } : item)),
-    );
+  const changeQuantities = async (id: string, quantities: number) => {
+    const result = await modifyQuantity(id, quantities);
+    if (result) {
+      fetchData();
+    } else {
+      error('Something went wrong');
+    }
+    // setCartProducts((previousProducts) =>
+    //   previousProducts.map((item) => (item.id === id ? { ...item, quantity: quantities } : item)),
+    // );
   };
   const goShopping = () => {
     navigate(PageRoutes.CATALOG);
@@ -116,7 +123,7 @@ export const Cart = () => {
         cover: product.masterVariant.images?.[0].url || '',
         discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
         price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
-        quantity: 1,
+        quantity: product.quantity,
       };
       if (item.price) {
         item.price = item.price / 100;

@@ -42,6 +42,7 @@ export async function getCart(): Promise<Cart> {
 export async function getCartProducts(): Promise<ProductProjection[]> {
   const response: Cart = await getCart();
   const items: LineItem[] = response.lineItems;
+  console.log('items = ' + items);
 
   const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),

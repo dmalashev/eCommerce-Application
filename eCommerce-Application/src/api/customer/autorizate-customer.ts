@@ -18,6 +18,7 @@ import {
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
 import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 import { createCart } from '../Cart/create';
+import { getCart } from '../Cart/get';
 const { setUser } = useUserSession.getState();
 
 export async function login(customer: CustomerDraft) {
@@ -67,7 +68,6 @@ export async function login(customer: CustomerDraft) {
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 
-  await createCart(apiRoot);
   const response: ClientResponse<CustomerSignInResult> = await apiRoot
     .withProjectKey({ projectKey })
     .me()
@@ -82,6 +82,10 @@ export async function login(customer: CustomerDraft) {
       },
     })
     .execute();
+
+  if (!(await getCart())) {
+    await createCart(apiRoot);
+  }
 
   if (localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {
     localStorage.removeItem(StorageKeys.ANONYMOUS_ID);

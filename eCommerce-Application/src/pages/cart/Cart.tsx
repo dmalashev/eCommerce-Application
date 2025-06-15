@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
 import './cart.css';
+import { addItemToCart } from '../../api/Cart/add';
+import { ProductProjection } from '@commercetools/platform-sdk';
+import { getCartProducts } from '../../api/Cart/get';
 
 type CartProduct = {
   id: string;
@@ -33,28 +36,28 @@ export const Cart = () => {
     navigate(PageRoutes.CATALOG);
   };
 
-  const getCartProducts = async () => {
-    const cartProduct1 = {
-      id: '123',
-      name: 'Meteora',
-      author: 'Linkin park',
-      cover: 'https://upload.wikimedia.org/wikipedia/ru/b/bf/Meteora.jpg',
-      price: 100,
-      quantity: 1,
-    };
+  // const getCartProducts = async () => {
+  //   // const cartProduct1 = {
+  //   //   id: '123',
+  //   //   name: 'Meteora',
+  //   //   author: 'Linkin park',
+  //   //   cover: 'https://upload.wikimedia.org/wikipedia/ru/b/bf/Meteora.jpg',
+  //   //   price: 100,
+  //   //   quantity: 1,
+  //   // };
 
-    const cartProduct2 = {
-      id: '124',
-      name: 'Numb',
-      author: 'Linkin park',
-      cover: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Linkin_Park_-_Numb_CD_cover.jpg',
-      price: 250,
-      quantity: 2,
-    };
-    const cartProducts = new Array<CartProduct>();
-    // cartProducts.push(cartProduct1, cartProduct2);
-    return cartProducts;
-  };
+  //   // const cartProduct2 = {
+  //   //   id: '124',
+  //   //   name: 'Numb',
+  //   //   author: 'Linkin park',
+  //   //   cover: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Linkin_Park_-_Numb_CD_cover.jpg',
+  //   //   price: 250,
+  //   //   quantity: 2,
+  //   // };
+  //   const cartProducts = new Array<CartProduct>();
+  //   // cartProducts.push(cartProduct1, cartProduct2);
+  //   return cartProducts;
+  // };
 
   const calculateTotal = () => {
     const totalSum = cartProducts.reduce((sum, item) => {
@@ -62,12 +65,25 @@ export const Cart = () => {
     }, 0);
     setTotal(totalSum);
   };
+  //добавление товара
+  // useEffect(() => {
+  //   const addItem = async () => {
+  //     const product = {
+  //       id: '21ab7e7d-37bb-41e1-977d-8ae80ad51452',
+  //     };
+
+  //     const result = await addItemToCart(product as ProductProjection, 1);
+  //     console.log(result);
+  //   };
+  //   addItem();
+  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       const cartProducts = await getCartProducts();
-      setCartProducts(cartProducts);
-      calculateTotal();
+      console.log(cartProducts);
+      // setCartProducts(cartProducts);
+      // calculateTotal();
     };
     fetchData();
   }, []);

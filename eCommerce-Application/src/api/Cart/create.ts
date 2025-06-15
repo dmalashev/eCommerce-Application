@@ -1,10 +1,12 @@
 import { ApiRoot } from '@commercetools/platform-sdk';
 import { projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
-import { CountriesCodes, CurrencyCodes, StorageKeys } from '../../types/enums';
+import { CountriesCodes, CurrencyCodes, StorageKeys, StorageTokenKeys } from '../../types/enums';
 
 export async function createCart(api?: ApiRoot): Promise<void> {
-  if (!localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {
+  console.log('token = ' + localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN));
+  console.log('anonimId = ' + localStorage.getItem(StorageKeys.ANONYMOUS_ID));
+  if (!localStorage.getItem(StorageKeys.ANONYMOUS_ID) && !localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN)) {
     await createAnonymousCustomer();
   }
 

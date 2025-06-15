@@ -11,6 +11,7 @@ import { Layout } from 'antd';
 import { useState } from 'react';
 import BurgerMenu from '../components/burger-menu/BurgerMenu';
 import Profile from '../pages/profile/Profile';
+import { Cart } from '../pages/cart/Cart';
 import Product from '../pages/product/Product';
 
 const { Content } = Layout;
@@ -31,6 +32,7 @@ export default function App() {
             <Route path={PageRoutes.CATALOG} element={<Catalog />}></Route>
             <Route path="/product/:productId" element={<Product />}></Route>
             <Route path={PageRoutes.PROFILE} element={<Profile />}></Route>
+            <Route path={PageRoutes.CART} element={<Cart />}></Route>
             <Route path={PageRoutes.NOT_FOUND} element={<NotFound />}></Route>
           </Routes>
         </Content>

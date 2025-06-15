@@ -3,8 +3,9 @@ export const enum PageRoutes {
   LOGIN = '/login',
   REGISTRATION = '/registration',
   CATALOG = '/catalog',
-  NOT_FOUND = '*',
   PROFILE = '/profile',
+  CART = '/cart',
+  NOT_FOUND = '*',
 }
 export enum CountriesCodes {
   RU = 'RU',
@@ -83,3 +84,5 @@ export enum MusicLabels {
   MUTE = 'Mute Records',
   WARP = 'Warp Records',
 }
+
+export const cart_titles_array = ['Product', 'Price', 'Quantity', 'Subtotal'];

@@ -30,7 +30,7 @@ export default function ProductPage() {
       .catch(() => {
         navigate(PageRoutes.NOT_FOUND);
       });
-  });
+  }, []);
 
   const name: string = productObject?.masterData.current.name.en || 'No Name';
 

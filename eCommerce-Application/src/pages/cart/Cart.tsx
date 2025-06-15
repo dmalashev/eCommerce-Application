@@ -8,7 +8,8 @@ import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
 import './cart.css';
 import { addItemToCart } from '../../api/Cart/add';
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { getCartProducts } from '../../api/Cart/get';
+import { getCartProducts, getCartProductsPasswordFlow } from '../../api/Cart/get';
+import { useUserSession } from '../../store/userSession.store';
 
 type CartProduct = {
   id: string;
@@ -22,6 +23,7 @@ type CartProduct = {
 
 export const Cart = () => {
   const navigate = useNavigate();
+  const { user } = useUserSession();
   const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
   const [total, setTotal] = useState(0);
   const resetCart = () => {};
@@ -80,10 +82,24 @@ export const Cart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const cartProducts = await getCartProducts();
-      console.log(cartProducts);
-      // setCartProducts(cartProducts);
-      // calculateTotal();
+      const results = await getCartProductsPasswordFlow(user?.email, user?.password);
+      console.log(results);
+      const cartProducts = results.map((product) => {
+        const item: CartProduct = {
+          id: '',
+          name: product.name.en,
+          author: product.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
+          // year: product.masterVariant.attributes?.find((attribute) => attribute.name === 'year')?.value,
+          cover: product.masterVariant.images?.[0].url || '',
+          // discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
+          price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
+          quantity: 1,
+        };
+
+        return item;
+      });
+      setCartProducts(cartProducts);
+      calculateTotal();
     };
     fetchData();
   }, []);

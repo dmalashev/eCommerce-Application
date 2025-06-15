@@ -7,7 +7,7 @@ import {
   ProductProjection,
   ProductProjectionPagedSearchResponse,
 } from '@commercetools/platform-sdk';
-import { client, httpMiddleware, projectKey } from '../client/client';
+import { client, createClientWithPasswordFlow, httpMiddleware, projectKey } from '../client/client';
 import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 
 export async function getCart(): Promise<Cart> {
@@ -15,6 +15,37 @@ export async function getCart(): Promise<Cart> {
   if (isLogin) {
     const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+    );
+
+    const response: ClientResponse<Cart> = await apiRootCustomer
+      .withProjectKey({ projectKey })
+      .me()
+      .activeCart()
+      .get()
+      .execute();
+    return response.body;
+  } else {
+    const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
+      client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+    );
+    const response: ClientResponse<Cart> = await apiRootAnonymous
+      .withProjectKey({ projectKey })
+      .carts()
+      .withId({ ID: localStorage.getItem(StorageKeys.CART_ID)! })
+      .get()
+      .execute();
+    return response.body;
+  }
+}
+
+export async function getCartPasswordFlow(email?: string, password?: string): Promise<Cart> {
+  const isLogin: boolean = !!localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
+  if (isLogin) {
+    const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
+      createClientWithPasswordFlow(email || '', password || '')
+        .withProjectKey(projectKey)
+        .withHttpMiddleware(httpMiddleware)
+        .build(),
     );
 
     const response: ClientResponse<Cart> = await apiRootCustomer
@@ -39,10 +70,12 @@ export async function getCart(): Promise<Cart> {
   }
 }
 
-export async function getCartProducts(): Promise<ProductProjection[]> {
-  const response: Cart = await getCart();
+export async function getCartProductsPasswordFlow(email?: string, password?: string): Promise<ProductProjection[]> {
+  const response: Cart = await getCartPasswordFlow(email, password);
   const items: LineItem[] = response.lineItems;
-  console.log('items = ' + items);
+  if (items.length === 0) {
+    return [];
+  }
 
   const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
@@ -59,6 +92,28 @@ export async function getCartProducts(): Promise<ProductProjection[]> {
       queryArgs: {
         markMatchingVariants: true,
         filter: [filterQuery],
+      },
+    })
+    .execute();
+  return responseProducts.body.results;
+}
+
+export async function getCartProducts(): Promise<ProductProjection[]> {
+  const response: Cart = await getCart();
+  const items: LineItem[] = response.lineItems;
+
+  const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
+
+  const responseProducts: ClientResponse<ProductProjectionPagedSearchResponse> = await apiRootCustomer
+    .withProjectKey({ projectKey })
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        markMatchingVariants: true,
+        filter: items.map((item) => item.id),
       },
     })
     .execute();

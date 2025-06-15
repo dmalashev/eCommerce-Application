@@ -1,5 +1,12 @@
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions, Middleware } from '@commercetools/ts-client';
+import {
+  AuthMiddlewareOptions,
+  ClientBuilder,
+  HttpMiddlewareOptions,
+  Middleware,
+  TokenStore,
+} from '@commercetools/ts-client';
+import { StorageTokenKeys } from '../../types/enums';
 
 const projectKey: string = import.meta.env.VITE_PROJECT_KEY;
 const clientId: string = import.meta.env.VITE_CLIENT_ID;
@@ -40,6 +47,38 @@ const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
     .withHttpMiddleware(httpMiddleware)
     .build(),
 );
+
+export const createClientWithPasswordFlow = (email: string, password: string): ClientBuilder => {
+  return new ClientBuilder().withPasswordFlow({
+    host: authUrl,
+    projectKey,
+    credentials: {
+      clientId: userScopesClientId,
+      clientSecret: userScopesClientSecret,
+      user: {
+        username: email,
+        password: password,
+      },
+    },
+    scopes: userScopes.split(','),
+    httpClient: fetch,
+    tokenCache: {
+      get(): TokenStore {
+        return {
+          token: localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN) || '',
+          refreshToken: localStorage.getItem(StorageTokenKeys.REFRESH_TOKEN) || '',
+          expirationTime: Number(localStorage.getItem(StorageTokenKeys.TOKEN_EXPIRATION)) || 0,
+        };
+      },
+      set(tokenObject: TokenStore): void {
+        const token = tokenObject;
+        localStorage.setItem(StorageTokenKeys.ACCESS_TOKEN, token.token);
+        localStorage.setItem(StorageTokenKeys.REFRESH_TOKEN, token.refreshToken || '');
+        localStorage.setItem(StorageTokenKeys.TOKEN_EXPIRATION, (Date.now() + token.expirationTime * 1000)?.toString());
+      },
+    },
+  });
+};
 
 function createAuthMiddleware(accessToken: string): Middleware {
   return (next) => async (request) => {

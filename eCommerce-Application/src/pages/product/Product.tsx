@@ -2,12 +2,13 @@ import { useParams, useNavigate } from 'react-router';
 import { getProductByKey } from '../../api/product/get-product-by-key';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { JSX, useEffect, useState } from 'react';
-import { Typography, Image, Descriptions, Table, Space, Button, message } from 'antd';
+import { Typography, Image, Descriptions, Table, Space, Button, message, Flex } from 'antd';
 import type { DescriptionsProps, TableProps } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, DeleteOutlined } from '@ant-design/icons';
 import { PageRoutes } from '../../types/enums';
 import { useAuth } from '../../hooks/hooks';
 import { addItemToCart } from '../../api/Cart/add';
+import { removedProduct } from '../../api/Cart/remove';
 import './product.css';
 
 const { Title, Text } = Typography;
@@ -21,7 +22,8 @@ type TrackType = {
 export default function ProductPage() {
   const { productId } = useParams();
   const [productObject, setProductObject] = useState<ProductProjection>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [isRemoveLoading, setIsRemoveLoading] = useState(false);
   const navigate = useNavigate();
   const auth = useAuth();
   const [messageApi, contextHolder] = message.useMessage();
@@ -133,10 +135,10 @@ export default function ProductPage() {
     },
   ];
 
-  const error = () => {
+  const error = (message: string): void => {
     messageApi.open({
       type: 'error',
-      content: 'Failed to add a product',
+      content: message,
     });
   };
 
@@ -163,35 +165,65 @@ export default function ProductPage() {
             </Text>
           ) : undefined}
         </Space>
-        <Button
-          type="primary"
-          shape="round"
-          icon={<ShoppingCartOutlined />}
-          size="large"
-          loading={isLoading}
-          disabled={!!auth.itemsInCart.some((item) => item.productKey === productObject?.key)}
-          className="product-add-button"
-          onClick={() => {
-            setIsLoading(true);
+        <Flex gap="small">
+          <Button
+            type="primary"
+            shape="round"
+            icon={<ShoppingCartOutlined />}
+            size="large"
+            block
+            loading={isAddLoading}
+            disabled={!!auth.itemsInCart.some((item) => item.productKey === productObject?.key)}
+            className="product-add-button"
+            onClick={() => {
+              setIsAddLoading(true);
 
-            addItemToCart(productObject!, 1)
-              .then((items) => {
-                setIsLoading(false);
+              addItemToCart(productObject!, 1)
+                .then((items) => {
+                  setIsAddLoading(false);
 
-                if (items) {
-                  auth.setItemsInCart(items);
-                } else {
-                  auth.setItemsInCart([]);
-                }
-              })
-              .catch(() => {
-                setIsLoading(false);
-                error();
-              });
-          }}
-        >
-          Add to Cart
-        </Button>
+                  if (items) {
+                    auth.setItemsInCart(items);
+                  } else {
+                    auth.setItemsInCart([]);
+                  }
+                })
+                .catch(() => {
+                  setIsAddLoading(false);
+                  error('Failed to add a product');
+                });
+            }}
+          >
+            Add to Cart
+          </Button>
+          {auth.itemsInCart.some((item) => item.productKey === productObject?.key) ? (
+            <Button
+              icon={<DeleteOutlined style={{ fontSize: '18px' }} />}
+              shape="circle"
+              size="large"
+              loading={isRemoveLoading}
+              onClick={async () => {
+                setIsRemoveLoading(true);
+
+                removedProduct(productObject!.id)
+                  .then((result) => {
+                    setIsRemoveLoading(false);
+
+                    const items = result?.lineItems;
+                    if (items) {
+                      auth.setItemsInCart(items);
+                    } else {
+                      auth.setItemsInCart([]);
+                    }
+                  })
+                  .catch(() => {
+                    setIsRemoveLoading(false);
+                    error('Product has not been removed');
+                  });
+              }}
+            />
+          ) : undefined}
+        </Flex>
       </div>
       <div>
         <Table<TrackType> columns={columns} dataSource={tracklist} pagination={false} />

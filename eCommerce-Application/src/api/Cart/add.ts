@@ -6,9 +6,10 @@ import {
   LineItemDraft,
   ProductProjection,
 } from '@commercetools/platform-sdk';
-import { apiRoot, client, httpMiddleware, projectKey } from '../client/client';
+import { apiRoot, apiRootCustomer, authMiddleware, client, createAuthMiddleware, httpMiddleware, projectKey } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
-import { getCart } from './get';
+import { getCart, getTotalCost } from './get';
+import { ClientBuilder } from '@commercetools/ts-client';
 
 export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<void> {
   const item: LineItemDraft = {
@@ -19,9 +20,7 @@ export async function addItemToCart(product: ProductProjection, quantity: number
   const isLogined: boolean = !!localStorage.getItem('access_token');
 
   if (isLogined) {
-    const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
-      client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
-    );
+
 
     const response: ClientResponse<Cart> = await apiRootCustomer
       .withProjectKey({ projectKey })
@@ -80,13 +79,23 @@ export async function addItemToCart(product: ProductProjection, quantity: number
 // Apply Promo Code and Display Updated Prices
 
 export async function applyPromoCode(code: string): Promise<boolean> {
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+    client
+      .withProjectKey(projectKey)
+      .withClientCredentialsFlow(authMiddleware)
+      .withHttpMiddleware(httpMiddleware)
+      .build(),
+  );
   const response = await apiRoot.withProjectKey({ projectKey }).discountCodes().withKey({ key: code }).get().execute();
-
   const isCode: boolean = !!response.body.id;
-
+  console.log(await apiRoot.withProjectKey({ projectKey }).discountCodes().get().execute());
   if (isCode) {
     const cart = await getCart();
-    await apiRoot
+
+    console.log(cart)
+    console.log(await getTotalCost());
+
+    await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()
       .carts()
@@ -104,6 +113,6 @@ export async function applyPromoCode(code: string): Promise<boolean> {
       })
       .execute();
   }
-
+  console.log(await getTotalCost());
   return isCode;
 }

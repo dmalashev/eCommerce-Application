@@ -1,5 +1,5 @@
 import { ApiRoot, Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { client, httpMiddleware, projectKey } from '../client/client';
+import { apiRootCustomer, client, httpMiddleware, projectKey } from '../client/client';
 import { getCart, getCartPasswordFlow } from './get';
 import { createCart } from './create';
 
@@ -8,11 +8,11 @@ export async function removedProduct(productId: string): Promise<void | Cart> {
 
   const lineItem = cart.lineItems.find((item) => item.productId === productId);
 
-  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
-  );
+  // const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+  //   client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  // );
   if (lineItem) {
-    const response = await apiRoot
+    const response = await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()
       .carts()
@@ -40,7 +40,7 @@ export async function removeProductPasswordFlow(email: string, password: string,
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
 
-  await apiRoot
+  await apiRootCustomer
     .withProjectKey({ projectKey })
     .me()
     .carts()
@@ -62,11 +62,9 @@ export async function removeProductPasswordFlow(email: string, password: string,
 export async function removedCart(): Promise<Cart | void> {
   const cart: Cart = await getCart();
 
-  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
-  );
 
-  const response = await apiRoot
+
+  const response = await apiRootCustomer
     .withProjectKey({ projectKey })
     .me()
     .carts()

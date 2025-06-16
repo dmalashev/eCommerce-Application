@@ -4,17 +4,24 @@ import { useState } from 'react';
 
 type PromocodeFormProperties = {
   onClick: (promocode: string) => void;
+  disabled: boolean;
 };
 
-export const PromocodeForm = ({ onClick }: PromocodeFormProperties) => {
+export const PromocodeForm = ({ onClick, disabled }: PromocodeFormProperties) => {
   const [promocode, setPromocode] = useState('');
   return (
     <div className="promocode">
       <Space.Compact style={{ width: '100%' }}>
-        <Input placeholder="Promocode" value={promocode} onChange={(event) => setPromocode(event.target.value)} />
+        <Input
+          disabled={disabled}
+          placeholder="Promocode"
+          value={promocode}
+          onChange={(event) => setPromocode(event.target.value)}
+        />
         <Button
           type="primary"
           className="button-submit"
+          disabled={disabled}
           onClick={() => {
             onClick(promocode);
           }}

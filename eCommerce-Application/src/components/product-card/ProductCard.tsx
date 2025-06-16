@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ContentObject } from '../../assets/temporary/temporary';
 import { addItemToCart } from '../../api/Cart/add';
-// import { createAnonymousCustomer } from '../../api/customer/anonymous-customer';
 import { useAuth } from '../../hooks/hooks';
 
 const { Title, Text } = Typography;
@@ -23,8 +22,6 @@ export default function ProductCard({ content }: { content: ProductProjection })
     discount: content.masterVariant.price?.discounted?.value.centAmount,
     price: content.masterVariant.price?.value?.centAmount || 0,
   };
-
-  // console.log(content);
 
   return (
     <Card
@@ -50,7 +47,7 @@ export default function ProductCard({ content }: { content: ProductProjection })
           {card.discount ? (
             <Text strong style={{ fontSize: 20, color: '#db4444' }}>
               ${card.discount! / 100}
-            </Text> // logic of calculating a new price can be changed. This exp is only for demo purpose
+            </Text>
           ) : undefined}
         </Space>
       </Row>
@@ -76,8 +73,6 @@ export default function ProductCard({ content }: { content: ProductProjection })
                 } else {
                   auth.setItemsInCart([]);
                 }
-
-                // console.log(auth.itemsInCart);
               })
               .catch(() => setIsLoading(false));
           }}

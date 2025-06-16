@@ -49,8 +49,6 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       })
       .execute();
 
-    console.log('logged add', addItemResponse.body);
-
     return addItemResponse.body.lineItems;
   } else if (!localStorage.getItem('cartId')) {
     await createAnonymousCustomer();
@@ -79,7 +77,6 @@ export async function addItemToCart(product: ProductProjection, quantity: number
       .execute();
     localStorage.setItem('cartVersion', response.body.version.toString());
 
-    console.log('NON logged add', response.body);
     return response.body.lineItems;
   }
 }

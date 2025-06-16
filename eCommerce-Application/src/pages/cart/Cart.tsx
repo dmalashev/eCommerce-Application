@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
-import { getCartProductsPasswordFlow } from '../../api/Cart/get';
+import { getCartProductsPasswordFlow, getTotalCost } from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
 import { removedCart, removedProduct } from '../../api/Cart/remove';
 import './cart.css';
@@ -43,6 +43,8 @@ export const Cart = () => {
   const { user } = useUserSession();
   const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
   const [total, setTotal] = useState(0);
+  const [totalPriceWithPromocode, setTotalPriceWithPromocode] = useState(0);
+  const [disablePromocode, setDisablePromocode] = useState(false);
   const resetCart = async () => {
     const result = await removedCart();
     if (result) {
@@ -53,6 +55,17 @@ export const Cart = () => {
   const applyPromocode = async (promocode: string) => {
     const result = await applyPromoCode(promocode);
     console.log(result);
+    if (result) {
+      success('Promocode has been applied');
+      setDisablePromocode(true);
+      const totalPriceWithPromocode = await getTotalCost();
+      if (totalPriceWithPromocode) {
+        setTotalPriceWithPromocode(totalPriceWithPromocode);
+      }
+    } else {
+      error('Promocode doesnt exist');
+      setDisablePromocode(false);
+    }
   };
   const deleteCartItem = async (id: string) => {
     const result = await removedProduct(id);
@@ -150,10 +163,12 @@ export const Cart = () => {
             </Button>
           </div>
           <div className="cart-bottom">
-            <PromocodeForm onClick={applyPromocode} />
+            <PromocodeForm onClick={applyPromocode} disabled={disablePromocode} />
             <div className="checkout">
               <Typography.Title level={5} style={{ padding: 0, margin: 0 }}>
-                Total: ${total}
+                Total:
+                <span className={`${totalPriceWithPromocode ? 'price-crossed' : ''}`}> ${total}</span>
+                {!!totalPriceWithPromocode && <span className="discount"> ${totalPriceWithPromocode}</span>}
               </Typography.Title>
               <Button className="button-submit" type="primary">
                 Checkout

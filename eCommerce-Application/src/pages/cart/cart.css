@@ -58,5 +58,13 @@
 }
 
 .cart-empty {
-   padding: 100px 100px; 
+   padding: 100px; 
+}
+
+.discount {
+  color: #DB4444; 
+}
+
+.price-crossed {
+  text-decoration: line-through;
 }

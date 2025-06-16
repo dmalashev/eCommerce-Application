@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router';
 import { getProductByKey } from '../../api/product/get-product-by-key';
-import { Product } from '@commercetools/platform-sdk';
+import { ProductProjection } from '@commercetools/platform-sdk';
 import { JSX, useEffect, useState } from 'react';
 import { Typography, Image, Descriptions, Table, Space } from 'antd';
 import type { DescriptionsProps, TableProps } from 'antd';
@@ -17,7 +17,7 @@ type TrackType = {
 
 export default function ProductPage() {
   const { productId } = useParams();
-  const [productObject, setProductObject] = useState<Product>();
+  const [productObject, setProductObject] = useState<ProductProjection>();
   const navigate = useNavigate();
 
   const productKey: string = productId || '';
@@ -32,44 +32,44 @@ export default function ProductPage() {
       });
   }, []);
 
-  const name: string = productObject?.masterData.current.name.en || 'No Name';
+  console.log(productObject);
+  const name: string = productObject?.name.en || 'No Name';
 
   const artist: string =
-    productObject?.masterData.current.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')
-      ?.value || 'No Artist';
+    productObject?.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value || 'No Artist';
 
   const genres: string =
-    productObject?.masterData.current.masterVariant.attributes
+    productObject?.masterVariant.attributes
       ?.find((attribute) => attribute.name === 'genre')
       ?.value.map((item: { key: string; label: string }) => item.label)
       .join(', ') || 'No Genres';
 
   const country: string =
-    productObject?.masterData.current.masterVariant.attributes?.find((attribute) => attribute.name === 'country')?.value
-      .en || 'No Country';
+    productObject?.masterVariant.attributes?.find((attribute) => attribute.name === 'country')?.value.en ||
+    'No Country';
 
   const year: string =
-    productObject?.masterData.current.masterVariant.attributes
+    productObject?.masterVariant.attributes
       ?.find((attribute) => attribute.name === 'release_year')
       ?.value.split('-')[0] || 'No Year';
 
   const label: string =
-    productObject?.masterData.current.masterVariant.attributes?.find((attribute) => attribute.name === 'record_label')
-      ?.value || 'No Label';
+    productObject?.masterVariant.attributes?.find((attribute) => attribute.name === 'record_label')?.value ||
+    'No Label';
 
   const formats: string =
-    productObject?.masterData.current.masterVariant.attributes
+    productObject?.masterVariant.attributes
       ?.find((attribute) => attribute.name === 'format')
       ?.value.map((item: { en: string; ru: string }) => item.en)
       .join(', ') || 'No Formats';
 
-  const images: JSX.Element[] | undefined = productObject?.masterData.current.masterVariant.images?.map(
-    (imageItem, index) => <Image key={index} src={imageItem.url} />,
-  );
+  const images: JSX.Element[] | undefined = productObject?.masterVariant.images?.map((imageItem, index) => (
+    <Image key={index} src={imageItem.url} />
+  ));
 
-  const description: string = productObject?.masterData.current.description?.en || 'No Description';
+  const description: string = productObject?.description?.en || 'No Description';
 
-  const tracklist: TrackType[] = productObject?.masterData.current.masterVariant.attributes
+  const tracklist: TrackType[] = productObject?.masterVariant.attributes
     ?.find((attribute) => attribute.name === 'tracklist')
     ?.value.map((track: string, index: number) => ({
       key: index,
@@ -78,16 +78,14 @@ export default function ProductPage() {
     }));
 
   let price: number | string =
-    productObject?.masterData.current.masterVariant.prices?.find((price) => price?.country === 'US')?.value
-      .centAmount || 'No Price';
+    productObject?.masterVariant.prices?.find((price) => price?.country === 'US')?.value.centAmount || 'No Price';
 
   if (typeof price === 'number') {
     price = `$${price / 100}`;
   }
 
-  const discount: number | undefined = productObject?.masterData.current.masterVariant.prices?.find(
-    (price) => price?.country === 'US',
-  )?.discounted?.value.centAmount;
+  const discount: number | undefined = productObject?.masterVariant.prices?.find((price) => price?.country === 'US')
+    ?.discounted?.value.centAmount;
 
   const items: DescriptionsProps['items'] = [
     {

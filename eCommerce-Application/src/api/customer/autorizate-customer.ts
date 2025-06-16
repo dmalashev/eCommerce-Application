@@ -88,7 +88,9 @@ export async function login(customer: CustomerDraft) {
     })
     .execute();
 
-  if (!(await getCart())) {
+  try {
+    await getCart();
+  } catch {
     await createCart(apiRoot);
   }
 

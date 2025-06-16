@@ -1,1 +1,1 @@
-export const DiscountCodes: string[] = ['BLACKFRIDAY', 'SUMMER2025', 'DEADLINE', 'DISCOUNTCART'];
+export const DiscountCodes: string[] = ['DELIVERY2025', 'VINYLJUNE2025', 'BLACKFRIDAY'];

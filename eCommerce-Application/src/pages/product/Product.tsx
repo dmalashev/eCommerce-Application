@@ -2,9 +2,12 @@ import { useParams, useNavigate } from 'react-router';
 import { getProductByKey } from '../../api/product/get-product-by-key';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { JSX, useEffect, useState } from 'react';
-import { Typography, Image, Descriptions, Table, Space } from 'antd';
+import { Typography, Image, Descriptions, Table, Space, Button, message } from 'antd';
 import type { DescriptionsProps, TableProps } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 import { PageRoutes } from '../../types/enums';
+import { useAuth } from '../../hooks/hooks';
+import { addItemToCart } from '../../api/Cart/add';
 import './product.css';
 
 const { Title, Text } = Typography;
@@ -18,7 +21,10 @@ type TrackType = {
 export default function ProductPage() {
   const { productId } = useParams();
   const [productObject, setProductObject] = useState<ProductProjection>();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const auth = useAuth();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const productKey: string = productId || '';
 
@@ -32,7 +38,6 @@ export default function ProductPage() {
       });
   }, []);
 
-  console.log(productObject);
   const name: string = productObject?.name.en || 'No Name';
 
   const artist: string =
@@ -128,8 +133,16 @@ export default function ProductPage() {
     },
   ];
 
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Failed to add a product',
+    });
+  };
+
   return (
     <div className="product-container">
+      {contextHolder}
       <div className="product-title">
         <Title level={2}>{name}</Title>
         <Title level={3}>{artist}</Title>
@@ -150,6 +163,35 @@ export default function ProductPage() {
             </Text>
           ) : undefined}
         </Space>
+        <Button
+          type="primary"
+          shape="round"
+          icon={<ShoppingCartOutlined />}
+          size="large"
+          loading={isLoading}
+          disabled={!!auth.itemsInCart.some((item) => item.productKey === productObject?.key)}
+          className="product-add-button"
+          onClick={() => {
+            setIsLoading(true);
+
+            addItemToCart(productObject!, 1)
+              .then((items) => {
+                setIsLoading(false);
+
+                if (items) {
+                  auth.setItemsInCart(items);
+                } else {
+                  auth.setItemsInCart([]);
+                }
+              })
+              .catch(() => {
+                setIsLoading(false);
+                error();
+              });
+          }}
+        >
+          Add to Cart
+        </Button>
       </div>
       <div>
         <Table<TrackType> columns={columns} dataSource={tracklist} pagination={false} />

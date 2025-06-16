@@ -4,6 +4,7 @@ import { apiRoot, projectKey } from '../client/client';
 export async function createdCodeDiscount(cartDiscountId: string, code: string): Promise<DiscountCode> {
   const discountCodeDraft: DiscountCodeDraft = {
     code: code,
+    key: code,
     cartDiscounts: [
       {
         typeId: 'cart-discount',

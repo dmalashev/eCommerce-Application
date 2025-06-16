@@ -61,6 +61,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
     logout();
     navigate(PageRoutes.MAIN);
     auth.setIsLoggedIn(false);
+    auth.setItemsInCart([]);
     refreshMenu();
   };
 

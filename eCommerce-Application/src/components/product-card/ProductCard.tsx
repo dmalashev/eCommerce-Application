@@ -1,5 +1,5 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { Card, Typography, Row, Space, Button } from 'antd';
+import { Card, Typography, Row, Space, Button, message } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -13,6 +13,7 @@ export default function ProductCard({ content }: { content: ProductProjection })
   const navigate = useNavigate();
   const auth = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const card: ContentObject = {
     name: content.name.en,
@@ -23,6 +24,13 @@ export default function ProductCard({ content }: { content: ProductProjection })
     price: content.masterVariant.price?.value?.centAmount || 0,
   };
 
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Failed to add a product',
+    });
+  };
+
   return (
     <Card
       hoverable
@@ -30,6 +38,7 @@ export default function ProductCard({ content }: { content: ProductProjection })
       cover={<img src={card.cover} alt="cover" />}
       onClick={() => navigate('/product/' + content.key)}
     >
+      {contextHolder}
       <Row>
         <Title level={4} ellipsis style={{ marginTop: 0 }} title={card.name}>
           {card.name}
@@ -74,7 +83,10 @@ export default function ProductCard({ content }: { content: ProductProjection })
                   auth.setItemsInCart([]);
                 }
               })
-              .catch(() => setIsLoading(false));
+              .catch(() => {
+                setIsLoading(false);
+                error();
+              });
           }}
         >
           Add to Cart

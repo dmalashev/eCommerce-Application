@@ -35,7 +35,11 @@ export default function App() {
 
     getCartPasswordFlow(user?.email, user?.password)
       .then((result) => auth.setItemsInCart(result.lineItems))
-      .catch(() => error());
+      .catch((error_) => {
+        if (error_.statusCode !== 404) {
+          error();
+        }
+      });
   }, []);
 
   return (

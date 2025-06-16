@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  padding: 100px;
+
+  background-image: url('../../assets/images/vinyl2.jpg');
+  background-size: cover;
+}
+
+.button-promocode {
+  padding: 30px;
+  font-size: 20px;
+  color: white;
+  background: transparent;
+}
+
+.button-catalog {
+  padding: 30px;
+  font-size: 16px;
+}

@@ -135,6 +135,13 @@ export default function ProductPage() {
     },
   ];
 
+  const success = (message: string): void => {
+    messageApi.open({
+      type: 'success',
+      content: message,
+    });
+  };
+
   const error = (message: string): void => {
     messageApi.open({
       type: 'error',
@@ -208,6 +215,7 @@ export default function ProductPage() {
                 removedProduct(productObject!.id)
                   .then((result) => {
                     setIsRemoveLoading(false);
+                    success('Product has been removed');
 
                     const items = result?.lineItems;
                     if (items) {

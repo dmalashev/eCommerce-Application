@@ -45,5 +45,5 @@ export async function updateProductData() {
 
   await Promise.all(mapPromises)
 
-  console.log('update', array)
+  // console.log('update', array)
 }

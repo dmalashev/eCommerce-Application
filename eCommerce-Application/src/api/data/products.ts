@@ -820,7 +820,7 @@ const PINK_FLOYD: ProductDraft = {
   },
   name: { en: 'The Dark Side of the Moon', ru: 'Тёмная сторона Луны' },
   slug: { en: 'the-dark-side-of-the-moon', ru: 'tyomnaya-storona-luny' },
-  description: { en: 'Legendary progressive rock album', ru: 'Легендарный альбом прогрессивного рока' },
+  description: { en: 'Legendary psychedelic rock rock album', ru: 'Легендарный альбом прогрессивного рока' },
   masterVariant: {
     sku: 'pink-floyd-' + crypto.randomUUID(),
     key: 'the-dark-side-of-the-moon-pink-floyd',
@@ -1563,7 +1563,7 @@ const MASSIVE_ATTACK: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/4/4c/Massive_Attack_-_Mezzanine.png',
+        url: 'https://media.pitchfork.com/photos/64307cf2714ede0d1b04d3ec/1:1/w_320,c_limit/Massive-Attack-Mezzanine.jpg',
         label: 'Mezzanine Cover',
         dimensions: { w: 500, h: 500 },
       },
@@ -1708,7 +1708,7 @@ const KENDRICK_LAMAR: ProductDraft = {
     ],
     attributes: [
       { name: 'artist', value: 'Kendrick Lamar' },
-      { name: 'genre', value: ['hip-hop', 'jazz', 'conscious rap'] },
+      { name: 'genre', value: ['punk'] },
       { name: 'release_year', value: '2015-03-15' },
       {
         name: 'format',
@@ -1826,7 +1826,7 @@ const ROLLING_STONES: ProductDraft = {
     ],
     attributes: [
       { name: 'artist', value: 'The Rolling Stones' },
-      { name: 'genre', value: ['rock', 'blues rock'] },
+      { name: 'genre', value: ['rock'] },
       { name: 'release_year', value: '1972-05-12' },
       {
         name: 'format',
@@ -1946,7 +1946,7 @@ const JOY_DIVISION: ProductDraft = {
     ],
     attributes: [
       { name: 'artist', value: 'Joy Division' },
-      { name: 'genre', value: ['funk', 'alternative'] },
+      { name: 'genre', value: ['funk', 'psychedelic rock'] },
       { name: 'release_year', value: '1979-06-15' },
       {
         name: 'format',
@@ -1986,7 +1986,7 @@ const THE_DOORS: ProductDraft = {
     ],
     attributes: [
       { name: 'artist', value: 'The Doors' },
-      { name: 'genre', value: ['rock', 'psychedelic-rock'] },
+      { name: 'genre', value: ['rock', 'psychedelic rock'] },
       { name: 'release_year', value: '1967-01-04' },
       {
         name: 'format',
@@ -2053,12 +2053,12 @@ const KING_CRIMSON: ProductDraft = {
   productType: { typeId: 'product-type', key: 'music-media' },
   name: { en: 'In the Court of the Crimson King', ru: 'При дворе малинового короля' },
   slug: { en: 'court-crimson-king', ru: 'pri-dvore-malinovogo-korolya' },
-  description: { en: 'Progressive art-rock landmark', ru: 'Эталон арт-рока' },
+  description: { en: 'psychedelic rock art-rock landmark', ru: 'Эталон арт-рока' },
   masterVariant: {
     sku: 'king-crimson-' + crypto.randomUUID(),
     attributes: [
       { name: 'artist', value: 'King Crimson' },
-      { name: 'genre', value: ['art-rock', 'psychedelic-rock', 'progressive'] },
+      { name: 'genre', value: ['art rock', 'psychedelic rock'] },
       { name: 'release_year', value: '1969-10-10' },
       { name: 'country', value: { en: 'UK', ru: 'Великобритания' } },
       { name: 'tracklist', value: ['21st Century Schizoid Man', 'Epitaph', 'Moonchild'] },

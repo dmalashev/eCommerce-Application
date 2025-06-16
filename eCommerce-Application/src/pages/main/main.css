@@ -4,8 +4,8 @@
   gap: 30px;
   align-items: center;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   padding: 100px;
 
   background-image: url('../../assets/images/vinyl2.jpg');
@@ -13,9 +13,14 @@
 }
 
 .button-promocode {
+  height: auto;       
   padding: 30px;
+
   font-size: 20px;
   color: white;
+  word-break: normal;
+  white-space: normal;
+
   background: transparent;
 }
 

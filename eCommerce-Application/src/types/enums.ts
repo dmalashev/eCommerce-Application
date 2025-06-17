@@ -5,6 +5,7 @@ export const enum PageRoutes {
   CATALOG = '/catalog',
   PROFILE = '/profile',
   CART = '/cart',
+  ABOUT_US = '/about-us',
   NOT_FOUND = '*',
 }
 export enum CountriesCodes {

@@ -13,6 +13,7 @@ import BurgerMenu from '../components/burger-menu/BurgerMenu';
 import Profile from '../pages/profile/Profile';
 import { Cart } from '../pages/cart/Cart';
 import Product from '../pages/product/Product';
+import AboutUs from '../pages/about-us/AboutUs';
 import { useUserSession } from '../store/userSession.store';
 import { getCartPasswordFlow } from '../api/Cart/get';
 import { useAuth } from '../hooks/hooks';
@@ -57,6 +58,7 @@ export default function App() {
             <Route path="/product/:productId" element={<Product />}></Route>
             <Route path={PageRoutes.PROFILE} element={<Profile />}></Route>
             <Route path={PageRoutes.CART} element={<Cart />}></Route>
+            <Route path={PageRoutes.ABOUT_US} element={<AboutUs />}></Route>
             <Route path={PageRoutes.NOT_FOUND} element={<NotFound />}></Route>
           </Routes>
         </Content>

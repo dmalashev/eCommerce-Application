@@ -42,6 +42,7 @@ export async function createAnonymousCustomer() {
         body: { currency: CurrencyCodes.USD, country: CountriesCodes.US, anonymousId },
       })
       .execute();
+    console.log('new CART ID' + cart.body.id);
     localStorage.setItem(StorageKeys.CART_ID, cart.body.id);
     localStorage.setItem(StorageKeys.CART_VERSION, cart.body.version.toString());
   } catch (error: unknown) {

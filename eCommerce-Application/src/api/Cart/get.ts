@@ -59,7 +59,7 @@ export async function getCartPasswordFlow(email?: string, password?: string): Pr
     const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
       client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
     );
-
+    console.log('old CART ID' + localStorage.getItem(StorageKeys.CART_ID));
     const response: ClientResponse<Cart> = await apiRootAnonymous
       .withProjectKey({ projectKey })
       .carts()
@@ -80,7 +80,7 @@ export async function getCartProductsPasswordFlow(
 ): Promise<ProductProjectionWithQuantity[]> {
   const response: Cart = await getCartPasswordFlow(email, password);
   const items: LineItem[] = response.lineItems;
-  if (items.length === 0) {
+  if (items && items.length === 0) {
     return [];
   }
 
@@ -139,6 +139,47 @@ export async function getCartProducts(): Promise<ProductProjection[]> {
     })
     .execute();
   return responseProducts.body.results;
+}
+
+export async function getCartProductsAnonymous(): Promise<ProductProjectionWithQuantity[]> {
+  const response: Cart = await getCart();
+  const items: LineItem[] = response.lineItems;
+  if (items.length === 0) {
+    return [];
+  }
+
+  const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
+
+  const productIds = items.map((item) => `"${item.productId}"`).join(',');
+  const filterQuery = `id:${productIds}`;
+
+  const responseProducts: ClientResponse<ProductProjectionPagedSearchResponse> = await apiRootCustomer
+    .withProjectKey({ projectKey })
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        markMatchingVariants: true,
+        filter: [filterQuery],
+      },
+    })
+    .execute();
+
+  const results = responseProducts.body.results;
+  const extendResults = results.map((product) => {
+    const extendProduct: ProductProjectionWithQuantity = {
+      ...product,
+      quantity: 1,
+    };
+    const lineItem = items.find((item) => item.productId === product.id);
+    if (lineItem) {
+      extendProduct.quantity = lineItem.quantity;
+    }
+    return extendProduct;
+  });
+  return extendResults;
 }
 
 export async function getTotalCost(): Promise<number> {

@@ -1,6 +1,6 @@
 import { ApiRoot, Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { client, httpMiddleware, projectKey } from '../client/client';
-import { getCart, getCartPasswordFlow } from './get';
+import { getCart, getCartPasswordFlow, getCartProductsPasswordFlow } from './get';
 import { createCart } from './create';
 
 export async function removedProduct(productId: string): Promise<void | Cart> {

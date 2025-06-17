@@ -12,12 +12,13 @@ import {
   apiRootCustomer,
   authMiddleware,
   client,
+  createClientWithPasswordFlow,
   // createAuthMiddleware,
   httpMiddleware,
   projectKey,
 } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
-import { getCart } from './get';
+import { getCart, getCartPasswordFlow } from './get';
 // import { ClientBuilder } from '@commercetools/ts-client';
 
 export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<LineItem[] | undefined> {
@@ -91,46 +92,84 @@ export async function addItemToCart(product: ProductProjection, quantity: number
 
 // Apply Promo Code and Display Updated Prices
 
-export async function applyPromoCode(code: string): Promise<boolean> {
+export async function applyPromoCode(code: string, email?: string, password?: string): Promise<boolean> {
   let isCode = false;
-  try {
-    const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-      client
-        .withProjectKey(projectKey)
-        .withClientCredentialsFlow(authMiddleware)
-        .withHttpMiddleware(httpMiddleware)
-        .build(),
-    );
-    const response = await apiRoot
-      .withProjectKey({ projectKey })
-      .discountCodes()
-      .withKey({ key: code })
-      .get()
-      .execute();
-    isCode = !!response.body.id;
-    console.log(await apiRoot.withProjectKey({ projectKey }).discountCodes().get().execute());
-    if (isCode) {
-      const cart = await getCart();
-      await apiRootCustomer
+  const isLogined: boolean = !!localStorage.getItem('access_token');
+  if (isLogined) {
+    try {
+      const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+        createClientWithPasswordFlow(email || '', password || '')
+          .withProjectKey(projectKey)
+          .withHttpMiddleware(httpMiddleware)
+          .build(),
+      );
+      const response = await apiRoot
         .withProjectKey({ projectKey })
-        .me()
-        .carts()
-        .withId({ ID: cart.id })
-        .post({
-          body: {
-            version: cart.version,
-            actions: [
-              {
-                action: 'addDiscountCode',
-                code: code,
-              },
-            ],
-          },
-        })
+        .discountCodes()
+        .withKey({ key: code })
+        .get()
         .execute();
+      isCode = !!response.body.id;
+      console.log(await apiRoot.withProjectKey({ projectKey }).discountCodes().get().execute());
+      if (isCode) {
+        const cart = await getCartPasswordFlow(email, password);
+        await apiRoot
+          .withProjectKey({ projectKey })
+          .me()
+          .carts()
+          .withId({ ID: cart.id })
+          .post({
+            body: {
+              version: cart.version,
+              actions: [
+                {
+                  action: 'addDiscountCode',
+                  code: code,
+                },
+              ],
+            },
+          })
+          .execute();
+      }
+    } catch {
+      return false;
     }
-  } catch {
-    return false;
+  } else {
+    try {
+      const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
+        client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+      );
+
+      const response = await apiRootAnonymous
+        .withProjectKey({ projectKey })
+        .discountCodes()
+        .withKey({ key: code })
+        .get()
+        .execute();
+      isCode = !!response.body.id;
+      if (isCode) {
+        const cart = await getCart();
+        await apiRootAnonymous
+          .withProjectKey({ projectKey })
+          .me()
+          .carts()
+          .withId({ ID: cart.id })
+          .post({
+            body: {
+              version: cart.version,
+              actions: [
+                {
+                  action: 'addDiscountCode',
+                  code: code,
+                },
+              ],
+            },
+          })
+          .execute();
+      }
+    } catch {
+      return false;
+    }
   }
   // console.log(await getTotalCost());
   return isCode;

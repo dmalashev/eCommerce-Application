@@ -5,7 +5,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
-import { getCartProductsPasswordFlow, getTotalCost, getCartPasswordFlow } from '../../api/Cart/get';
+import {
+  getCartProductsPasswordFlow,
+  getTotalCost,
+  getCartPasswordFlow,
+  getCartProducts,
+  getCartProductsAnonymous,
+} from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
 import { removedCart, removedProduct } from '../../api/Cart/remove';
 import './cart.css';
@@ -55,7 +61,7 @@ export const Cart = () => {
     }
   };
   const applyPromocode = async (promocode: string) => {
-    const result = await applyPromoCode(promocode);
+    const result = await applyPromoCode(promocode, user?.email, user?.password);
     console.log(result);
     if (result) {
       success('Promocode has been applied');
@@ -113,6 +119,7 @@ export const Cart = () => {
 
   const fetchData = async () => {
     const results = await getCartProductsPasswordFlow(user?.email, user?.password);
+
     console.log(results);
     const cartProducts = results.map((product) => {
       const item: CartProduct = {

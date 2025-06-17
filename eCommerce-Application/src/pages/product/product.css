@@ -34,3 +34,10 @@
     flex-direction: column-reverse;
   }
 }
+
+@media (width >= 580px) {
+  .product-add-button {
+    max-width: 300px;
+  }
+}
+

@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
-import { getCartProductsPasswordFlow } from '../../api/Cart/get';
+import { getCartProductsPasswordFlow, getTotalCost, getCartPasswordFlow } from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
 import { removedCart, removedProduct } from '../../api/Cart/remove';
 import './cart.css';
 import { modifyQuantity } from '../../api/Cart/modify';
 import { applyPromoCode } from '../../api/Cart/add';
+import { useAuth } from '../../hooks/hooks';
 
 type CartProduct = {
   id: string;
@@ -24,6 +25,7 @@ type CartProduct = {
 
 export const Cart = () => {
   const [messageApi, contextHolder] = message.useMessage();
+  const auth = useAuth();
 
   const success = (message: string) => {
     messageApi.open({
@@ -43,6 +45,8 @@ export const Cart = () => {
   const { user } = useUserSession();
   const [cartProducts, setCartProducts] = useState(new Array<CartProduct>());
   const [total, setTotal] = useState(0);
+  const [totalPriceWithPromocode, setTotalPriceWithPromocode] = useState(0);
+  const [disablePromocode, setDisablePromocode] = useState(false);
   const resetCart = async () => {
     const result = await removedCart();
     if (result) {
@@ -53,6 +57,17 @@ export const Cart = () => {
   const applyPromocode = async (promocode: string) => {
     const result = await applyPromoCode(promocode);
     console.log(result);
+    if (result) {
+      success('Promocode has been applied');
+      setDisablePromocode(true);
+      const totalPriceWithPromocode = await getTotalCost();
+      if (totalPriceWithPromocode) {
+        setTotalPriceWithPromocode(totalPriceWithPromocode);
+      }
+    } else {
+      error('Promocode doesnt exist');
+      setDisablePromocode(false);
+    }
   };
   const deleteCartItem = async (id: string) => {
     const result = await removedProduct(id);
@@ -120,6 +135,9 @@ export const Cart = () => {
       return item;
     });
 
+    const items = await getCartPasswordFlow(user?.email, user?.password);
+    auth.setItemsInCart(items.lineItems);
+
     setCartProducts(cartProducts);
     calculateTotal();
   };
@@ -150,10 +168,12 @@ export const Cart = () => {
             </Button>
           </div>
           <div className="cart-bottom">
-            <PromocodeForm onClick={applyPromocode} />
+            <PromocodeForm onClick={applyPromocode} disabled={disablePromocode} />
             <div className="checkout">
               <Typography.Title level={5} style={{ padding: 0, margin: 0 }}>
-                Total: ${total}
+                Total:
+                <span className={`${totalPriceWithPromocode ? 'price-crossed' : ''}`}> ${total}</span>
+                {!!totalPriceWithPromocode && <span className="discount"> ${totalPriceWithPromocode}</span>}
               </Typography.Title>
               <Button className="button-submit" type="primary">
                 Checkout

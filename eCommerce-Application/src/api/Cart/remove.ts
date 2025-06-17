@@ -8,11 +8,11 @@ export async function removedProduct(productId: string): Promise<void | Cart> {
 
   const lineItem = cart.lineItems.find((item) => item.productId === productId);
 
-  // const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-  //   client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
-  // );
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
   if (lineItem) {
-    const response = await apiRootCustomer
+    const response = await apiRoot
       .withProjectKey({ projectKey })
       .me()
       .carts()
@@ -40,7 +40,7 @@ export async function removeProductPasswordFlow(email: string, password: string,
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
 
-  await apiRootCustomer
+  await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .carts()
@@ -62,9 +62,11 @@ export async function removeProductPasswordFlow(email: string, password: string,
 export async function removedCart(): Promise<Cart | void> {
   const cart: Cart = await getCart();
 
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
 
-
-  const response = await apiRootCustomer
+  const response = await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .carts()

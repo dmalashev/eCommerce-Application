@@ -6,11 +6,20 @@ import {
   createApiBuilderFromCtpClient,
   ProductDraft,
 } from '@commercetools/platform-sdk';
+import {
+  Attribute,
+  Category,
+  CategoryPagedQueryResponse,
+  ClientResponse,
+  createApiBuilderFromCtpClient,
+  ProductDraft,
+} from '@commercetools/platform-sdk';
 import { authMiddleware, client as clientBuilder, httpMiddleware, projectKey } from '../client/client';
 import { productDrafts, PRODUCTS } from '../data/products';
 import { updateProductData } from './update';
 import { ErrorHandlerOptions, ErrorMiddlewareOptions, HttpErrorType } from '@commercetools/ts-client';
 
+export async function setProductType(data: ProductDraft[]) {
 export async function setProductType(data: ProductDraft[]) {
   const client = clientBuilder
     .withProjectKey(projectKey)
@@ -95,4 +104,5 @@ export async function setProductType(data: ProductDraft[]) {
 
 setProductType(productDrafts);
 setProductType(PRODUCTS);
+updateProductData();
 updateProductData();

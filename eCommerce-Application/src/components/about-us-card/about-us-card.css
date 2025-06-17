@@ -1,4 +1,5 @@
 .about-us-card-container {
+  max-width: 1000px;
   display: flex;
   gap: 20px;
 }

@@ -1,14 +1,15 @@
-import { Typography } from 'antd';
+import { Typography, Flex } from 'antd';
 import AboutUsCard from '../../components/about-us-card/AboutUsCard';
 import artyomPhoto from '../../assets/images/developers-photos/artyom.jpg';
 import shakhriPhoto from '../../assets/images/developers-photos/shakhri.jpg';
 import dmitriyPhoto from '../../assets/images/developers-photos/dmitriy.jpg';
+import rsLogo from '../../assets/images/rs_school_js.svg';
 
-const { Title } = Typography;
+const { Title, Link } = Typography;
 
 export default function AboutUs() {
   return (
-    <>
+    <Flex vertical align="center" gap={20} style={{ padding: 20 }}>
       <Title>About Us</Title>
       <AboutUsCard
         photo={artyomPhoto}
@@ -50,6 +51,9 @@ export default function AboutUs() {
         problems quickly or share useful information we corresponded in chat. It was also useful because most of
         teammates are really busy. In the end we've got this app for your assessment!{' '}
       </Title>
-    </>
+      <Link href="https://rs.school/courses/javascript-ru" target="_blank">
+        <img src={rsLogo} alt="RS Logo" width={300} />
+      </Link>
+    </Flex>
   );
 }

@@ -33,14 +33,14 @@ export default function AboutUsCard({
 
       <div className="about-us-card-description-container">
         <Space>
-          <Title level={2}>
+          <h2 className='about-us-card-title'>
             <Space>
               {name}
               <Text type="secondary" strong>
                 {role}
               </Text>
             </Space>
-          </Title>
+          </h2>
           <Button type="text" icon={<GithubOutlined />} href={githubLink} target="_blank" size="large">
             {githubName}
           </Button>

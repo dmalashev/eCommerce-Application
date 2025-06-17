@@ -1,4 +1,5 @@
-import { Flex, Typography } from 'antd';
+import { Flex, Typography, Space, Button } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 import './about-us-card.css';
 
 type AboutUsCard = {
@@ -6,11 +7,13 @@ type AboutUsCard = {
   name: string;
   description: string;
   contribution: string[];
+  githubName: string;
+  githubLink: string;
 };
 
 const { Title, Text } = Typography;
 
-export default function AboutUsCard({ photo, name, description, contribution }: AboutUsCard) {
+export default function AboutUsCard({ photo, name, description, contribution, githubName, githubLink }: AboutUsCard) {
   const contributionItems = contribution.map((item, index) => <li key={index}>{item}</li>);
 
   return (
@@ -20,7 +23,12 @@ export default function AboutUsCard({ photo, name, description, contribution }: 
       </div>
 
       <div className="about-us-card-description-container">
-        <Title level={2}>{name}</Title>
+        <Space>
+          <Title level={2}>{name}</Title>
+          <Button type="text" icon={<GithubOutlined />} href={githubLink} target="_blank" size="large">
+            {githubName}
+          </Button>
+        </Space>
         <Text>{description}</Text>
         <ul>{contributionItems}</ul>
       </div>

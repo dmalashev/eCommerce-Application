@@ -9,6 +9,8 @@ import { checkingError } from '../../api/handleError/checking-errors';
 import { useAuth } from '../../hooks/hooks';
 import { PasswordInput } from '../inputs/password-input/PasswordInput';
 import { EmailInput } from '../inputs/email-input/EmailInput';
+import { getCartPasswordFlow } from '../../api/Cart/get';
+import { useUserSession } from '../../store/userSession.store';
 
 const { Title } = Typography;
 
@@ -17,6 +19,7 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const auth = useAuth();
+  const { user } = useUserSession();
 
   const onFinish: FormProps<FieldType>['onFinish'] = () => {
     const valuesObject: CustomerDraft = form.getFieldsValue();
@@ -27,6 +30,15 @@ export const LoginForm = () => {
         if (auth && auth.setIsLoggedIn) {
           auth.setIsLoggedIn(true);
         }
+
+        getCartPasswordFlow(user?.email, user?.password)
+          .then((result) => auth.setItemsInCart(result.lineItems))
+          .catch((error_) => {
+            if (error_.statusCode !== 404) {
+              error('Failed to load the cart. Try to refresh the page');
+            }
+          });
+
         setTimeout(() => {
           navigate(PageRoutes.MAIN);
         }, 1000);

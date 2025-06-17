@@ -43,6 +43,13 @@ export default function AboutUs() {
         githubName="dmalashev"
         githubLink="https://github.com/dmalashev"
       />
+      <Title level={4}>
+        To provide joint work in the team and separate tasks we used Jira dashboard. We decomposited tasks to clearly
+        define goals and noted them to understand who is working on what. Each pull request was checked and approved by
+        teammates. We made calls to analize tasks and take them on. To notify about a new pull-request, solve short
+        problems quickly or share useful information we corresponded in chat. It was also useful because most of
+        teammates are really busy. In the end we've got this app for your assessment!{' '}
+      </Title>
     </>
   );
 }

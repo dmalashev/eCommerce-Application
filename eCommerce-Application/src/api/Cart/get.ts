@@ -13,7 +13,6 @@ import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 export async function getCart(): Promise<Cart> {
   const isLogin: boolean = !!localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
   if (isLogin) {
-
     const response: ClientResponse<Cart> = await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()

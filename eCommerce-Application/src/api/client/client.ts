@@ -81,7 +81,6 @@ export const createClientWithPasswordFlow = (email: string, password: string): C
 };
 
 export function createAuthMiddleware(accessToken: string): Middleware {
-
   return (next) => async (request) => {
     request.headers = {
       ...request.headers,

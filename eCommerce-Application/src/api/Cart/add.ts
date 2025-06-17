@@ -8,17 +8,17 @@ import {
   LineItem,
 } from '@commercetools/platform-sdk';
 import {
-  apiRoot,
+  // apiRoot,
   apiRootCustomer,
   authMiddleware,
   client,
-  createAuthMiddleware,
+  // createAuthMiddleware,
   httpMiddleware,
   projectKey,
 } from '../client/client';
 import { createAnonymousCustomer } from '../customer/anonymous-customer';
-import { getCart, getTotalCost } from './get';
-import { ClientBuilder } from '@commercetools/ts-client';
+import { getCart } from './get';
+// import { ClientBuilder } from '@commercetools/ts-client';
 
 export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<LineItem[] | undefined> {
   const item: LineItemDraft = {

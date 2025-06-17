@@ -85,13 +85,6 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
         style={{ border: 'none' }}
       ></Menu>
       <Flex gap="small" vertical={!isHorizontal} className={itemsClassName}>
-        <Badge count={0}>
-          <Button
-            icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />}
-            shape="circle"
-            onClick={onClickShoppingCart}
-          />
-        </Badge>
         <Button
           type="default"
           icon={isLoggedIn ? <LogoutOutlined /> : <LoginOutlined />}

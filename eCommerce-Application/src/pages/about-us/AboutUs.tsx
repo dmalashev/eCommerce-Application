@@ -2,6 +2,7 @@ import { Typography } from 'antd';
 import AboutUsCard from '../../components/about-us-card/AboutUsCard';
 import artyomPhoto from '../../assets/images/developers-photos/artyom.jpg';
 import shakhriPhoto from '../../assets/images/developers-photos/shakhri.jpg';
+import dmitriyPhoto from '../../assets/images/developers-photos/dmitriy.jpg';
 
 const { Title } = Typography;
 
@@ -27,7 +28,21 @@ export default function AboutUs() {
         githubName="Shakhrii"
         githubLink="https://github.com/Shakhrii"
       />
-      {/* <AboutUsCard /> */}
+      <AboutUsCard
+        photo={dmitriyPhoto}
+        name="Dmitriy Malashev"
+        role="Frontend Developer, TeamLead"
+        description="I had experience in coding with Fortran and Visual Basic and after that I realized that I enjoy creating user interfaces. So now I’m learning front-end development. With more diving to this field I become more and more interested in it, so I really want to learn front-end and work as a developer."
+        contribution={[
+          'Set up the project repository',
+          'General layout and header',
+          'Catalog page',
+          'Detailed product page',
+          'About us page',
+        ]}
+        githubName="dmalashev"
+        githubLink="https://github.com/dmalashev"
+      />
     </>
   );
 }

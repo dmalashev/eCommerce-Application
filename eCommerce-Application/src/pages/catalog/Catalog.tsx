@@ -8,6 +8,9 @@ import { useState } from 'react';
 import './catalog.css';
 import { getProductsWithCategories } from '../../api/product/getProductWithCategory';
 import { ProductProjection } from '@commercetools/platform-sdk';
+import vinylImage from '../../assets/images/vinyl.png';
+import cassetteImage from '../../assets/images/cassette.png';
+import cdImage from '../../assets/images/cd.png';
 
 const { Content, Sider } = Layout;
 
@@ -20,15 +23,15 @@ export default function Catalog(): JSX.Element {
     tabName: MediaTypes;
   }[] = [
     {
-      imagePath: './src/assets/images/vinyl.png',
+      imagePath: vinylImage,
       tabName: MediaTypes.VINYL,
     },
     {
-      imagePath: './src/assets/images/cassette.png',
+      imagePath: cassetteImage,
       tabName: MediaTypes.CASSETTES,
     },
     {
-      imagePath: './src/assets/images/cd.png',
+      imagePath: cdImage,
       tabName: MediaTypes.CD,
     },
   ];

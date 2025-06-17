@@ -1,17 +1,18 @@
 .about-us-card-container {
-  max-width: 1000px;
   display: flex;
   gap: 20px;
+  max-width: 1000px;
 }
 
 .about-us-photo-container {
-  flex-shrink: 0;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
+  flex-shrink: 0;
   align-items: center;
+  justify-content: center;
+
   width: 400px;
   height: 500px;
-  overflow: hidden;
 }
 
 .about-us-card-title {
@@ -32,9 +33,9 @@
 
 @media (width <= 500px) {
   .about-us-photo-container {
+    align-items: center;
     width: 300px;
     height: 400px;
-    align-items: center;
   }
 
   .about-us-card-title {

@@ -1,4 +1,4 @@
-import { Flex, Typography, Space, Button } from 'antd';
+import { Typography, Space, Button } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import './about-us-card.css';
 
@@ -12,7 +12,7 @@ type AboutUsCard = {
   githubLink: string;
 };
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export default function AboutUsCard({
   photo,
@@ -33,7 +33,7 @@ export default function AboutUsCard({
 
       <div className="about-us-card-description-container">
         <Space>
-          <h2 className='about-us-card-title'>
+          <h2 className="about-us-card-title">
             <Space>
               {name}
               <Text type="secondary" strong>

@@ -7,12 +7,16 @@ import {
   ProductProjection,
   ProductProjectionPagedSearchResponse,
 } from '@commercetools/platform-sdk';
-import { apiRootCustomer, client, createClientWithPasswordFlow, httpMiddleware, projectKey } from '../client/client';
+import { client, createClientWithPasswordFlow, httpMiddleware, projectKey } from '../client/client';
 import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 
 export async function getCart(): Promise<Cart> {
   const isLogin: boolean = !!localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
   if (isLogin) {
+    const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
+      client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+    );
+
     const response: ClientResponse<Cart> = await apiRootCustomer
       .withProjectKey({ projectKey })
       .me()

@@ -1,5 +1,5 @@
-import { Cart } from '@commercetools/platform-sdk';
-import { apiRootCustomer, projectKey } from '../client/client';
+import { ApiRoot, Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { apiRootCustomer, client, httpMiddleware, projectKey } from '../client/client';
 import { getCart, getCartPasswordFlow } from './get';
 import { createCart } from './create';
 
@@ -8,11 +8,11 @@ export async function removedProduct(productId: string): Promise<void | Cart> {
 
   const lineItem = cart.lineItems.find((item) => item.productId === productId);
 
-  // const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-  //   client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
-  // );
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
   if (lineItem) {
-    const response = await apiRootCustomer
+    const response = await apiRoot
       .withProjectKey({ projectKey })
       .me()
       .carts()
@@ -36,11 +36,11 @@ export async function removedProduct(productId: string): Promise<void | Cart> {
 export async function removeProductPasswordFlow(email: string, password: string, productId: string): Promise<void> {
   const cart: Cart = await getCartPasswordFlow(email, password);
 
-  // const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
-  //   client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
-  // );
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
 
-  await apiRootCustomer
+  await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .carts()
@@ -62,7 +62,11 @@ export async function removeProductPasswordFlow(email: string, password: string,
 export async function removedCart(): Promise<Cart | void> {
   const cart: Cart = await getCart();
 
-  const response = await apiRootCustomer
+  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
+
+  const response = await apiRoot
     .withProjectKey({ projectKey })
     .me()
     .carts()

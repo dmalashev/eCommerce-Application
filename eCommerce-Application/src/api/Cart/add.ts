@@ -27,6 +27,9 @@ export async function addItemToCart(product: ProductProjection, quantity: number
   };
 
   const isLogined: boolean = !!localStorage.getItem('access_token');
+  const apiRootCustomer: ApiRoot = createApiBuilderFromCtpClient(
+    client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+  );
 
   if (isLogined) {
     const response: ClientResponse<Cart> = await apiRootCustomer

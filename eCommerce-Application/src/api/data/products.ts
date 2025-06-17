@@ -1881,7 +1881,7 @@ const BJORK: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Homogenic.jpg',
+        url: 'https://www.jbhifi.com.au/cdn/shop/products/549245-Product-0-I_16ecf016-a8bb-48e5-ac90-b356c487fd79_grande.jpg',
         label: 'Homogenic Cover',
         dimensions: { w: 500, h: 500 },
       },
@@ -2128,7 +2128,7 @@ const AUTECHRE_LP5: ProductDraft = {
     ],
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Autechre_-_LP5.png',
+        url: 'https://f4.bcbits.com/img/0026261387_71.jpg',
         label: 'LP5 Cover',
         dimensions: { w: 500, h: 500 },
       },

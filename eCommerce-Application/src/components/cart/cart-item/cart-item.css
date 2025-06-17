@@ -31,10 +31,10 @@
 }
 
 .cover {
-  width: 60px;
-  height: 60px;
   display: flex;
   align-items: center;
+  width: 60px;
+  height: 60px;
 }
 
 .cover-image {

@@ -52,7 +52,7 @@ export default function ProductCard({ content }: { content: ProductProjection })
       </Row>
       <Row style={{ justifySelf: 'end' }}>
         <Space size="small">
-          <Text strong style={{ fontSize: 20 }}>{`$${card.price! / 100}`}</Text>
+          <Text strong delete={!!card.discount} style={{ fontSize: 20 }}>{`$${card.price! / 100}`}</Text>
           {card.discount ? (
             <Text strong style={{ fontSize: 20, color: '#db4444' }}>
               ${card.discount! / 100}

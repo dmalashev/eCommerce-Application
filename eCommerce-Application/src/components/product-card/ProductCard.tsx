@@ -20,8 +20,8 @@ export default function ProductCard({ content }: { content: ProductProjection })
     author: content.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
     year: content.masterVariant.attributes?.find((attribute) => attribute.name === 'year')?.value,
     cover: content.masterVariant.images?.[0].url || '',
-    discount: content.masterVariant.price?.discounted?.value.centAmount,
-    price: content.masterVariant.price?.value?.centAmount || 0,
+    discount: content.masterVariant.prices?.find((price) => price.country === 'US')?.discounted?.value.centAmount,
+    price: content.masterVariant.prices?.find((price) => price.country === 'US')?.value.centAmount || 0,
   };
 
   const error = () => {

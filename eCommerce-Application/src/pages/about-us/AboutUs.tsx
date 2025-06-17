@@ -12,6 +12,7 @@ export default function AboutUs() {
       <AboutUsCard
         photo={artyomPhoto}
         name="Artyom Migalev"
+        role="Frontend Developer"
         description="I am a frontend developer with experience in creating modern, responsive and interactive web applications. I specialize in JavaScript, HTML, CSS, TypeScript. My goal is to create convenient, productive and visually attractive interfaces that improve user experience. In my work, I pay attention to code cleanliness, performance optimization and cross-browser compatibility. I constantly study new technologies and tools to stay up to date with the latest trends in web development."
         contribution={['Set up CommerceTools', 'ALL of the API functions(!)', 'Make product list', 'Unit tests']}
         githubName="artmigalev"
@@ -20,6 +21,7 @@ export default function AboutUs() {
       <AboutUsCard
         photo={shakhriPhoto}
         name="Shakhperi Ramaldanova"
+        role="Frontend Developer"
         description="I would like to be a front-end developer and work for a big company. I've had experience in developing. I used to develop android applications and now I am more interested in web developing"
         contribution={['Login page', 'Registration page', 'User profile page', 'Cart page', 'Main page', 'UI tests']}
         githubName="Shakhrii"

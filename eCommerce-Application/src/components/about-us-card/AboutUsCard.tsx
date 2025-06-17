@@ -5,6 +5,7 @@ import './about-us-card.css';
 type AboutUsCard = {
   photo: string;
   name: string;
+  role: string;
   description: string;
   contribution: string[];
   githubName: string;
@@ -13,7 +14,15 @@ type AboutUsCard = {
 
 const { Title, Text } = Typography;
 
-export default function AboutUsCard({ photo, name, description, contribution, githubName, githubLink }: AboutUsCard) {
+export default function AboutUsCard({
+  photo,
+  name,
+  role,
+  description,
+  contribution,
+  githubName,
+  githubLink,
+}: AboutUsCard) {
   const contributionItems = contribution.map((item, index) => <li key={index}>{item}</li>);
 
   return (
@@ -24,7 +33,14 @@ export default function AboutUsCard({ photo, name, description, contribution, gi
 
       <div className="about-us-card-description-container">
         <Space>
-          <Title level={2}>{name}</Title>
+          <Title level={2}>
+            <Space>
+              {name}
+              <Text type="secondary" strong>
+                {role}
+              </Text>
+            </Space>
+          </Title>
           <Button type="text" icon={<GithubOutlined />} href={githubLink} target="_blank" size="large">
             {githubName}
           </Button>

@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PageRoutes } from '../../types/enums';
 import { CartTitles } from '../../components/cart/cart-titles/CarTitles';
-import { getCartProductsPasswordFlow, getTotalCost } from '../../api/Cart/get';
+import { getCartProductsPasswordFlow, getTotalCost, getCartPasswordFlow } from '../../api/Cart/get';
 import { useUserSession } from '../../store/userSession.store';
 import { removedCart, removedProduct } from '../../api/Cart/remove';
 import './cart.css';
 import { modifyQuantity } from '../../api/Cart/modify';
 import { applyPromoCode } from '../../api/Cart/add';
+import { useAuth } from '../../hooks/hooks';
 
 type CartProduct = {
   id: string;
@@ -24,6 +25,7 @@ type CartProduct = {
 
 export const Cart = () => {
   const [messageApi, contextHolder] = message.useMessage();
+  const auth = useAuth();
 
   const success = (message: string) => {
     messageApi.open({
@@ -132,6 +134,9 @@ export const Cart = () => {
 
       return item;
     });
+
+    const items = await getCartPasswordFlow(user?.email, user?.password);
+    auth.setItemsInCart(items.lineItems);
 
     setCartProducts(cartProducts);
     calculateTotal();

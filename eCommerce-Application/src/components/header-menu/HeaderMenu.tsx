@@ -61,6 +61,7 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
     logout();
     navigate(PageRoutes.MAIN);
     auth.setIsLoggedIn(false);
+    auth.setItemsInCart([]);
     refreshMenu();
   };
 
@@ -103,6 +104,13 @@ export default function HeaderMenu({ isHorizontal = false, itemsClassName = '' }
             Sign Up
           </Button>
         )}
+        <Badge count={auth.itemsInCart.length}>
+          <Button
+            icon={<ShoppingCartOutlined style={{ fontSize: '18px' }} />}
+            shape="circle"
+            onClick={onClickShoppingCart}
+          />
+        </Badge>
       </Flex>
     </>
   );

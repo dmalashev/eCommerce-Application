@@ -1,5 +1,5 @@
 import { CartItem } from '../../components/cart/cart-item/CartItem';
-import { Button, Empty, message, Typography } from 'antd';
+import { Button, Empty, message, Typography, Popconfirm } from 'antd';
 import { PromocodeForm } from '../../components/cart/promocode-form/PromocodeForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -170,9 +170,15 @@ export const Cart = () => {
             <Button type="default" onClick={goShopping}>
               Back to shopping
             </Button>
-            <Button type="default" onClick={resetCart}>
-              Remove all goods
-            </Button>
+            <Popconfirm
+              title="Remove all goods?"
+              description="Are you sure to delete all goods?"
+              onConfirm={resetCart}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="default">Remove all goods</Button>
+            </Popconfirm>
           </div>
           <div className="cart-bottom">
             <PromocodeForm onClick={applyPromocode} disabled={disablePromocode} />

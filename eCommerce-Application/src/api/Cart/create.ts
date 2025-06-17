@@ -8,7 +8,7 @@ export async function createCart(api?: ApiRoot): Promise<void> {
     await createAnonymousCustomer();
   }
 
-  await api
+  const result = await api
     ?.withProjectKey({ projectKey })
     .me()
     .carts()
@@ -19,4 +19,7 @@ export async function createCart(api?: ApiRoot): Promise<void> {
       },
     })
     .execute();
+  localStorage.setItem(StorageKeys.CART_ID, result?.body.id || '');
+  localStorage.setItem(StorageKeys.CART_VERSION, result?.body.version.toString() || '');
+  console.log(result);
 }

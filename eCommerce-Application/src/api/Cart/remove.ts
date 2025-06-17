@@ -73,6 +73,6 @@ export async function removedCart(): Promise<Cart | void> {
     .withId({ ID: cart.id })
     .delete({ queryArgs: { version: cart.version } })
     .execute();
-  await createCart();
+  await createCart(apiRoot);
   return response.body;
 }

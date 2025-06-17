@@ -1,22 +1,25 @@
 import ProductCard from '../../components/product-card/ProductCard';
-import { Layout, Flex, Segmented, Button, Modal, Form } from 'antd';
+import { Layout, Flex, Segmented, Button, Modal, Form, Pagination } from 'antd';
 import { MediaTypes } from '../../types/enums';
 import { JSX, useEffect } from 'react';
 import FilterForm from '../../components/filter-form/FilterForm';
 import { BarsOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import './catalog.css';
-import { getProductsWithCategories } from '../../api/product/getProductWithCategory';
+// import { getProductsWithCategories } from '../../api/product/getProductWithCategory';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import vinylImage from '../../assets/images/vinyl.png';
 import cassetteImage from '../../assets/images/cassette.png';
 import cdImage from '../../assets/images/cd.png';
+import { paginateProducts } from '../../api/product/pagination';
 
 const { Content, Sider } = Layout;
 
 export default function Catalog(): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const tabsContent: {
     imagePath: string;
@@ -50,16 +53,31 @@ export default function Catalog(): JSX.Element {
     ),
     value: tab.tabName,
   }));
+
   const [cards, setCards] = useState<ProductProjection[]>([]);
   const [activeTab, setActiveTab] = useState<MediaTypes>(MediaTypes.VINYL);
+
   useEffect(() => {
-    getProductsWithCategories(activeTab).then(setCards);
-  }, [activeTab]);
+    paginateProducts(1, 10).then((response) => {
+      if (response) {
+        setCards(response.results);
+        setTotalPages(response.totalPages);
+        setCurrentPage(1);
+      }
+    });
+  }, [activeTab, totalPages]);
 
   const cardComponents = cards.map((card) => <ProductCard key={card.id} content={card} />);
 
   const onChangeTab = (value: MediaTypes): void => {
     setActiveTab(value);
+    paginateProducts(1, 10).then((response) => {
+      if (response) {
+        setCards(response.results);
+        setTotalPages(response.totalPages);
+        setCurrentPage(1);
+      }
+    });
   };
 
   const showModal = (): void => {
@@ -68,6 +86,16 @@ export default function Catalog(): JSX.Element {
 
   const closeModal = (): void => {
     setIsModalOpen(false);
+  };
+
+  const onChange = (page: number): void => {
+    paginateProducts(page, 10).then((response) => {
+      if (response) {
+        setCards(response.results);
+        setTotalPages(response.totalPages);
+        setCurrentPage(page);
+      }
+    });
   };
 
   return (
@@ -101,6 +129,7 @@ export default function Catalog(): JSX.Element {
           <Flex gap="large" wrap justify="center">
             {cardComponents}
           </Flex>
+          <Pagination align="center" total={totalPages * 10} current={currentPage} onChange={onChange} />
         </Flex>
       </Content>
     </Layout>

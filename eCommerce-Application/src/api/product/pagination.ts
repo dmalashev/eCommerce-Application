@@ -2,7 +2,7 @@ import { ClientResponse, ProductProjectionPagedQueryResponse } from '@commerceto
 import { apiRoot, projectKey } from '../client/client';
 import { PaginationResponse } from '../types-api';
 
-export async function paginateProducts(page: number, size: number): Promise<PaginationResponse | []> {
+export async function paginateProducts(page: number, size: number): Promise<PaginationResponse | undefined> {
   const offset: number = (page - 1) * size;
 
   const queryArgs: any = {
@@ -17,7 +17,7 @@ export async function paginateProducts(page: number, size: number): Promise<Pagi
     .productProjections()
     .get({ queryArgs })
     .execute();
-  if (!responseResults.body.results) return [];
+  if (!responseResults.body.results) return undefined;
 
   const { results, total } = responseResults.body;
 

@@ -36,7 +36,7 @@ export async function getProductsWithCategories(value: string): Promise<ProductP
       priceCountry: 'US',
       priceCurrency: 'USD',
       localeProjection: 'en-US',
-      limit: 20,
+      limit: 100,
     },
   };
 

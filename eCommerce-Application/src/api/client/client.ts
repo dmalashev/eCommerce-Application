@@ -8,6 +8,9 @@ import {
   TokenStore,
 } from '@commercetools/ts-client';
 import { StorageTokenKeys } from '../../types/enums';
+import { createAnonymousCustomer } from '../customer/anonymous-customer';
+import { logout } from '../customer/logout';
+
 
 const projectKey: string = import.meta.env.VITE_PROJECT_KEY;
 const clientId: string = import.meta.env.VITE_CLIENT_ID;
@@ -19,6 +22,25 @@ const accessToken: string = localStorage.getItem('access_token') || '';
 const userScopesClientId: string = import.meta.env.VITE_USER_API_CLIENT_ID;
 const userScopesClientSecret: string = import.meta.env.VITE_USER_API_CLIENT_SECRET;
 const userScopes: string = import.meta.env.VITE_USER_API_SCOPES;
+
+let reloaded = async function () {
+  if (!localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN)) {
+    logout();
+    await createAnonymousCustomer();
+
+  }
+}
+
+window.onload = function () {
+  var loaded = sessionStorage.getItem('loaded');
+  if (loaded) {
+    reloaded();
+  } else {
+    sessionStorage.setItem('loaded', 'true');
+  }
+};
+
+
 
 const tokenCache = {
   get(): TokenStore {

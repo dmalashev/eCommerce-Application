@@ -21,6 +21,10 @@ import { createAnonymousCustomer } from '../customer/anonymous-customer';
 import { getCart, getCartPasswordFlow } from './get';
 // import { ClientBuilder } from '@commercetools/ts-client';
 
+
+
+
+
 export async function addItemToCart(product: ProductProjection, quantity: number = 1): Promise<LineItem[] | undefined> {
   const item: LineItemDraft = {
     productId: product.id,

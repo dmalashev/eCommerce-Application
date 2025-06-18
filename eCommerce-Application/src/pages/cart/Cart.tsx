@@ -118,7 +118,7 @@ export const Cart = () => {
   // }, []);
 
   const fetchData = async () => {
-    if (auth.itemsInCart.length > 0) {
+    if (auth.itemsInCart.length > 0 || user) {
       const results = await getCartProductsPasswordFlow(user?.email, user?.password);
 
       console.log(results);

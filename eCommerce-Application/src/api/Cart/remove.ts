@@ -1,17 +1,24 @@
 import { ApiRoot, Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { client, httpMiddleware, projectKey } from '../client/client';
+import { apiRootAnonymous, apiRootCustomer, client, httpMiddleware, projectKey } from '../client/client';
 import { getCart, getCartPasswordFlow, getCartProductsPasswordFlow } from './get';
 import { createCart } from './create';
+import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 
 export async function removedProduct(productId: string): Promise<void | Cart> {
   const cart: Cart = await getCart();
 
   const lineItem = cart.lineItems.find((item) => item.productId === productId);
-
-  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+  const isLogined = !!localStorage.getItem('access_token');
+  const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
+
   );
+
+  const apiRoot = isLogined ? apiRootCustomer : apiRootAnonymous;
+
   if (lineItem) {
+    console.log(isLogined)
+    console.log(localStorage.getItem(StorageTokenKeys.REFRESH_TOKEN))
     const response = await apiRoot
       .withProjectKey({ projectKey })
       .me()
@@ -40,6 +47,8 @@ export async function removeProductPasswordFlow(email: string, password: string,
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
 
+
+
   await apiRoot
     .withProjectKey({ projectKey })
     .me()
@@ -62,10 +71,11 @@ export async function removeProductPasswordFlow(email: string, password: string,
 export async function removedCart(): Promise<Cart | void> {
   const cart: Cart = await getCart();
 
-  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+  const isLogined = !!localStorage.getItem('access_token');
+  const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
-
+  const apiRoot = isLogined ? apiRootCustomer : apiRootAnonymous;
   const response = await apiRoot
     .withProjectKey({ projectKey })
     .me()

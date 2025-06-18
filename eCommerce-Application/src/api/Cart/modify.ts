@@ -1,14 +1,15 @@
 import { Cart, ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { client, projectKey, httpMiddleware } from '../client/client';
+import { client, projectKey, httpMiddleware, apiRootCustomer } from '../client/client';
 import { getCart } from './get';
 
 export async function modifyQuantity(productId: string, quantity: number): Promise<Cart | void> {
   const cart: Cart = await getCart();
   const lineItem = cart.lineItems.find((item) => item.productId === productId);
-
-  const apiRoot: ApiRoot = createApiBuilderFromCtpClient(
+  const isLogined = !!localStorage.getItem('access_token');
+  const apiRootAnonymous: ApiRoot = createApiBuilderFromCtpClient(
     client.withProjectKey(projectKey).withHttpMiddleware(httpMiddleware).build(),
   );
+  const apiRoot = isLogined ? apiRootCustomer : apiRootAnonymous;
   if (lineItem) {
     const response = await apiRoot
       .withProjectKey({ projectKey })

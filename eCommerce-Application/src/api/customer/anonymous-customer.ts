@@ -35,6 +35,7 @@ export async function createAnonymousCustomer() {
   );
 
   try {
+    console.log('create')
     const cart = await apiRootAnonymous
       .withProjectKey({ projectKey })
       .carts()

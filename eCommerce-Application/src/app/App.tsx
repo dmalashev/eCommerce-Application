@@ -34,13 +34,15 @@ export default function App() {
       });
     };
 
-    getCartPasswordFlow(user?.email, user?.password)
-      .then((result) => auth.setItemsInCart(result.lineItems))
-      .catch((error_) => {
-        if (error_.statusCode !== 404) {
-          error();
-        }
-      });
+    if (user) {
+      getCartPasswordFlow(user.email, user.password)
+        .then((result) => auth.setItemsInCart(result.lineItems))
+        .catch((error_) => {
+          if (error_.statusCode !== 404) {
+            error();
+          }
+        });
+    }
   }, []);
 
   return (

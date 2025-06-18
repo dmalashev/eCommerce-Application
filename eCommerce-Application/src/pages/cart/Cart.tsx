@@ -118,35 +118,37 @@ export const Cart = () => {
   // }, []);
 
   const fetchData = async () => {
-    const results = await getCartProductsPasswordFlow(user?.email, user?.password);
+    if (auth.itemsInCart.length > 0) {
+      const results = await getCartProductsPasswordFlow(user?.email, user?.password);
 
-    console.log(results);
-    const cartProducts = results.map((product) => {
-      const item: CartProduct = {
-        id: product.id,
-        name: product.name.en,
-        author: product.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
-        cover: product.masterVariant.images?.[0].url || '',
-        discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
-        price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
-        quantity: product.quantity,
-      };
-      if (item.price) {
-        item.price = item.price / 100;
-      }
+      console.log(results);
+      const cartProducts = results.map((product) => {
+        const item: CartProduct = {
+          id: product.id,
+          name: product.name.en,
+          author: product.masterVariant.attributes?.find((attribute) => attribute.name === 'artist')?.value,
+          cover: product.masterVariant.images?.[0].url || '',
+          discount: product.masterVariant.prices ? product.masterVariant.prices[0].discounted?.value.centAmount : 0,
+          price: product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount : 0,
+          quantity: product.quantity,
+        };
+        if (item.price) {
+          item.price = item.price / 100;
+        }
 
-      if (item.discount) {
-        item.discount = item.discount / 100;
-      }
+        if (item.discount) {
+          item.discount = item.discount / 100;
+        }
 
-      return item;
-    });
+        return item;
+      });
 
-    const items = await getCartPasswordFlow(user?.email, user?.password);
-    auth.setItemsInCart(items.lineItems);
+      setCartProducts(cartProducts);
+      calculateTotal();
 
-    setCartProducts(cartProducts);
-    calculateTotal();
+      const items = await getCartPasswordFlow(user?.email, user?.password);
+      auth.setItemsInCart(items.lineItems);
+    }
   };
 
   useEffect(() => {

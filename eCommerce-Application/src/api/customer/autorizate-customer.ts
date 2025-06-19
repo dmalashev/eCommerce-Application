@@ -4,7 +4,12 @@ import {
   ClientResponse,
   createApiBuilderFromCtpClient,
   CustomerDraft,
+  CustomerSignin,
   CustomerSignInResult,
+  MyCartAddLineItemAction,
+  MyCartUpdate,
+  MyCartUpdateAction,
+  MyCustomerSignin,
 } from '@commercetools/platform-sdk';
 import {
   projectKey,
@@ -19,6 +24,7 @@ import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetool
 import { StorageKeys, StorageTokenKeys } from '../../types/enums';
 import { createCart } from '../Cart/create';
 import { getCart } from '../Cart/get';
+import { version } from 'react';
 const { setUser } = useUserSession.getState();
 
 export async function login(customer: CustomerDraft) {
@@ -72,26 +78,45 @@ export async function login(customer: CustomerDraft) {
     .build();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
+  const guestCart = await getCart();
+  const response = await apiRoot
+  .withProjectKey({ projectKey })
+  .me()
+  .login()
+  .post({
+    body: {
+      email,
+      password,
+    },
+  })
+  .execute();
+  if (guestCart.lineItems.length) {
+    const actions: MyCartAddLineItemAction[] = guestCart.lineItems.map((item) => ({
+      action: 'addLineItem',
+      productId: item.productId,
+      variantId: item.variant.id,
+      quantity: item.quantity,
+    }));
+    await apiRoot
+      .withProjectKey({ projectKey })
+      .me()
+      .carts()
+      .withId({ ID: response.body.cart?.id!})
+      .post({
+        body: {
+          version: response.body.cart?.version!,
+          actions,
+        },
+      })
+      .execute();
 
-  const response: ClientResponse<CustomerSignInResult> = await apiRoot
-    .withProjectKey({ projectKey })
-    .me()
-    .login()
-    .post({
-      body: {
-        email,
-        password,
-        ...(localStorage.getItem(StorageKeys.ANONYMOUS_ID) && {
-          anonymousId: localStorage.getItem(StorageKeys.ANONYMOUS_ID),
-        }),
-      },
-    })
-    .execute();
-
+  }
+  console.log(response.body.cart);
+  console.log(await getCart())
   try {
-    await getCart();
+    // await getCart();
   } catch {
-    await createCart(apiRoot);
+    // await createCart(apiRoot);
   }
 
   if (localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {

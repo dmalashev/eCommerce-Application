@@ -10,7 +10,6 @@ import {
 import {
   // apiRoot,
   apiRootCustomer,
-  authMiddleware,
   client,
   createClientWithPasswordFlow,
   // createAuthMiddleware,

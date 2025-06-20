@@ -1,0 +1,68 @@
+.items {
+  padding-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px #f4f4f4;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.label {
+  display: none;
+  font-weight: 800;
+}
+
+.product {
+  gap: 10px;
+  align-items: center;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+}
+
+.author,
+.name {
+  margin: 0;
+}
+
+.cover {
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+}
+
+.button-delete {
+  font-size: 16px; 
+  color: #DB4444; 
+  transition: color 0.3s;
+}
+
+.button-delete:hover {
+  cursor: pointer;
+  color: #076aab; 
+}
+
+.button-delete:active {
+  cursor: pointer;
+  color: #02243c; 
+}
+
+.discount {
+  color: #DB4444; 
+}
+
+.price-crossed {
+  text-decoration: line-through;
+}
+

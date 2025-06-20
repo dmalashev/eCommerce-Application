@@ -1,0 +1,24 @@
+.titles {
+  height: 70px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px #f4f4f4;
+}
+
+@media (width <= 580px) {
+  .titles {
+    display: none;
+  }
+}
+
+.title {
+  height: 70px;
+  margin: 0;
+  padding: 0;
+  color: #DB4444;
+}
+
+@media (width <= 580px) {
+  .title {
+    font-size: 14px;
+  }
+}

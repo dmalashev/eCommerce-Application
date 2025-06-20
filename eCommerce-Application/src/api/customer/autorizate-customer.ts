@@ -4,7 +4,12 @@ import {
   ClientResponse,
   createApiBuilderFromCtpClient,
   CustomerDraft,
+  CustomerSignin,
   CustomerSignInResult,
+  MyCartAddLineItemAction,
+  MyCartUpdate,
+  MyCartUpdateAction,
+  MyCustomerSignin,
 } from '@commercetools/platform-sdk';
 import {
   projectKey,
@@ -16,7 +21,10 @@ import {
   userScopes,
 } from '../client/client';
 import { Client, PasswordAuthMiddlewareOptions, TokenStore } from '@commercetools/ts-client';
-import { StorageTokenKeys } from '../../types/enums';
+import { StorageKeys, StorageTokenKeys } from '../../types/enums';
+import { createCart } from '../Cart/create';
+import { getCart } from '../Cart/get';
+import { version } from 'react';
 const { setUser } = useUserSession.getState();
 
 export async function login(customer: CustomerDraft) {
@@ -53,8 +61,11 @@ export async function login(customer: CustomerDraft) {
         set(tokenObject: TokenStore): void {
           token = tokenObject;
           localStorage.setItem(StorageTokenKeys.ACCESS_TOKEN, token.token);
-          localStorage.setItem(StorageTokenKeys.REFRESH_TOKEN, token.refreshToken!);
-          localStorage.setItem(StorageTokenKeys.TOKEN_EXPIRATION, String(token.expirationTime));
+          localStorage.setItem(StorageTokenKeys.REFRESH_TOKEN, token.refreshToken || '');
+          localStorage.setItem(
+            StorageTokenKeys.TOKEN_EXPIRATION,
+            (Date.now() + token.expirationTime * 1000)?.toString(),
+          );
         },
       },
     };
@@ -67,13 +78,50 @@ export async function login(customer: CustomerDraft) {
     .build();
 
   const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
+  const guestCart = await getCart();
+  const response = await apiRoot
+  .withProjectKey({ projectKey })
+  .me()
+  .login()
+  .post({
+    body: {
+      email,
+      password,
+    },
+  })
+  .execute();
+  if (guestCart.lineItems.length) {
+    const actions: MyCartAddLineItemAction[] = guestCart.lineItems.map((item) => ({
+      action: 'addLineItem',
+      productId: item.productId,
+      variantId: item.variant.id,
+      quantity: item.quantity,
+    }));
+    await apiRoot
+      .withProjectKey({ projectKey })
+      .me()
+      .carts()
+      .withId({ ID: response.body.cart?.id!})
+      .post({
+        body: {
+          version: response.body.cart?.version!,
+          actions,
+        },
+      })
+      .execute();
 
-  const response: ClientResponse<CustomerSignInResult> = await apiRoot
-    .withProjectKey({ projectKey })
-    .me()
-    .login()
-    .post({ body: { email, password } })
-    .execute();
+  }
+  console.log(response.body.cart);
+  console.log(await getCart())
+  try {
+    // await getCart();
+  } catch {
+    // await createCart(apiRoot);
+  }
+
+  if (localStorage.getItem(StorageKeys.ANONYMOUS_ID)) {
+    localStorage.removeItem(StorageKeys.ANONYMOUS_ID);
+  }
 
   const addresses =
     response.body.customer.addresses?.map((address) => ({

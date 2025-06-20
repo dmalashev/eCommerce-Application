@@ -1,9 +1,11 @@
+import { LineItem } from '@commercetools/platform-sdk';
 import { useEffect, useState, ReactNode } from 'react';
 import { StorageTokenKeys } from '../types/enums';
 import { AuthContext } from './auth-context';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [itemsInCart, setItemsInCart] = useState<LineItem[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem(StorageTokenKeys.ACCESS_TOKEN);
@@ -12,5 +14,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  return <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, itemsInCart, setItemsInCart }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

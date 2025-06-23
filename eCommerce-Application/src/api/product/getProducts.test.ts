@@ -1,4 +1,4 @@
-import { expectTypeOf, vi } from 'vitest';
+import { expectTypeOf, vi, describe, beforeEach, it, expect } from 'vitest';
 import { getProducts } from './getProduct';
 
 vi.mock('../client/client', () => ({
